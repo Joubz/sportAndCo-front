@@ -7,6 +7,13 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class Constants {
+  /**
+   * Points d'entrée de l'API Sport & Co
+   */
+  public API_ENDPOINTS = Object.freeze({
+    // Utilisation GET, POST, PUT, DELETE
+    EXEMPLE: '/exemple'
+  });
 
   /**
    * exemple
