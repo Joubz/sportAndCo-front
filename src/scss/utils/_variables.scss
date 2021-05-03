@@ -1,0 +1,146 @@
+$breakpoints: (
+  sm: 500px,
+  lg: 1024px,
+);
+/////////////////////////////////////////////////// Couleur ///////////////////////////////////////////////////////////
+$colors: (
+  --blue: #009de0,
+  --brown: #443a31,
+  --orange: #ec6c43,
+  --green: #60b664,
+  --cyan: #34b1a9,
+  --purple: #9f3e91,
+  --red: #e53c43,
+  --yellow: #de9816,
+  --pink: #db0073,
+  --white: #fff,
+  --grey: #787575,
+  --light-grey: #f7f7f7,
+  --black: #000000,
+);
+
+@each $color, $value in $colors {
+  .#{$color} {
+    color: $value;
+  }
+}
+
+@each $color, $value in $colors {
+  .bg#{$color} {
+    background-color: $value;
+  }
+}
+
+$blue: #009de0;
+$brown: #443a31;
+$orange: #ec6c43;
+$green: #60b664;
+$cyan: #34b1a9;
+$purple: #9f3e91;
+$red: #e53c43;
+$yellow: #de9816;
+$pink: #db0073;
+$white: #fff;
+
+$grey: #787575;
+$light-grey: #f7f7f7;
+$black: #000000;
+
+/////////////////////////////////////////////////// Font ///////////////////////////////////////////////////////////
+$font-base: "Arial";
+$font-second: "Arial";
+// $font-second: "Times New Roman";
+
+$letter-spacing-base: 0.05em;
+
+$margin-text-base: 15px;
+$margin-liste-base: 5px;
+$margin-h1-base: 25px;
+$margin-h2-base: 20px;
+$margin-h3-base: 15px;
+$margin-h4-base: 10px;
+
+$p-font-size-base: 16px;
+$h1-font-size-base: 24px;
+$h2-font-size-base: 18px;
+$h3-font-size-base: 17px;
+$h4-font-size-base: 16px;
+$button-font-size-base: 17px;
+
+$spacers: (
+  "0": 0,
+  "1": 8px,
+  // tiny
+  "2": 12px,
+  // tiny-plus
+  "3": 16px,
+  // small
+  "4": 24px,
+  // small-plus
+  "5": 32px,
+  // medium
+  "6": 48px,
+  // medium-plus
+  "7": 60px,
+  // large
+  "auto": auto,
+) !default;
+
+$weights: (
+  --light: 300,
+  --normal: 400,
+  --semibold: 500,
+  --bold: 700,
+);
+
+@each $weight, $value in $weights {
+  .#{$weight} {
+    font-weight: $value;
+  }
+}
+
+$fw-light: 300;
+$fw-normal: 400;
+$fw-semibold: 500;
+$fw-bold: 700;
+
+
+
+@for $var from 1 through 15 {
+  .delay-anim-#{$var} {
+    animation-duration: $var + s;
+  }
+}
+////////////////////////////////////////////////////////////////// Classe ///////////////////////////////////////////////////////////////
+.--left {
+  text-align: left;
+}
+
+.--right {
+  text-align: right;
+}
+
+.--center {
+  text-align: center;
+}
+
+.--justify {
+  text-align: justify;
+}
+
+.--hidden {
+  visibility: hidden;
+  display: none;
+}
+
+.--visible {
+  visibility: visible;
+  display: block;
+}
+
+.--border-red {
+  border-color: $red;
+}
+.bg--transparent {
+  background-color: transparent;
+}
