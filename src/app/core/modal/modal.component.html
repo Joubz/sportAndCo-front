@@ -1,0 +1,17 @@
+<div *ngIf="modalProperties" class="container_modal">
+  <div class="content_modal">
+    <b [ngClass]="getColor()">{{ modalProperties.title }}</b>
+    <div class="modal">
+      <p>{{ modalProperties.text }}</p>
+      <div class="modal_btn">
+        <button *ngIf="modalProperties.type !== modalType.CONFIRMATION" (click)="modalProperties.close()"
+                class="tertiary close" [ngClass]="getBgColor()">Fermer</button>
+        <button *ngIf="modalProperties.type === modalType.CONFIRMATION" (click)="action(modalProperties.confirm())"
+                class="tertiary warning">Confirmer</button>
+        <button *ngIf="modalProperties.type === modalType.CONFIRMATION" (click)="action(modalProperties.cancel())"
+                class="tertiary bg--transparent">Annuler</button>
+
+      </div>
+    </div>
+  </div>
+</div>
