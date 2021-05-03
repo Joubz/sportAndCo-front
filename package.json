@@ -1,6 +1,7 @@
 {
-  "name": "front",
-  "version": "0.0.0",
+  "name": "sport-and-co-front",
+  "version": "1.0.0",
+  "description": "Repository du projet Sport & Co (Front)",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
