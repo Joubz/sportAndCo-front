@@ -1,0 +1,63 @@
+body {
+  font-family: $font-base;
+  background-color: $white;
+  letter-spacing: $letter-spacing-base;
+  color: $brown;
+}
+
+// Titre de la page_______________________________________________________________________________________________________
+h1 {
+  font-weight: $fw-bold;
+  font-size: $h1-font-size-base;
+  text-transform: uppercase;
+  color: $black;
+  margin: $margin-h1-base 0px;
+  text-align: center;
+}
+// Titre _______________________________________________________________________________________________________
+h2 {
+  font-weight: $fw-normal;
+  font-size: $h2-font-size-base;
+  text-transform: uppercase;
+  color: $black;
+  padding-top: 30px;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: center;
+}
+
+// Titre footer et page static_______________________________________________________________________________________________________
+h3 {
+  font-weight: $fw-normal;
+  font-size: $h3-font-size-base;
+  text-transform: uppercase;
+  color: $black;
+  margin: $margin-h3-base 0px;
+}
+
+// Attribut
+h4 {
+  font-weight: $fw-light;
+  font-size: $h4-font-size-base;
+  text-transform: uppercase;
+  color: $grey;
+  margin: $margin-h4-base 0px;
+  margin-top: 25px;
+}
+
+// Description et texte_______________________________________________________________________________________________________
+p {
+  font-family: $font-second;
+  word-spacing: $letter-spacing-base;
+  font-size: $p-font-size-base;
+  color: $brown;
+}
+.chapo {
+  word-spacing: 0.1em;
+  letter-spacing: 0.15em;
+  line-height: 25px;
+}
+
+.tiny-txt {
+  font-size: 13px;
+}
