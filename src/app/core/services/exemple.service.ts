@@ -9,6 +9,13 @@ import { environment } from './../../../environments/environment';
 import {Exemple} from '../../shared/models/exemple.model';
 
 /**
+ * Définit le content-type du header
+ */
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
+/**
  * Service de gestion Exemple
  */
 @Injectable({
@@ -29,12 +36,67 @@ export class ExempleService {
 
   /**
    * Récupère l'exemple'
-   * @param id Identifiant de l'exemple à récupérer
+   * @param exempleId Identifiant de l'exemple à récupérer
    * @returns Un observable contenant l'exemple récupérée
    */
-  getExemple(id: number): Observable<Exemple> {
+  getExemple(exempleId: number): Observable<Exemple> {
     return this.http
-      .get(this.exempleEndpoint + '/' + id)
+      .get(this.exempleEndpoint + '/' + exempleId)
       .pipe(map((jsonResponse: any) => Exemple.fromJson(jsonResponse[0])));
+  }
+
+  /**
+   * Récupère la liste des exemples
+   * @returns liste des exemples
+   */
+  getListExemple(): Observable<Exemple[]> {
+    return this.http.get(
+      this.exempleEndpoint + '/list').pipe(
+      map((jsonResponse: any) => {
+          const exempleList = [];
+          jsonResponse.forEach(element => {
+            const news: Exemple = Exemple.fromJson(element);
+            exempleList.push(news);
+          });
+          return exempleList;
+        }
+      )
+    );
+  }
+
+  /**
+   * Envoi les données d'un exemple
+   * @param newExemple Objet de la exemple à envoyer
+   * @returns Retour Http
+   */
+  addNews(newExemple: Exemple): Observable<any> {
+    return this.http.post(
+      this.exempleEndpoint,
+      { newExemple },
+      httpOptions
+    );
+  }
+
+  /**
+   * Fonction de modification d'un exemple
+   * @param exempleId id de l'exemple
+   * @param newExemple l'exemple modifiée
+   * @returns code 200
+   */
+  editExemple(exempleId: number, newExemple: Exemple): Observable<any> {
+    return this.http.put(
+      this.exempleEndpoint + '/' + exempleId,
+      {newExemple},
+      httpOptions
+    );
+  }
+
+  /**
+   * Fonction de suppression d'un exemple
+   * @param exempleId id de l'exemple
+   * @returns reqûete http delete pour exemple
+   */
+  deleteExemple(exempleId: number): Observable<any>{
+    return this.http.delete(this.exempleEndpoint + '/' + exempleId);
   }
 }
