@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
 /**
- * Composant du header
+ * Composant de la page des mentions légales
  */
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  selector: 'app-legal-notice',
+  templateUrl: './legal-notice.component.html',
+  styleUrls: ['./legal-notice.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class LegalNoticeComponent implements OnInit {
+
   /**
    * Constructeur du composant
    */

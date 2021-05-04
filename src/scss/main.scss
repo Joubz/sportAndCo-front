@@ -4,3 +4,13 @@
 @import "./base/base";
 @import "./base/browser";
 @import "./base/typography";
+
+@import "./component/button";
+@import "./component/image";
+@import "./component/modal";
+
+@import "./layout/container";
+@import "./layout/footer";
+@import "./layout/header";
+
+@import "./pages/home";

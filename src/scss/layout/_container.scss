@@ -1,0 +1,24 @@
+main {
+  display: block;
+}
+
+._container {
+  display: block;
+}
+._row {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  ._col {
+    margin: 0 auto;
+    width: 300px;
+  }
+  ._col2 {
+    margin: 0 auto;
+    width: 300px;
+  }
+  ._col3 {
+    margin: 0 auto;
+    width: 300px;
+  }
+}

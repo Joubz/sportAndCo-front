@@ -1,0 +1,38 @@
+button {
+  font-weight: $fw-normal;
+  font-size: $button-font-size-base;
+  width: 300px;
+  height: 80px;
+  text-align: center;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+// Bouton navigation principal_______________________________________________________________________________________________________
+.primary {
+  border: 1px solid $blue;
+  color: $blue;
+  background-color: $white;
+  &:hover {
+    color: $white;
+    background-color: $blue;
+  }
+  &:focus {
+    color: $white;
+    background-color: $blue;
+  }
+}
+
+.tertiary {
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
+  border: 0;
+  margin: 5px 0px;
+  &:hover {
+    opacity: 0.8;
+  }
+  &:focus {
+    opacity: 0.8;
+  }
+}

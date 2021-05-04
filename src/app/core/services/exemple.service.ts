@@ -8,6 +8,9 @@ import { environment } from './../../../environments/environment';
 
 import {Exemple} from '../../shared/models/exemple.model';
 
+/**
+ * Service de gestion Exemple
+ */
 @Injectable({
   providedIn: 'root'
 })
