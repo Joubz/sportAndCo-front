@@ -3,13 +3,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-
 import { PublicModule } from '../public/public.module';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { ModalComponent } from './modal/modal.component';
 import {httpErrorInterceptorProviders} from "./interceptors/http-error.interceptor";
 
+/**
+ * Gestion des modules et composants de Core
+ */
 @NgModule({
   declarations: [
     HeaderComponent,

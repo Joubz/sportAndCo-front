@@ -33,7 +33,7 @@ export class Exemple {
    */
   public static fromJson(json: any): Exemple {
     return new Exemple({
-      id: json.ANOMALY_ID,
+      id: json.EXEMPLE_ID,
       title: json.TITLE,
     });
   }

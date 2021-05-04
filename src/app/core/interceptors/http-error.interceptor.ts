@@ -10,7 +10,7 @@ import {RequestsProvider} from "../providers/requests.providers";
 
 
 /**
- * Intercepteur de requêtes HTTP permettant de gérer les erreurs retournées par l'API EcoCampus
+ * Intercepteur de requêtes HTTP permettant de gérer les erreurs retournées par l'API Sport & Co
  */
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {

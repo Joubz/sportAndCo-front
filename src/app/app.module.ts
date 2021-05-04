@@ -3,25 +3,29 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CoreModule } from "./core/core.module";
 import { PublicModule } from './public/public.module';
-import {CoreModule} from "./core/core.module";
+import { ProtectedModule } from './protected/protected.module';
+import { AdministratorModule } from "./administrator/administrator.module";
+import { RenterModule } from "./renter/renter.module";
 import { ExempleComponentComponent } from './protected/exemple-component/exemple-component.component';
-import { RandomAdminComponentComponent } from './administrator/random-admin-component/random-admin-component.component';
-import { RandomRenterComponentComponent } from './renter/random-renter-component/random-renter-component.component';
 
-
+/**
+ * Gestion des modules et composants généraux
+ */
 @NgModule({
   declarations: [
     AppComponent,
-    ExempleComponentComponent,
-    RandomAdminComponentComponent,
-    RandomRenterComponentComponent,
+    ExempleComponentComponent
   ],
   imports: [
     BrowserModule,
     CoreModule,
     AppRoutingModule,
-    PublicModule
+    PublicModule,
+    ProtectedModule,
+    AdministratorModule,
+    RenterModule
   ],
   providers: [],
   bootstrap: [AppComponent]
