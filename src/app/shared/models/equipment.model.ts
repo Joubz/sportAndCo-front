@@ -4,7 +4,6 @@ import {Category} from "./category.model";
 /**
  * Modèle représentant un équipement
  */
-
 export class Equipment {
   /**
    * Identifiant de l'équipement
@@ -100,7 +99,7 @@ export class Equipment {
     return new Equipment({
       id: json.EQUIPMENT_ID,
       renter: Renter.fromJson({id: json.RENTER_ID, companyName: json.COMPANY_NAME, lastName: json.LAST_NAME, firstName: json.FIRST_NAME,
-        email: json.EMAIL, birthDate: json.BIRTH_DATE, address: json.ADDRESS, additionnalAddress: json.ADDITIONNAL_ADDRESS,
+        email: json.EMAIL, phone: json.PHONE, birthDate: json.BIRTH_DATE, address: json.ADDRESS, additionalAddress: json.ADDITIONNAL_ADDRESS,
         postalCode: json.POSTAL_CODE, city: json.CITY, imageLink: json.IMAGE_LINK}),
       category: Category.fromJson({id: json.CATEGORY_ID, name: json.CATEGORY_NAME}),
       name: json.EQUIPMENT_NAME,

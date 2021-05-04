@@ -19,7 +19,7 @@ export class Administrator {
 
   /**
    * Constructeur de l'objet, tous les paramètres sont obligatoires
-   * @param options Options
+   * @param options Contient les paramètres de l'objet
    */
   constructor(option: {
     id: number,
@@ -34,7 +34,7 @@ export class Administrator {
   /**
    * Crée un administrateur à partir d'un flux  JSON
    * @param json Les propriétés de l'administrateur contenues dans le flux JSON
-   * @returns {Administrator} L'objet administrateur créé
+   * @returns { Administrator } L'objet administrateur créé
    */
   public static fromJson(json: any): Administrator {
     return new Administrator({

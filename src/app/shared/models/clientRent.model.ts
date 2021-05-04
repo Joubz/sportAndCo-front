@@ -1,39 +1,29 @@
 /**
- * Modèle représentant un loueur
+ * Modèle représentant un client
  */
-export class Renter {
+export class Client {
   /**
-   * Identifiant du loueur
+   * Identifiant du client
    */
   readonly id: number;
 
   /**
-   * Mot de passe du loueur
+   * Mot de passe du client
    */
   password: string;
 
   /**
-   * Booleen indiquant si le loueur à été autorisé par l'administrateur à créer des équipements
-   */
-  isAccepted: boolean;
-
-  /**
-   * Nom de l'entreprise du loueur
-   */
-  companyName: string;
-
-  /**
-   * Nom du loueur
+   * Nom du client
    */
   lastName: string;
 
   /**
-   * Prénom du loueur
+   * Prénom du client
    */
   firstName: string;
 
   /**
-   * Email du loueur
+   * Email du client
    */
   email: string;
 
@@ -43,34 +33,29 @@ export class Renter {
   phone: string;
 
   /**
-   * Date de naissance du loueur
+   * Date de naissance du client
    */
   birthDate: string;
 
   /**
-   * Addresse du loueur
+   * Addresse du client
    */
   address: string;
 
   /**
-   * Complément d'adresse du loueur
+   * Complément d'adresse du client
    */
   additionalAddress: string;
 
   /**
-   * Code postal de l'adresse du loueur
+   * Code postal de l'adresse du client
    */
   postalCode: string;
 
   /**
-   * Ville du loueur
+   * Ville du client
    */
   city: string;
-
-  /**
-   * Lien de l'image
-   */
-  imageLink: string;
 
   /**
    * Constructeur de l'objet, tous les paramètres sont obligatoires
@@ -79,8 +64,6 @@ export class Renter {
   constructor(options: {
     id: number,
     password: string,
-    isAccepted: boolean,
-    companyName: string,
     lastName: string,
     firstName: string,
     email: string,
@@ -90,12 +73,9 @@ export class Renter {
     additionalAddress: string,
     postalCode: string,
     city: string
-    imageLink: string
   }) {
     this.id = options.id;
     this.password = options.password;
-    this.isAccepted = options.isAccepted;
-    this.companyName = options.companyName;
     this.lastName = options.lastName;
     this.firstName = options.firstName;
     this.email = options.email;
@@ -105,20 +85,17 @@ export class Renter {
     this.additionalAddress = options.additionalAddress;
     this.postalCode = options.postalCode;
     this.city = options.city;
-    this.imageLink = options.imageLink;
   }
 
   /**
    * Crée un loueur à partir d'un flux JSON
-   * @param json Les propriétés du loueur contenues dans le flux JSON
-   * @returns { Renter } L'objet loueur créé
+   * @param json Les propriétés du client contenues dans le flux JSON
+   * @returns { Client } L'objet client créé
    */
-  public static fromJson(json: any): Renter {
-    return new Renter({
+  public static fromJson(json: any): Client {
+    return new Client({
       id: json.RENTER_ID,
       password: json.PASSWORD,
-      isAccepted: json.ACCEPTED,
-      companyName: json.COMPANY_NAME,
       lastName: json.LAST_NAME,
       firstName: json.FIRST_NAME,
       email: json.EMAIL,
@@ -128,8 +105,8 @@ export class Renter {
       additionalAddress: json.ADDITIONAL_ADDRESS,
       postalCode: json.POSTAL_CODE,
       city: json.CITY,
-      imageLink: json.IMAGE_LINK
     });
   }
 
 }
+
