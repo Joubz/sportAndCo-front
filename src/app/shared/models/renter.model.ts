@@ -1,3 +1,5 @@
+import {Metropolises} from "./metropolises.model";
+
 /**
  * Modèle représentant un loueur
  */
@@ -11,6 +13,11 @@ export class Renter {
    * Mot de passe du loueur
    */
   password: string;
+
+  /**
+   * Métropole du loueur
+   */
+  metropolises: Metropolises;
 
   /**
    * Booleen indiquant si le loueur à été autorisé par l'administrateur à créer des équipements
@@ -79,6 +86,7 @@ export class Renter {
   constructor(options: {
     id: number,
     password: string,
+    metropolises: Metropolises,
     isAccepted: boolean,
     companyName: string,
     lastName: string,
@@ -94,6 +102,7 @@ export class Renter {
   }) {
     this.id = options.id;
     this.password = options.password;
+    this.metropolises = options.metropolises;
     this.isAccepted = options.isAccepted;
     this.companyName = options.companyName;
     this.lastName = options.lastName;
@@ -117,6 +126,7 @@ export class Renter {
     return new Renter({
       id: json.RENTER_ID,
       password: json.PASSWORD,
+      metropolises: Metropolises.fromJson({id: json.METROPOLISES_ID, name: json.METROPOLISES_NAME}),
       isAccepted: json.ACCEPTED,
       companyName: json.COMPANY_NAME,
       lastName: json.LAST_NAME,

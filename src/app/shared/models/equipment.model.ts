@@ -1,5 +1,6 @@
 import {Renter} from "./renter.model";
 import {Category} from "./category.model";
+import {Metropolises} from "./metropolises.model";
 
 /**
  * Modèle représentant un équipement
@@ -98,8 +99,8 @@ export class Equipment {
   public static fromJson(json: any): Equipment {
     return new Equipment({
       id: json.EQUIPMENT_ID,
-      renter: Renter.fromJson({id: json.RENTER_ID, companyName: json.COMPANY_NAME, lastName: json.LAST_NAME, firstName: json.FIRST_NAME,
-        email: json.EMAIL, phone: json.PHONE, birthDate: json.BIRTH_DATE, address: json.ADDRESS, additionalAddress: json.ADDITIONNAL_ADDRESS,
+      renter: Renter.fromJson({id: json.RENTER_ID, metropolises: Metropolises.fromJson({id: json.METROPOLISES_ID, name: json.METROPOLISES_NAME}), companyName: json.COMPANY_NAME,
+        lastName: json.LAST_NAME, firstName: json.FIRST_NAME, email: json.EMAIL, phone: json.PHONE, birthDate: json.BIRTH_DATE, address: json.ADDRESS, additionalAddress: json.ADDITIONNAL_ADDRESS,
         postalCode: json.POSTAL_CODE, city: json.CITY, imageLink: json.IMAGE_LINK}),
       category: Category.fromJson({id: json.CATEGORY_ID, name: json.CATEGORY_NAME}),
       name: json.EQUIPMENT_NAME,

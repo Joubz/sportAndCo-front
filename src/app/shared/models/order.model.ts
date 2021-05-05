@@ -3,6 +3,7 @@ import {Equipment} from "./equipment.model";
 import {Bill} from "./bill.model";
 import {Renter} from "./renter.model";
 import {Category} from "./category.model";
+import {Metropolises} from "./metropolises.model";
 
 /**
  * Modèle représentant une commande
@@ -85,9 +86,9 @@ export class Order {
         additionalAddress: json.CLIENT_ADDITIONAL_ADDRESS, postalCode: json.CLIENT_POSTAL_CODE, city: json.CLIENT_CITY }),
       equipment: Equipment.fromJson({
         id: json.EQUIPMENT_ID,
-        renter: Renter.fromJson({id: json.RENTER_ID, companyName: json.COMPANY_NAME, lastName: json.RENTER_LAST_NAME, firstName: json.RENTER_FIRST_NAME,
-          email: json.RENTER_EMAIL, phone: json.PHONE_EMAIL, birthDate: json.RENTER_BIRTH_DATE, address: json.RENTER_ADDRESS, additionalAddress: json.RENTER_ADDITIONAL_ADDRESS,
-          postalCode: json.RENTER_POSTAL_CODE, city: json.RENTER_CITY, imageLink: json.IMAGE_LINK}),
+        renter: Renter.fromJson({id: json.RENTER_ID, metropolises: Metropolises.fromJson({id: json.METROPOLISES_ID, name: json.METROPOLISES_NAME}), companyName: json.COMPANY_NAME,
+          lastName: json.RENTER_LAST_NAME, firstName: json.RENTER_FIRST_NAME, email: json.RENTER_EMAIL, phone: json.PHONE_EMAIL, birthDate: json.RENTER_BIRTH_DATE, address: json.RENTER_ADDRESS,
+          additionalAddress: json.RENTER_ADDITIONAL_ADDRESS, postalCode: json.RENTER_POSTAL_CODE, city: json.RENTER_CITY, imageLink: json.IMAGE_LINK}),
         category: Category.fromJson({id: json.CATEGORY_ID, name: json.RENTER_IMAGE_LINK}),
         name: json.EQUIPMENT_NAME,
         description: json.EQUIPMENT_DESCRIPTION,
