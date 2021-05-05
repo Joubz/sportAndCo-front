@@ -4,8 +4,10 @@ import {ActivatedRoute, Router} from "@angular/router";
 
 import {Equipment} from "../../shared/models/equipment.model";
 import {EquipmentService} from "../../core/services/equipment.service";
-import {Subscription} from "rxjs";
+import {forkJoin, of, Subscription} from "rxjs";
 import {Order} from "../../shared/models/order.model";
+import {mergeMap} from "rxjs/operators";
+import {OrderService} from "../../core/services/order.service";
 
 /**
  * Composant de la page détails d'un équipement
@@ -16,11 +18,6 @@ import {Order} from "../../shared/models/order.model";
   styleUrls: ['./equipment-details.component.css']
 })
 export class EquipmentDetailsComponent implements OnInit, OnDestroy {
-
-  /**
-   * Id de l'équipement bouchonné
-   */
-  bouchonEquipmentId = 1;
 
   /**
    * Permet d'attendre que l'équipement soit chargée pour l'afficher
@@ -48,24 +45,58 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
   urlBasic: string = environment.URL_BASE;
 
   /**
+   * Booleen permettant de savoir si l'équipement est disponible
+   */
+  isAvailable: boolean;
+
+  /**
+   * Nombre de quantité
+   */
+  quantityAvailable: number;
+
+  // TODO transformer en input quand poblème réglé
+  /**
+   * Date de début sélectionnée par le client
+   */
+  startDateSelect: Date;
+
+  /**
+   * Date de fin sélectionnée par le client
+   */
+  endDateSelect: Date;
+
+  /**
    * Constructeur du composant
    * @param equipmentService Service de gestion des éqyipements
+   * @param orderService Service de gestion des commandes
    * @param router Service de gestion des routes
    * @param route Service angular de gestion de la route actuelle
    */
   constructor(
     private equipmentService: EquipmentService,
+    private orderService: OrderService,
     private router: Router,
     private route: ActivatedRoute
   ) { }
 
   /**
-   * Initialise le composant
+   * Initialise le composant, récupère l'équipement correspondant et la liste des commandes concernés par l'équipement (pour vérifier si l'équipement est disponible)
    */
   ngOnInit(): void {
-    this.getEquipmentSub = this.equipmentService.getEquipment(parseInt(this.route.snapshot.paramMap.get('id'), 10)).subscribe(result => {
-      this.equipment = result;
-      console.log(this.equipment);
+    this.getEquipmentSub = forkJoin([
+      this.equipmentService.getEquipment(parseInt(this.route.snapshot.paramMap.get('id'), 10)),
+      this.orderService.getOrderByEquipmentForAvailability(parseInt(this.route.snapshot.paramMap.get('id'), 10))
+    ]).subscribe(([equipment, listOrder]) => {
+      this.equipment = equipment;
+      this.orderListByEquipment = listOrder;
+      this.quantityAvailable = +this.equipment.availableQuantity;
+
+      this.startDateSelect = new Date();
+      this.endDateSelect = new Date();
+
+      this.isEquipmentAvailable();
+
+      this.equipmentLoaded = Promise.resolve(true);
     });
   }
 
@@ -74,6 +105,28 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
    */
   ngOnDestroy(): void {
     this.getEquipmentSub?.unsubscribe();
+  }
+
+  /**
+   * Fonction qui permet de savoir si un équipement est disponible
+   */
+  isEquipmentAvailable(): void {
+    this.isAvailable = false;
+
+    this.orderListByEquipment.forEach(order => {
+        const startDate = new Date(order.startDate);
+        const endDate = new Date(order.finishDate);
+
+        if (!this.isAvailable) {
+          if (startDate >= this.startDateSelect || endDate <= this.endDateSelect )
+          {
+            if (this.quantityAvailable >= (+this.equipment.availableQuantity - +order.quantityRented)) {
+              this.isAvailable = true;
+            }
+          }
+        }
+      }
+    );
   }
 
 }

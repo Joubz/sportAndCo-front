@@ -67,5 +67,24 @@ export class OrderService {
     );
   }
 
+  /**
+   * Récupère les commandes selon l'équipment
+   * @param equipmentId Identifiant de l'équipement de la commande à récupérer
+   * @returns Un observable contenant la commande récupérée
+   */
+  getOrderByEquipmentForAvailability(equipmentId: number): Observable<Order[]> {
+    return this.http.get(
+      this.orderEndpoint + '/order-by-equipment-available/' + equipmentId).pipe(
+      map((jsonResponse: any) => {
+          const orderList = [];
+          jsonResponse.forEach(element => {
+            const order: Order = Order.fromJson(element);
+            orderList.push(order);
+          });
+          return orderList;
+        }
+      )
+    );
+  }
 
 }
