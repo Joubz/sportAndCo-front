@@ -6,13 +6,18 @@ import { EquipmentDetailsComponent } from './equipment-details/equipment-details
 
 const routes: Routes = [
   {
-    path: 'exemple',
+    path: 'exempleProtected',
     component: ExempleComponentComponent
   },
   {
-    path: 'equipment-detail',
-    component: EquipmentDetailsComponent
-  },
+    path: 'equipment',
+    children: [
+      {
+        path: 'equipment-details/:id',
+        component: EquipmentDetailsComponent
+      }
+    ]
+  }
 ];
 
 @NgModule({
@@ -20,3 +25,16 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class ProtectedRoutingModule { }
+
+/*
+,
+  {
+    path: 'equipment',
+    children: [
+      {
+        path: 'equipment-details/:id',
+        component: EquipmentDetailsComponent
+      }
+      ]
+
+ */

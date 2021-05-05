@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
 
 /**
  * Composant de la page d'acceuil
@@ -12,8 +13,11 @@ export class HomeComponent implements OnInit {
 
   /**
    * Constructeur du composant
+   * @param router Utilitaire natif angular de navigation
    */
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   /**
    * Souscrit aux propriétés de la modal pour son affichage
@@ -21,4 +25,10 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * méthode pour aller au détails
+   */
+  goToDetailTest(): void {
+    this.router.navigate(['/equipment/equipment-details', 1]);
+  }
 }
