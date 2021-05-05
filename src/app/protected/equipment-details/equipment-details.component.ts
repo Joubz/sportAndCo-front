@@ -109,9 +109,14 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
 
   /**
    * Fonction qui permet de savoir si un équipement est disponible
+   * Compare d'abord les dates, ensuite la quantité
    */
   isEquipmentAvailable(): void {
     this.isAvailable = false;
+
+    if (this.orderListByEquipment.length === 0) {
+      this.isAvailable = true;
+    }
 
     this.orderListByEquipment.forEach(order => {
         const startDate = new Date(order.startDate);
@@ -120,7 +125,8 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
         if (!this.isAvailable) {
           if (startDate >= this.startDateSelect || endDate <= this.endDateSelect )
           {
-            if (this.quantityAvailable >= (+this.equipment.availableQuantity - +order.quantityRented)) {
+            if (this.quantityAvailable >= (+this.equipment.availableQuantity - +order.quantityRented) && this.quantityAvailable !== 0 &&
+              this.quantityAvailable <= +this.equipment.totalQuantity) {
               this.isAvailable = true;
             }
           }
@@ -128,5 +134,24 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
       }
     );
   }
+
+  /**
+   * Augmente la quantité, vérifie la disponibilité
+   */
+  augmentQuantity(): void {
+    this.quantityAvailable++;
+    this.isEquipmentAvailable();
+  }
+
+  /**
+   * Augmente la quantité, vérifie la disponibilité
+   */
+  diminishQuantity(): void {
+    if (this.quantityAvailable !== 0) {
+      this.quantityAvailable--;
+      this.isEquipmentAvailable();
+    }
+  }
+
 
 }

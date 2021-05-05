@@ -1,0 +1,24 @@
+.equipment-card {
+  background-color: $white;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.equipment-title-card {
+  box-shadow: 2px 2px 7px 1px rgba(0, 0, 0, 0.25);
+  background-color: $cyan;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// Attribut
+label-2 {
+  font-weight: $fw-light;
+  font-size: $h4-font-size-base;
+  text-transform: uppercase;
+  color: $grey;
+  margin: $margin-h4-base 0px;
+  margin-top: 25px;
+}
+
+
