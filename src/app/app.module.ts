@@ -8,15 +8,13 @@ import { PublicModule } from './public/public.module';
 import { ProtectedModule } from './protected/protected.module';
 import { AdministratorModule } from "./administrator/administrator.module";
 import { RenterModule } from "./renter/renter.module";
-import { ExempleComponentComponent } from './protected/exemple-component/exemple-component.component';
 
 /**
  * Gestion des modules et composants généraux
  */
 @NgModule({
   declarations: [
-    AppComponent,
-    ExempleComponentComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
