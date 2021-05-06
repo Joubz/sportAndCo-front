@@ -37,12 +37,17 @@ export class Order {
   /**
    * Date de fin de location
    */
-  finishDate: string;
+  endDate: string;
 
   /**
    * Date de la validation de la commande
    */
   rentDate: string;
+
+  /**
+   * Status indiquant si les équipements de la commandes ont été rendus
+   */
+  statusRendered: boolean;
 
   /**
    * Nombre d'équipement commandés
@@ -59,8 +64,9 @@ export class Order {
     equipment: Equipment,
     bill: Bill,
     startDate: string,
-    finishDate: string,
+    endDate: string,
     rentDate: string,
+    statusRendered: boolean,
     quantityRented: number
   }) {
     this.id = options.id;
@@ -68,8 +74,9 @@ export class Order {
     this.equipment = options.equipment;
     this.bill = options.bill;
     this.startDate = options.startDate;
-    this.finishDate = options.finishDate;
+    this.endDate = options.endDate;
     this.rentDate = options.rentDate;
+    this.statusRendered = options.statusRendered;
     this.quantityRented = options.quantityRented;
   }
 
@@ -92,17 +99,19 @@ export class Order {
         category: Category.fromJson({CATEGORY_ID: json.CATEGORY_ID, CATEGORY_NAME: json.RENTER_IMAGE_LINK}),
         EQUIPMENT_NAME: json.EQUIPMENT_NAME,
         DESCRIPTION: json.EQUIPMENT_DESCRIPTION,
-        CREATION_DATE: json.EQUIPMENT_CREATION_DATE,
+        START_DATE: json.EQUIPMENT_START_DATE,
+        END_DATE: json.EQUIPMENT_END_DATE,
         PRICE: json.EQUIPMENT_PRICE,
         TOTAL_QUANTITY: json.EQUIPMENT_TOTAL_QUANTITY,
-        AVAILABLE_QUANTITY: json.EQUIPMENT_AVAILABLE_QUANTITY,
-        IMAGE_LINK: json.EQUIPMENT_IMAGE_LINK,
-        OTHER_TEXT: json.EQUIPMENT_OTHER_TEXT
+        IMAGE_LINK_1: json.EQUIPMENT_IMAGE_LINK_1,
+        IMAGE_LINK_2: json.EQUIPMENT_IMAGE_LINK_2,
+        IMAGE_LINK_3: json.EQUIPMENT_IMAGE_LINK_3,
       }),
       bill: Bill.fromJson({BILL_ID: json.BILL_ID, BILL_DESCRIPTION: json.BILL_DESCRIPTION, BILL_DATE: json.BILL_DATE, BILL_PRICE: json.BILL_PRICE}),
       startDate: json.START_DATE,
-      finishDate: json.FINISH_DATE,
+      endDate: json.END_DATE,
       rentDate: json.RENT_DATE,
+      statusRendered: json.STATUS_RENDERED,
       quantityRented: json.QUANTITY_RENTED
     });
   }
