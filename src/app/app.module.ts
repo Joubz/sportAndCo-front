@@ -19,11 +19,11 @@ import { RenterModule } from "./renter/renter.module";
   imports: [
     BrowserModule,
     CoreModule,
-    AppRoutingModule,
     PublicModule,
     ProtectedModule,
     AdministratorModule,
-    RenterModule
+    RenterModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

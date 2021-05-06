@@ -126,7 +126,7 @@ export class Renter {
     return new Renter({
       id: json.RENTER_ID,
       password: json.PASSWORD,
-      metropolises: Metropolises.fromJson({id: json.METROPOLISES_ID, name: json.METROPOLISES_NAME}),
+      metropolises: Metropolises.fromJson({METROPOLISES_ID: json.METROPOLISES_ID, METROPOLISES_NAME: json.METROPOLISES_NAME}),
       isAccepted: json.ACCEPTED,
       companyName: json.COMPANY_NAME,
       lastName: json.LAST_NAME,

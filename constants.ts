@@ -12,7 +12,9 @@ export class Constants {
    */
   public API_ENDPOINTS = Object.freeze({
     // Utilisation GET, POST, PUT, DELETE
-    EXEMPLE: '/exemple'
+    EXEMPLE: '/exemple',
+    EQUIPMENT: '/equipment',
+    ORDER: '/order'
   });
 
   /**

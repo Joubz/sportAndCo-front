@@ -35,7 +35,7 @@ export class ExempleService {
   constructor(private http: HttpClient, private constants: Constants) {}
 
   /**
-   * Récupère l'exemple'
+   * Récupère l'exemple
    * @param exempleId Identifiant de l'exemple à récupérer
    * @returns Un observable contenant l'exemple récupérée
    */

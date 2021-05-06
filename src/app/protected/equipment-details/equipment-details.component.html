@@ -1,0 +1,52 @@
+<div *ngIf="equipmentLoaded | async">
+
+  <div class="equipment-title-card my-5">
+    <h2> {{ equipment.name }} </h2>
+  </div>
+
+  <div class="equipment-card my-5">
+    <div class="--center">
+      <img [src]="urlBasic.concat(equipment.imageLink)" *ngIf="equipment.imageLink" />
+
+      <h3>Loueur :  </h3>
+      <span> {{ equipment.renter.companyName }} </span>
+
+      <h3>Catégories : </h3>
+      <span> {{ equipment.category.name }} </span>
+
+      <h3>Description : </h3>
+      <span> {{ equipment.description }} </span>
+    </div>
+
+    <div class="equipment-card my-5">
+      <div class="--center">
+        <div>
+          <label-2>Quantité :</label-2>
+          <button class="button-quantity" (click)="diminishQuantity()" l> <i class="fa fa-minus"></i> </button>
+          <input type="text" [value]="quantityAvailable" disabled>
+          <button class="button-quantity" (click)="augmentQuantity()" l><i class="fa fa-plus"></i> </button>
+        </div>
+
+        <div>
+          <label-2>Prix </label-2>
+          <span> {{ equipment.price }} € / Jour</span>
+        </div>
+
+        <br>
+
+        <p *ngIf="isAvailable"> disponible </p>
+        <p *ngIf="!isAvailable">non disponible </p>
+      </div>
+    </div>
+
+
+  </div>
+
+</div>
+
+<!--
+        <button class="primary" (click)="augmentQuantity()" l>+ </button>
+
+        <button class="primary" (click)="diminishQuantity()" l>- </button>
+
+-->
