@@ -81,6 +81,11 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
   endDateSelect: Date = new Date();
 
   /**
+   * Vérifie si les dates sélectionnés sont ok
+   */
+  areDatesOk: boolean;
+
+  /**
    * Options des sélectionneurs de dates
    */
   startDatePickerOptions: DatepickerOptions = {
@@ -109,7 +114,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
     position: 'bottom',
     calendarClass: 'datepicker-default',
     scrollBarColor: '#dfe3e9',
-    maxDate: new Date()
+    maxDate: new Date(),
   };
 
   /**
@@ -137,6 +142,10 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
       this.equipment = equipment;
       this.orderListByEquipment = listOrder;
       this.quantityWanted = 1;
+      this.quantityAvailable = this.equipment.totalQuantity;
+      this.areDatesOk = true;
+      this.startDatePickerOptions.minDate = new Date(this.equipment.endDate);
+      this.endDatePickerOptions.minDate = new Date(this.equipment.endDate);
 
       this.isEquipmentAvailable();
 
@@ -157,43 +166,32 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
    */
   isEquipmentAvailable(): void {
     this.isAvailable = false;
+
+    console.log("totalQuantity " + this.equipment.totalQuantity);
+    console.log("quantityAvailable " + this.quantityAvailable);
     this.quantityAvailable = this.equipment.totalQuantity;
 
     this.orderListByEquipment.forEach(order => {
         const startDate = new Date(order.startDate);
-        const endDate = new Date(order.finishDate);
+        const endDate = new Date(order.endDate);
+        let dateCorrespondante = false;
 
-        console.log("startDateSelect " + this.startDateSelect);
-      console.log("startDate order " + startDate);
-      console.log(this.startDateSelect <= startDate);
-      console.log(this.startDateSelect >= startDate);
-
-      console.log("------------------------------------------------------------ ") ;
-
-
-      console.log("endDateSelect " + this.endDateSelect);
-      console.log("endDate order " + endDate);
-      console.log(this.endDateSelect <= endDate);
-      console.log(this.endDateSelect >= endDate);
-
-
-      console.log("if final");
-
-      console.log(((this.startDateSelect <= startDate) && !(this.startDateSelect >= startDate) ) || ( (this.endDateSelect <= endDate) && (this.endDateSelect >= startDate) ));
-
-        if ( ((this.startDateSelect <= startDate) && (this.startDateSelect >= endDate) ) || ( (this.endDateSelect <= endDate) && (this.endDateSelect >= startDate)) )
+        if ( !(this.endDateSelect <= startDate || this.startDateSelect >= endDate) )
         {
-          console.log("passe ici");
-          console.log("this.quantityAvailable : " + this.quantityAvailable );
+          dateCorrespondante = true;
+          this.quantityAvailable -= order.quantityRented;
+        }
+
+        if (order.statusReturned === false && !dateCorrespondante) {
           this.quantityAvailable -= order.quantityRented;
         }
       }
     );
 
-    console.log("this.quantityAvailable : " + this.quantityAvailable );
     if (this.quantityWanted <= this.quantityAvailable ) {
       this.isAvailable = true;
     }
+
   }
 
   /**
@@ -241,7 +239,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
    * @param $event Date de début
    */
   changeStartDate(): void {
-    console.log(this.startDateSelect);
+    this.areDatesCorrect();
     this.isEquipmentAvailable();
   }
 
@@ -250,15 +248,26 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
    * @param $event Date de fin
    */
   changeEndDate(): void {
-    console.log(this.endDateSelect);
+    this.areDatesCorrect();
     this.isEquipmentAvailable();
+  }
+
+  /**
+   * Fonction vérifiant si les dates sélectionnées sont conformes, affiche un message d'erreur sinon
+   */
+  areDatesCorrect(): void {
+    if (this.startDateSelect > this.endDateSelect) {
+      this.areDatesOk = false;
+    } else {
+      this.areDatesOk =  true;
+    }
   }
 
   /**
    * Fonction lançant la demande de location
    */
   rent() {
-    if (this.isAvailable) {
+    if (this.isAvailable && this.areDatesOk) {
       // TODO
     }
   }

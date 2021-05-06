@@ -6,7 +6,7 @@
 
   <div class="equipment-card my-5">
     <div class="--center">
-      <img [src]="urlBasic.concat(equipment.imageLink)" *ngIf="equipment.imageLink" />
+      <img [src]="urlBasic.concat(equipment.imageLink1)" *ngIf="equipment.imageLink1" />
 
       <h3>Loueur :  </h3>
       <span> {{ equipment.renter.companyName }} </span>
@@ -24,12 +24,17 @@
           <label-2>Quantité :</label-2>
           <button class="button-quantity" (click)="diminishQuantity()" [disabled]="quantityWanted === 1" l> <i class="fa fa-minus"></i> </button>
           <input type="text" [value]="quantityWanted" disabled>
-          <button class="button-quantity" (click)="augmentQuantity()" [disabled]="quantityWanted === +this.equipment.totalQuantity" l><i class="fa fa-plus"></i> </button>
+          <button class="button-quantity" (click)="augmentQuantity()" [disabled]="quantityWanted === equipment.totalQuantity" l><i class="fa fa-plus"></i> </button>
         </div>
 
         <div>
           <label-2>Prix </label-2>
           <span> {{ equipment.price }} € / Jour</span>
+        </div>
+
+        <div>
+          <label-2>Prix Total</label-2>
+          <span> {{ equipment.price * quantityWanted }} € / Jour</span>
         </div>
 
         <br>
@@ -39,9 +44,9 @@
 
 
         <div>
-          <ngx-datepicker [(ngModel)]="startDateSelect" [options]="startDatePickerOptions" (ngModelChange)="changeStartDate()" [max]="endDateSelect"></ngx-datepicker>
+          <ngx-datepicker [(ngModel)]="startDateSelect" [options]="startDatePickerOptions" (ngModelChange)="changeStartDate()"></ngx-datepicker>
           <ngx-datepicker [(ngModel)]="endDateSelect" [options]="endDatePickerOptions" (ngModelChange)="changeEndDate()"></ngx-datepicker>
-
+          <p *ngIf="!areDatesOk"> Erreur : La date de fin ne peux être inférieur à la date de début </p>
         </div>
       </div>
     </div>
@@ -49,7 +54,7 @@
     <div class="equipment-card-btn my-7">
       <button class="primary" (click)="goBack()"l> Retour </button>
 
-      <button [class]="getButtonClass('rent')" (click)="rent()" [disabled]="!this.isAvailable" l>
+      <button [class]="getButtonClass('rent')" (click)="rent()" [disabled]="!isAvailable || !areDatesOk" l>
         {{ this.isAvailable ? 'Louer' : 'Non disponible' }}</button>
     </div>
 

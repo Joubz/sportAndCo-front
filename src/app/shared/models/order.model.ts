@@ -47,7 +47,7 @@ export class Order {
   /**
    * Status indiquant si les équipements de la commandes ont été rendus
    */
-  statusRendered: boolean;
+  statusReturned: boolean;
 
   /**
    * Nombre d'équipement commandés
@@ -66,7 +66,7 @@ export class Order {
     startDate: string,
     endDate: string,
     rentDate: string,
-    statusRendered: number,
+    statusReturned: number,
     quantityRented: number
   }) {
     this.id = options.id;
@@ -76,10 +76,10 @@ export class Order {
     this.startDate = options.startDate;
     this.endDate = options.endDate;
     this.rentDate = options.rentDate;
-    if (options.statusRendered === 0) {
-      this.statusRendered = false;
+    if (options.statusReturned === 0) {
+      this.statusReturned = false;
     } else {
-      this.statusRendered = true;
+      this.statusReturned = true;
     }
     this.quantityRented = options.quantityRented;
   }
@@ -115,7 +115,7 @@ export class Order {
       startDate: json.START_DATE,
       endDate: json.END_DATE,
       rentDate: json.RENT_DATE,
-      statusRendered: json.STATUS_RENDERED,
+      statusReturned: json.STATUS_RENDERED,
       quantityRented: json.QUANTITY_RENTED
     });
   }
