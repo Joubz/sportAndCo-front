@@ -40,13 +40,12 @@
     </div>
 
 
+    <div class="equipment-card-btn my-7">
+      <button class="primary" (click)="goBack()"l> Retour </button>
+
+      <button [class]="getButtonClass('rent')" (click)="rent()" [disabled]="!this.isAvailable" l>
+        {{ this.isAvailable ? 'Louer' : 'Non disponible' }}</button>
+    </div>
+
   </div>
-
 </div>
-
-<!--
-        <button class="primary" (click)="augmentQuantity()" l>+ </button>
-
-        <button class="primary" (click)="diminishQuantity()" l>- </button>
-
--->

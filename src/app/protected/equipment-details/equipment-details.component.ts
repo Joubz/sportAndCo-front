@@ -45,6 +45,11 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
   urlBasic: string = environment.URL_BASE;
 
   /**
+   * Url de retour pour le clic sur le bouton "Retour au tableau" ou les actions sur l'anomalie
+   */
+  urlBack = this.route.snapshot.queryParamMap.get('from');
+
+  /**
    * Booleen permettant de savoir si l'équipement est disponible
    */
   isAvailable: boolean;
@@ -57,7 +62,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
   /**
    * Quantité déjà loué
    */
-  quantityNotRented: number;
+  quantityAvailable: number;
 
   // TODO transformer en input quand problème réglé
   /**
@@ -119,7 +124,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
    */
   isEquipmentAvailable(): void {
     this.isAvailable = false;
-    this.quantityNotRented = this.equipment.totalQuantity;
+    this.quantityAvailable = this.equipment.totalQuantity;
 
     this.orderListByEquipment.forEach(order => {
         const startDate = new Date(order.startDate);
@@ -127,12 +132,12 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
 
         if (this.startDateSelect <= startDate || this.endDateSelect <= endDate )
         {
-          this.quantityNotRented -= order.quantityRented;
+          this.quantityAvailable -= order.quantityRented;
         }
       }
     );
 
-    if (this.quantityWanted <= this.quantityNotRented ) {
+    if (this.quantityWanted <= this.quantityAvailable ) {
       this.isAvailable = true;
     }
   }
@@ -157,5 +162,32 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Méthode pour retourner au tableau des listes
+   */
+  goBack() {
+    // TODO connecter quand la liste sera présente
+    // this.router.navigate(['/equipment', this.urlBack]);
+  }
 
+  /**
+   * Récupère les classes à appliquer aux boutons en fonction du statut de disponibilité
+   * @param buttonName Nom du bouton affiché
+   * @returns Les classes CSS à appliquer
+   */
+  getButtonClass(buttonName: string): string {
+    switch (buttonName) {
+      case 'rent':
+        return !this.isAvailable ? 'report disabled' : 'validate';
+    }
+  }
+
+  /**
+   * Fonction lançant la demande de location
+   */
+  rent() {
+    if (this.isAvailable) {
+      // TODO
+    }
+  }
 }
