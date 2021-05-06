@@ -22,9 +22,9 @@
       <div class="--center">
         <div>
           <label-2>Quantité :</label-2>
-          <button class="button-quantity" (click)="diminishQuantity()" l> <i class="fa fa-minus"></i> </button>
-          <input type="text" [value]="quantityAvailable" disabled>
-          <button class="button-quantity" (click)="augmentQuantity()" l><i class="fa fa-plus"></i> </button>
+          <button class="button-quantity" (click)="diminishQuantity()" [disabled]="quantityWanted === 1" l> <i class="fa fa-minus"></i> </button>
+          <input type="text" [value]="quantityWanted" disabled>
+          <button class="button-quantity" (click)="augmentQuantity()" [disabled]="quantityWanted === +this.equipment.totalQuantity" l><i class="fa fa-plus"></i> </button>
         </div>
 
         <div>

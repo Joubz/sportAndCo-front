@@ -47,7 +47,7 @@ export class Order {
   /**
    * Nombre d'équipement commandés
    */
-  quantityRented: string;
+  quantityRented: number;
 
   /**
    * Constructeur de l'objet, tous les paramètres sont obligatoires
@@ -61,7 +61,7 @@ export class Order {
     startDate: string,
     finishDate: string,
     rentDate: string,
-    quantityRented: string
+    quantityRented: number
   }) {
     this.id = options.id;
     this.client = options.client;

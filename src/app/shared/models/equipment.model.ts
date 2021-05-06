@@ -49,7 +49,7 @@ export class Equipment {
   /**
    * Quantité au total
    */
-  totalQuantity: string;
+  totalQuantity: number;
 
   /**
    * Quantité restante
@@ -79,7 +79,7 @@ export class Equipment {
     description: string,
     creationDate: string,
     price: string,
-    totalQuantity: string,
+    totalQuantity: number,
     availableQuantity: string,
     imageLink: string,
     otherText

@@ -50,11 +50,16 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
   isAvailable: boolean;
 
   /**
-   * Nombre de quantité
+   * Nombre de quantité voulus par le client
    */
-  quantityAvailable: number;
+  quantityWanted: number;
 
-  // TODO transformer en input quand poblème réglé
+  /**
+   * Quantité déjà loué
+   */
+  quantityNotRented: number;
+
+  // TODO transformer en input quand problème réglé
   /**
    * Date de début sélectionnée par le client
    */
@@ -89,7 +94,8 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
     ]).subscribe(([equipment, listOrder]) => {
       this.equipment = equipment;
       this.orderListByEquipment = listOrder;
-      this.quantityAvailable = +this.equipment.availableQuantity;
+      this.quantityWanted = 1;
+
 
       this.startDateSelect = new Date();
       this.endDateSelect = new Date();
@@ -113,42 +119,40 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
    */
   isEquipmentAvailable(): void {
     this.isAvailable = false;
-
-    if (this.orderListByEquipment.length === 0) {
-      this.isAvailable = true;
-    }
+    this.quantityNotRented = this.equipment.totalQuantity;
 
     this.orderListByEquipment.forEach(order => {
         const startDate = new Date(order.startDate);
         const endDate = new Date(order.finishDate);
 
-        if (!this.isAvailable) {
-          if (startDate >= this.startDateSelect || endDate <= this.endDateSelect )
-          {
-            if (this.quantityAvailable >= (+this.equipment.availableQuantity - +order.quantityRented) && this.quantityAvailable !== 0 &&
-              this.quantityAvailable <= +this.equipment.totalQuantity) {
-              this.isAvailable = true;
-            }
-          }
+        if (this.startDateSelect <= startDate || this.endDateSelect <= endDate )
+        {
+          this.quantityNotRented -= order.quantityRented;
         }
       }
     );
+
+    if (this.quantityWanted <= this.quantityNotRented ) {
+      this.isAvailable = true;
+    }
   }
 
   /**
    * Augmente la quantité, vérifie la disponibilité
    */
   augmentQuantity(): void {
-    this.quantityAvailable++;
-    this.isEquipmentAvailable();
+    if (this.quantityWanted < +this.equipment.totalQuantity) {
+      this.quantityWanted++;
+      this.isEquipmentAvailable();
+    }
   }
 
   /**
    * Augmente la quantité, vérifie la disponibilité
    */
   diminishQuantity(): void {
-    if (this.quantityAvailable !== 0) {
-      this.quantityAvailable--;
+    if (this.quantityWanted !== 1) {
+      this.quantityWanted--;
       this.isEquipmentAvailable();
     }
   }
