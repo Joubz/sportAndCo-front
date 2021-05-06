@@ -166,9 +166,6 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
    */
   isEquipmentAvailable(): void {
     this.isAvailable = false;
-
-    console.log("totalQuantity " + this.equipment.totalQuantity);
-    console.log("quantityAvailable " + this.quantityAvailable);
     this.quantityAvailable = this.equipment.totalQuantity;
 
     this.orderListByEquipment.forEach(order => {
@@ -191,7 +188,6 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
     if (this.quantityWanted <= this.quantityAvailable ) {
       this.isAvailable = true;
     }
-
   }
 
   /**
