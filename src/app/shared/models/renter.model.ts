@@ -87,7 +87,7 @@ export class Renter {
     id: number,
     password: string,
     metropolises: Metropolises,
-    isAccepted: boolean,
+    isAccepted: number,
     companyName: string,
     lastName: string,
     firstName: string,
@@ -103,7 +103,11 @@ export class Renter {
     this.id = options.id;
     this.password = options.password;
     this.metropolises = options.metropolises;
-    this.isAccepted = options.isAccepted;
+    if (options.isAccepted === 0) {
+      this.isAccepted = false;
+    } else {
+      this.isAccepted = true;
+    }
     this.companyName = options.companyName;
     this.lastName = options.lastName;
     this.firstName = options.firstName;

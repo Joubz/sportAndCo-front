@@ -66,7 +66,7 @@ export class Order {
     startDate: string,
     endDate: string,
     rentDate: string,
-    statusRendered: boolean,
+    statusRendered: number,
     quantityRented: number
   }) {
     this.id = options.id;
@@ -76,7 +76,11 @@ export class Order {
     this.startDate = options.startDate;
     this.endDate = options.endDate;
     this.rentDate = options.rentDate;
-    this.statusRendered = options.statusRendered;
+    if (options.statusRendered === 0) {
+      this.statusRendered = false;
+    } else {
+      this.statusRendered = true;
+    }
     this.quantityRented = options.quantityRented;
   }
 
