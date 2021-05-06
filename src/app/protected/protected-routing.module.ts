@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ExempleComponentComponent } from './exemple-component/exemple-component.component';
 import { EquipmentDetailsComponent } from './equipment-details/equipment-details.component';
+import {ListEquipmentComponent} from "./list-equipment/list-equipment.component";
 
 const routes: Routes = [
   {
@@ -15,6 +16,10 @@ const routes: Routes = [
       {
         path: 'equipment-details/:id',
         component: EquipmentDetailsComponent
+      },
+      {
+        path: 'getListEquipment',
+        component: ListEquipmentComponent
       }
     ]
   }
@@ -26,15 +31,4 @@ const routes: Routes = [
 })
 export class ProtectedRoutingModule { }
 
-/*
-,
-  {
-    path: 'equipment',
-    children: [
-      {
-        path: 'equipment-details/:id',
-        component: EquipmentDetailsComponent
-      }
-      ]
 
- */

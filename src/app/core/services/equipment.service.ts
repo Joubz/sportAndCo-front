@@ -45,4 +45,31 @@ export class EquipmentService {
       .get(this.equipmentEndpoint + '/' + equipmentId)
       .pipe(map((jsonResponse: any) => Equipment.fromJson(jsonResponse[0])));
   }
+
+  /**
+   *  Renvoie la liste des equipements recherchés par l'utilisateur
+   * @returns La liste des équipements trouvés, une erreur sinon
+   */
+  getListEquipment(): Observable<any> {
+    return this.http
+      .get(this.equipmentEndpoint + '/getListEquipment')
+      .pipe(
+        map((jsonResponse: any) =>
+          jsonResponse.map((jsonEquipment: any) => Equipment.fromJson(jsonEquipment))
+        )
+      );
+  }
+  /*
+  getListUserMail(): Observable<string[]> {
+    return this.http.get(this.userEndpoint + '/list-user-mail').pipe(
+      map((jsonResponse: any) => {
+        const equipmentList = [];
+        jsonResponse.forEach(element => {
+          let equipment: Equipment;
+          equipmentList.push(element.EQUIPMENT_ID, element );
+        });
+        return equipmentList;
+      })
+    );
+  } */
 }
