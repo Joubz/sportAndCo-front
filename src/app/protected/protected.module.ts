@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { ProtectedRoutingModule } from './protected-routing.module';
 import { ExempleComponentComponent } from './exemple-component/exemple-component.component';
 import { EquipmentDetailsComponent } from './equipment-details/equipment-details.component';
+import {DatepickerModule} from "ng2-datepicker";
+
 
 
 /**
@@ -13,7 +15,8 @@ import { EquipmentDetailsComponent } from './equipment-details/equipment-details
   declarations: [ExempleComponentComponent, EquipmentDetailsComponent],
   imports: [
     CommonModule,
-    ProtectedRoutingModule
+    ProtectedRoutingModule,
+    DatepickerModule
   ]
 })
 export class ProtectedModule { }

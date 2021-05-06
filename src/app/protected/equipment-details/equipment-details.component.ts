@@ -1,13 +1,19 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import { environment } from 'src/environments/environment';
 import {ActivatedRoute, Router} from "@angular/router";
+import {forkJoin, Subscription} from "rxjs";
 
 import {Equipment} from "../../shared/models/equipment.model";
 import {EquipmentService} from "../../core/services/equipment.service";
-import {forkJoin, of, Subscription} from "rxjs";
 import {Order} from "../../shared/models/order.model";
-import {mergeMap} from "rxjs/operators";
 import {OrderService} from "../../core/services/order.service";
+
+
+import { DatepickerOptions } from 'ng2-datepicker';
+import { getYear } from 'date-fns';
+import locale from 'date-fns/locale/en-US';
+
+
 
 /**
  * Composant de la page détails d'un équipement
@@ -18,7 +24,6 @@ import {OrderService} from "../../core/services/order.service";
   styleUrls: ['./equipment-details.component.css']
 })
 export class EquipmentDetailsComponent implements OnInit, OnDestroy {
-
   /**
    * Permet d'attendre que l'équipement soit chargée pour l'afficher
    */
@@ -68,12 +73,44 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
   /**
    * Date de début sélectionnée par le client
    */
-  startDateSelect: Date;
+  startDateSelect: Date = new Date();
 
   /**
    * Date de fin sélectionnée par le client
    */
-  endDateSelect: Date;
+  endDateSelect: Date = new Date();
+
+  /**
+   * Options des sélectionneurs de dates
+   */
+  startDatePickerOptions: DatepickerOptions = {
+    placeholder: '',
+    format: 'LLLL do yyyy',
+    formatTitle: 'LLLL yyyy',
+    formatDays: 'EEEEE',
+    firstCalendarDay: 1,
+    locale,
+    position: 'bottom',
+    calendarClass: 'datepicker-default',
+    scrollBarColor: '#dfe3e9',
+    maxDate: new Date()
+  };
+
+  /**
+   * Options des sélectionneurs de dates
+   */
+  endDatePickerOptions: DatepickerOptions = {
+    placeholder: '',
+    format: 'LLLL do yyyy',
+    formatTitle: 'LLLL yyyy',
+    formatDays: 'EEEEE',
+    firstCalendarDay: 1,
+    locale,
+    position: 'bottom',
+    calendarClass: 'datepicker-default',
+    scrollBarColor: '#dfe3e9',
+    maxDate: new Date()
+  };
 
   /**
    * Constructeur du composant
@@ -101,10 +138,6 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
       this.orderListByEquipment = listOrder;
       this.quantityWanted = 1;
 
-
-      this.startDateSelect = new Date();
-      this.endDateSelect = new Date();
-
       this.isEquipmentAvailable();
 
       this.equipmentLoaded = Promise.resolve(true);
@@ -130,13 +163,34 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
         const startDate = new Date(order.startDate);
         const endDate = new Date(order.finishDate);
 
-        if (this.startDateSelect <= startDate || this.endDateSelect <= endDate )
+        console.log("startDateSelect " + this.startDateSelect);
+      console.log("startDate order " + startDate);
+      console.log(this.startDateSelect <= startDate);
+      console.log(this.startDateSelect >= startDate);
+
+      console.log("------------------------------------------------------------ ") ;
+
+
+      console.log("endDateSelect " + this.endDateSelect);
+      console.log("endDate order " + endDate);
+      console.log(this.endDateSelect <= endDate);
+      console.log(this.endDateSelect >= endDate);
+
+
+      console.log("if final");
+
+      console.log(((this.startDateSelect <= startDate) && !(this.startDateSelect >= startDate) ) || ( (this.endDateSelect <= endDate) && (this.endDateSelect >= startDate) ));
+
+        if ( ((this.startDateSelect <= startDate) && (this.startDateSelect >= endDate) ) || ( (this.endDateSelect <= endDate) && (this.endDateSelect >= startDate)) )
         {
+          console.log("passe ici");
+          console.log("this.quantityAvailable : " + this.quantityAvailable );
           this.quantityAvailable -= order.quantityRented;
         }
       }
     );
 
+    console.log("this.quantityAvailable : " + this.quantityAvailable );
     if (this.quantityWanted <= this.quantityAvailable ) {
       this.isAvailable = true;
     }
@@ -183,6 +237,24 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Fonction qui gère le changement de date
+   * @param $event Date de début
+   */
+  changeStartDate(): void {
+    console.log(this.startDateSelect);
+    this.isEquipmentAvailable();
+  }
+
+  /**
+   * Fonction qui gère le changement de date
+   * @param $event Date de fin
+   */
+  changeEndDate(): void {
+    console.log(this.endDateSelect);
+    this.isEquipmentAvailable();
+  }
+
+  /**
    * Fonction lançant la demande de location
    */
   rent() {
@@ -190,4 +262,6 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
       // TODO
     }
   }
+
+
 }

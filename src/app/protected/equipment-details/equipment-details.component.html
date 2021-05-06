@@ -36,9 +36,15 @@
 
         <p *ngIf="isAvailable"> disponible </p>
         <p *ngIf="!isAvailable">non disponible </p>
+
+
+        <div>
+          <ngx-datepicker [(ngModel)]="startDateSelect" [options]="startDatePickerOptions" (ngModelChange)="changeStartDate()" [max]="endDateSelect"></ngx-datepicker>
+          <ngx-datepicker [(ngModel)]="endDateSelect" [options]="endDatePickerOptions" (ngModelChange)="changeEndDate()"></ngx-datepicker>
+
+        </div>
       </div>
     </div>
-
 
     <div class="equipment-card-btn my-7">
       <button class="primary" (click)="goBack()"l> Retour </button>
