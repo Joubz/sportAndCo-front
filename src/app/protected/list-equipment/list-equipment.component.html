@@ -1,1 +1,8 @@
-<p>list-equipment works!</p>
+<div *ngIf="listEquipmentLoaded | async">
+  <h1>Résultat de la recherche</h1>
+  <button (click)="sortListEquipmentsByPriceAscendant()">Sort by Price Ascendant</button>
+  <button (click)="sortListEquipmentsByPriceDescendant()">Sort by Price Descendant</button>
+  <div >
+    <li *ngFor="let equipment of listEquipment; index as i"> name : {{equipment.name}}; ---- price = {{equipment.price}}; ---- image link : {{equipment.imageLink}}</li>
+  </div>
+</div>

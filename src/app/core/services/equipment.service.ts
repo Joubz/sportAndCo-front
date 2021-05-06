@@ -51,25 +51,28 @@ export class EquipmentService {
    * @returns La liste des équipements trouvés, une erreur sinon
    */
   getListEquipment(): Observable<any> {
-    return this.http
-      .get(this.equipmentEndpoint + '/getListEquipment')
-      .pipe(
-        map((jsonResponse: any) =>
-          jsonResponse.map((jsonEquipment: any) => Equipment.fromJson(jsonEquipment))
-        )
-      );
-  }
-  /*
-  getListUserMail(): Observable<string[]> {
-    return this.http.get(this.userEndpoint + '/list-user-mail').pipe(
+    return this.http.get(this.equipmentEndpoint + '/getListEquipment').pipe(
       map((jsonResponse: any) => {
         const equipmentList = [];
         jsonResponse.forEach(element => {
-          let equipment: Equipment;
-          equipmentList.push(element.EQUIPMENT_ID, element );
+          const equipment: Equipment = Equipment.fromJson(element);
+          equipmentList.push(equipment );
         });
         return equipmentList;
       })
     );
-  } */
+  }
+
+  /*getListUserMail(): Observable<string[]> {
+    return this.http.get(this.equipmentEndpoint + '/getListEquipment').pipe(
+      map((jsonResponse: any) => {
+        const equipmentList = [];
+        jsonResponse.forEach(element => {
+          const equipment: Equipment = Equipment.fromJson(element);
+          equipmentList.push(equipment );
+        });
+        return equipmentList;
+      })
+    );
+  }*/
 }

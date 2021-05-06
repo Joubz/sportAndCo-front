@@ -44,7 +44,7 @@ export class Equipment {
   /**
    * Prix de l'équipement
    */
-  price: string;
+  price: number;
 
   /**
    * Quantité au total
@@ -78,7 +78,7 @@ export class Equipment {
     name: string,
     description: string,
     creationDate: string,
-    price: string,
+    price: number,
     totalQuantity: string,
     availableQuantity: string,
     imageLink: string,
