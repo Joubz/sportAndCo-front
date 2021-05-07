@@ -182,8 +182,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
         if (order.statusReturned === false && !dateCorrespondante) {
           this.quantityAvailable -= order.quantityRented;
         }
-      }
-    );
+      });
 
     if (this.quantityWanted <= this.quantityAvailable ) {
       this.isAvailable = true;
