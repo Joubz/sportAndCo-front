@@ -17,11 +17,13 @@
 
   <div class="_list">
     <div class="_listProduct" >
-      <a *ngFor="let equipment of listEquipment; index as i" (click)="goToEquipmentDetails(equipment.id)">
-        <div> name : {{equipment.name}}; ---- price = {{equipment.price}}; ---- image link : {{equipment.imageLink1}}
-          <img [src]="urlBasic.concat(equipment.imageLink1)" *ngIf="equipment.imageLink1" />
-        </div>
+      <div class="tab-item-equipment" *ngFor="let equipment of listEquipment; index as i">
+      <a (click)="goToEquipmentDetails(equipment.id)">
+        <img [src]="urlBasic.concat(equipment.imageLink1)" *ngIf="equipment.imageLink1" />
+          <span class="span-text">name : {{equipment.name}};</span> 
+          <span class="span-text">price: {{equipment.price}}</span>
       </a>
+    </div>
     </div>
   </div>
 

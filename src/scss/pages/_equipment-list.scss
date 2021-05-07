@@ -1,0 +1,12 @@
+.tab-item-equipment {
+  padding: 15px 0;
+  align-items: center;
+  border-radius: 20px;
+  background-color: grey;
+  display: flex;
+  margin: 10px auto;
+
+  .span-text {
+    width: 350px;
+  }
+}
