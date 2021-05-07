@@ -1,9 +1,10 @@
 <div *ngIf="listEquipmentLoaded | async">
+
   <h1>Résultat de la recherche</h1>
   <button (click)="sortListEquipmentsByPriceAscendant()">Sort by Price Ascendant</button>
   <button (click)="sortListEquipmentsByPriceDescendant()">Sort by Price Descendant</button>
-
   <button (click)="sortListEquipmentsByName()">Sort by Price Descendant</button>
+
   <form [formGroup]="filtersForm" >
     <div >
       <select  name="optionsTri" formControlName="selectOption" id="optionsTri" (change)="sortOnChange('selectOption')">
@@ -12,11 +13,32 @@
       </select>
     </div>
   </form>
-  <div *ngFor="let equipment of listEquipment; index as i">
-    <a (click)="goToEquipmentDetails(equipment.id)">
-    <li > name : {{equipment.name}}; ---- price = {{equipment.price}}; ---- image link : {{equipment.imageLink1}}
-      <img [src]="urlBasic.concat(equipment.imageLink1)" *ngIf="equipment.imageLink1" />
-    </li>
-    </a>
+
+
+  <div class="_list">
+    <div class="_listProduct" >
+      <a *ngFor="let equipment of listEquipment; index as i" (click)="goToEquipmentDetails(equipment.id)">
+        <div> name : {{equipment.name}}; ---- price = {{equipment.price}}; ---- image link : {{equipment.imageLink1}}
+          <img [src]="urlBasic.concat(equipment.imageLink1)" *ngIf="equipment.imageLink1" />
+        </div>
+      </a>
+    </div>
   </div>
+
+
+  <div class="_list">
+    <div class="_listProduct">
+      <img src="../../../assets/sportsCollectifs.jpg" />
+      <img src="../../../assets/sportsCollectifs.jpg" />
+      <img src="../../../assets/sportsCollectifs.jpg" />
+      <img src="../../../assets/sportsCollectifs.jpg" />
+      <img src="../../../assets/sportsCollectifs.jpg" />
+      <img src="../../../assets/sportsCollectifs.jpg" />
+      <img src="../../../assets/sportsCollectifs.jpg" />
+      <img src="../../../assets/sportsCollectifs.jpg" />
+      <img src="../../../assets/sportsCollectifs.jpg" />
+    </div>
+  </div>
+
+
 </div>

@@ -49,7 +49,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
   /**
    * url de l'application qui sera passé au HTML de l'image pour chargement de l'image sur le visuel
    */
-  urlBasic = environment.URL_BASE;
+  urlBasic: string  = environment.URL_BASE;
 
   /**
    * Url de retour pour le clic sur le bouton "Retour au tableau" ou les actions sur l'anomalie
