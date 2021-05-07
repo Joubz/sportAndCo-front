@@ -61,12 +61,13 @@ export class ListEquipmentComponent implements OnInit, OnDestroy {
    * @param route Service angular de gestion de la route actuelle
    * @param fb Utilitaire de création de formulaire
    */
-  constructor(private equipmentService: EquipmentService,
-              private orderService: OrderService,
-              private router: Router,
-              private route: ActivatedRoute,
-              private fb: FormBuilder,
-) {}
+  constructor(
+    private equipmentService: EquipmentService,
+    private orderService: OrderService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private fb: FormBuilder,
+  ) {}
 
   /**
    * Initialise le composant, récupère la liste des équipements correspondant à la recherche
@@ -112,7 +113,7 @@ export class ListEquipmentComponent implements OnInit, OnDestroy {
     switch (option) {
       case "selectOption":
         if (this.f.selectOption.value === "Ordre Alphabétique"){
-        this.sortListEquipmentsByName();
+          this.sortListEquipmentsByName();
         }
         else if (this.f.selectOption.value === "Prix Ascendant" ){
           this.sortListEquipmentsByPriceAscendant();
