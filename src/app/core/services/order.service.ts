@@ -7,8 +7,6 @@ import { Constants } from './../../../../constants';
 import { environment } from './../../../environments/environment';
 
 import {Order} from "../../shared/models/order.model";
-import {Exemple} from "../../shared/models/exemple.model";
-
 
 /**
  * Définit le content-type du header

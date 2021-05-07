@@ -14,12 +14,12 @@ const routes: Routes = [
     path: 'equipment',
     children: [
       {
-        path: 'equipment-details/:id',
-        component: EquipmentDetailsComponent
+        path: 'equipment-list',
+        component: ListEquipmentComponent
       },
       {
-        path: 'getListEquipment',
-        component: ListEquipmentComponent
+        path: 'equipment-details/:id',
+        component: EquipmentDetailsComponent
       }
     ]
   }

@@ -6,7 +6,6 @@ main {
   display: block;
 }
 ._row {
-  display: flex;
   width: 100%;
   flex-wrap: wrap;
   ._col {
@@ -21,4 +20,8 @@ main {
     margin: 0 auto;
     width: 300px;
   }
+}
+
+._listProduct {
+  
 }

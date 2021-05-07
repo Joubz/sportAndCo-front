@@ -1,14 +1,21 @@
-.equipment-card {
-  background-color: $white;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .equipment-title-card {
   box-shadow: 2px 2px 7px 1px rgba(0, 0, 0, 0.25);
   background-color: $cyan;
   margin-left: auto;
   margin-right: auto;
+}
+
+.equipment-card {
+  background-color: $white;
+  margin-left: auto;
+  margin-right: auto;
+  &-btn {
+    display: flex;
+    justify-content: space-around;
+    i {
+      margin-right: 30px;
+    }
+  }
 }
 
 // Attribut
@@ -20,5 +27,3 @@ label-2 {
   margin: $margin-h4-base 0px;
   margin-top: 25px;
 }
-
-
