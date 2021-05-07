@@ -1,6 +1,6 @@
 <div *ngIf="equipmentLoaded | async">
 
-  <div class="equipment-title-card my-5">
+  <div class="equipment-details-title-card my-5">
     <h2> {{ equipment.name }} </h2>
     <h3 *ngIf="!isEquipmentStillAvailable" class="--center"> Erreur : Ce produit n'est plus disponible à la location </h3>
   </div>
