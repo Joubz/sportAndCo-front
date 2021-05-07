@@ -55,7 +55,7 @@
     <div class="equipment-card-btn my-7">
       <button class="common" (click)="goBack()"l> Retour </button>
 
-      <button [class]="getButtonClass('rent')" (click)="rent()" [disabled]="!isAvailable || !areDatesOk || !isEquipmentStillAvailable" l>
+      <button [class]="getButtonClass('rent')" (click)="rentEquipment()" [disabled]="!isAvailable || !areDatesOk || !isEquipmentStillAvailable" l>
         {{ this.isAvailable ? 'Louer' : 'Non disponible' }}</button>
     </div>
 

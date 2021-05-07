@@ -8,15 +8,12 @@ import {EquipmentService} from "../../core/services/equipment.service";
 import {Order} from "../../shared/models/order.model";
 import {OrderService} from "../../core/services/order.service";
 
-
 import { DatepickerOptions } from 'ng2-datepicker';
-import { getYear } from 'date-fns';
 import locale from 'date-fns/locale/en-US';
-
-
+import {Client} from "../../shared/models/clientRent.model";
 
 /**
- * Composant de la page détails d'un équipement
+ * Composant de la page détail d'un équipement
  */
 @Component({
   selector: 'app-equipment-details',
@@ -35,6 +32,11 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
   equipment: Equipment;
 
   /**
+   * Données du client qui visite la page et souhaite louer le produit
+   */
+  client: Client;
+
+  /**
    * Liste des commandes concernés par l'équipement
    */
   orderListByEquipment: Order[];
@@ -47,7 +49,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
   /**
    * url de l'application qui sera passé au HTML de l'image pour chargement de l'image sur le visuel
    */
-  urlBasic: string = environment.URL_BASE;
+  urlBasic = environment.URL_BASE;
 
   /**
    * Url de retour pour le clic sur le bouton "Retour au tableau" ou les actions sur l'anomalie
@@ -69,19 +71,20 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
    */
   quantityAvailable: number;
 
-  // TODO transformer en input quand problème réglé
+  // TODO transformer en input quand dispo depuis la recherche
   /**
    * Date de début sélectionnée par le client
    */
   startDateSelect: Date = new Date();
 
+  // TODO transformer en input quand dispo depuis la recherche
   /**
    * Date de fin sélectionnée par le client
    */
   endDateSelect: Date = new Date();
 
   /**
-   * Vérifie si les dates sélectionnés sont ok
+   * Vérifie si les dates sélectionnées sont ok
    */
   areDatesOk: boolean;
 
@@ -146,8 +149,10 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
     ]).subscribe(([equipment, listOrder]) => {
       this.equipment = equipment;
       this.orderListByEquipment = listOrder;
+
       this.quantityWanted = 1;
       this.quantityAvailable = this.equipment.totalQuantity;
+
       this.areDatesOk = true;
       this.startDatePickerOptions.minDate = new Date(this.equipment.endDate);
       this.endDatePickerOptions.minDate = new Date(this.equipment.endDate);
@@ -173,7 +178,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
 
   /**
    * Fonction qui permet de savoir si un équipement est disponible
-   * Compare d'abord les dates, ensuite la quantité
+   * Compare d'abord les dates et le status puis ensuite la quantité
    */
   isEquipmentAvailable(): void {
     this.isAvailable = false;
@@ -224,25 +229,6 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Méthode pour retourner au tableau des listes
-   */
-  goBack() {
-    this.router.navigate(['/equipment', this.urlBack]);
-  }
-
-  /**
-   * Récupère les classes à appliquer aux boutons en fonction du statut de disponibilité
-   * @param buttonName Nom du bouton affiché
-   * @returns Les classes CSS à appliquer
-   */
-  getButtonClass(buttonName: string): string {
-    switch (buttonName) {
-      case 'rent':
-        return !this.isAvailable ? 'disabled' : 'common';
-    }
-  }
-
-  /**
    * Fonction qui gère le changement de date
    * @param $event Date de début
    */
@@ -272,11 +258,31 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Méthode pour retourner au tableau des listes
+   */
+  goBack() {
+    this.router.navigate(['/equipment', this.urlBack]);
+  }
+
+  /**
+   * Récupère les classes à appliquer aux boutons en fonction du statut de disponibilité
+   * @param buttonName Nom du bouton affiché
+   * @returns Les classes CSS à appliquer
+   */
+  getButtonClass(buttonName: string): string {
+    switch (buttonName) {
+      case 'rent':
+        return !this.isAvailable ? 'disabled' : 'common';
+    }
+  }
+
+  /**
    * Fonction lançant la demande de location
    */
-  rent() {
+  rentEquipment() {
     if (this.isAvailable && this.areDatesOk && this.isEquipmentStillAvailable) {
       // TODO
+      // TODO créer les objets order et bill à partir des infos présentents
     }
   }
 
