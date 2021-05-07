@@ -152,7 +152,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
       this.startDatePickerOptions.minDate = new Date(this.equipment.endDate);
       this.endDatePickerOptions.minDate = new Date(this.equipment.endDate);
 
-      if (new Date(this.equipment.endDate) < new Date()) {
+      if (new Date(this.equipment.endDate) < new Date() ) {
         this.isEquipmentStillAvailable = false;
       } else {
         this.isEquipmentStillAvailable = true;
