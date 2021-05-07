@@ -62,17 +62,4 @@ export class EquipmentService {
       })
     );
   }
-
-  /*getListUserMail(): Observable<string[]> {
-    return this.http.get(this.equipmentEndpoint + '/getListEquipment').pipe(
-      map((jsonResponse: any) => {
-        const equipmentList = [];
-        jsonResponse.forEach(element => {
-          const equipment: Equipment = Equipment.fromJson(element);
-          equipmentList.push(equipment );
-        });
-        return equipmentList;
-      })
-    );
-  }*/
 }
