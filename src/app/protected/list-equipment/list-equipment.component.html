@@ -2,6 +2,13 @@
   <h1>Résultat de la recherche</h1>
   <button (click)="sortListEquipmentsByPriceAscendant()">Sort by Price Ascendant</button>
   <button (click)="sortListEquipmentsByPriceDescendant()">Sort by Price Descendant</button>
+  <div>
+    <select name="optionsTri" id="optionsTri">
+      <option value="name">Ordre Alphabétique</option>
+      <option value="priceAscendant"> Prix Ascendant</option>
+      <option value="priceDescendant">Prix Descendant</option>
+    </select>
+  </div>
   <div >
     <li *ngFor="let equipment of listEquipment; index as i"> name : {{equipment.name}}; ---- price = {{equipment.price}}; ---- image link : {{equipment.imageLink}}</li>
   </div>

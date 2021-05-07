@@ -31,4 +31,11 @@ export class HomeComponent implements OnInit {
   goToDetailTest(): void {
     this.router.navigate(['/equipment/equipment-details', 1]);
   }
+
+  /**
+   * méthode pour aller au résultats de la recherche/liste des équipments
+   */
+  goToListeEquipments(): void {
+    this.router.navigate(['/equipment/getListEquipment']);
+  }
 }
