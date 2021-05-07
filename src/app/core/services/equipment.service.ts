@@ -51,7 +51,7 @@ export class EquipmentService {
    * @returns La liste des équipements trouvés, une erreur sinon
    */
   getListEquipment(): Observable<any> {
-    return this.http.get(this.equipmentEndpoint + '/getListEquipment').pipe(
+    return this.http.get(this.equipmentEndpoint + '/get-list-equipment').pipe(
       map((jsonResponse: any) => {
         const equipmentList = [];
         jsonResponse.forEach(element => {

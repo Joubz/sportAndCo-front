@@ -37,9 +37,14 @@ export class Equipment {
   description: string;
 
   /**
-   * Date de création
+   * Date de début de location pour produit
    */
-  creationDate: string;
+  startDate: string;
+
+  /**
+   * Date de fin de location pour produit
+   */
+  endDate: string;
 
   /**
    * Prix de l'équipement
@@ -49,22 +54,22 @@ export class Equipment {
   /**
    * Quantité au total
    */
-  totalQuantity: string;
+  totalQuantity: number;
 
   /**
-   * Quantité restante
+   * Lien de l'image N°1
    */
-  availableQuantity: string;
+  imageLink1: string;
 
   /**
-   * Lien de l'image
+   * Lien de l'image N°2
    */
-  imageLink: string;
+  imageLink2: string;
 
   /**
-   * Précision écrite si la catégorie "autre" est sélectionné par le loueur
+   * Lien de l'image N°3
    */
-  otherText: string;
+  imageLink3: string;
 
   /**
    * Constructeur de l'objet, tous les paramètres sont obligatoires
@@ -77,12 +82,13 @@ export class Equipment {
     category: Category,
     name: string,
     description: string,
-    creationDate: string,
+    startDate: string,
+    endDate: string,
     price: number,
-    totalQuantity: string,
-    availableQuantity: string,
-    imageLink: string,
-    otherText
+    totalQuantity: number,
+    imageLink1: string,
+    imageLink2: string,
+    imageLink3: string
   }) {
     this.id = options.id;
     this.renter = options.renter;
@@ -90,12 +96,13 @@ export class Equipment {
     this.category = options.category;
     this.name = options.name;
     this.description = options.description;
-    this.creationDate = options.creationDate;
+    this.startDate = options.startDate;
+    this.endDate = options.endDate;
     this.price = options.price;
     this.totalQuantity = options.totalQuantity;
-    this.availableQuantity = options.availableQuantity;
-    this.imageLink = options.imageLink;
-    this.otherText = options.otherText;
+    this.imageLink1 = options.imageLink1;
+    this.imageLink2 = options.imageLink2;
+    this.imageLink3 = options.imageLink3;
   }
 
   /**
@@ -113,12 +120,13 @@ export class Equipment {
       category: Category.fromJson({CATEGORY_ID: json.CATEGORY_ID, CATEGORY_NAME: json.CATEGORY_NAME}),
       name: json.EQUIPMENT_NAME,
       description: json.DESCRIPTION,
-      creationDate: json.CREATION_DATE,
+      startDate: json.START_DATE,
+      endDate: json.END_DATE,
       price: json.PRICE,
       totalQuantity: json.TOTAL_QUANTITY,
-      availableQuantity: json.AVAILABLE_QUANTITY,
-      imageLink: json.IMAGE_LINK,
-      otherText: json.OTHER_TEXT
+      imageLink1: json.IMAGE_LINK_1,
+      imageLink2: json.IMAGE_LINK_2,
+      imageLink3: json.IMAGE_LINK_3
     });
 
   }

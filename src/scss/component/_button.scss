@@ -2,24 +2,27 @@ button {
   font-weight: $fw-normal;
   font-size: $button-font-size-base;
   width: 300px;
-  height: 80px;
+  height: 60px;
   text-align: center;
   margin: 0 auto;
   cursor: pointer;
 }
 
 // Bouton navigation principal_______________________________________________________________________________________________________
-.primary {
-  border: 1px solid $blue;
-  color: $blue;
-  background-color: $white;
+.common {
+  border: 1.5px solid $lcyan;
+  color: $white;
+  background-color: $lcyan;
+  box-sizing: border-box;
+  border-radius: 12px;
+  margin: 0 auto;
   &:hover {
-    color: $white;
-    background-color: $blue;
+    color: $lcyan;
+    background-color: $white;
   }
   &:focus {
-    color: $white;
-    background-color: $blue;
+    color: $lcyan;
+    background-color: $white;
   }
 }
 
@@ -37,7 +40,94 @@ button {
   }
 }
 
+
 .button-quantity {
   width: 40px;
   height: 40px;
+}
+
+
+.search {
+  border: 1.5px solid $green;
+  color: $white;
+  background-color: $green;
+  &:hover {
+    color: $white;
+    background-color: $dgreen;
+  }
+  &:focus {
+    color: $white;
+    background-color: $dgreen;
+  }
+}
+
+.connexion {
+  width: 350px;
+  height: 60px;
+  border: 1.5px solid $lcyan;
+  color: $white;
+  background-color: $lcyan;
+  box-sizing: border-box;
+  border-radius: 12px;
+  margin: 0 auto;
+  &:hover {
+    color: $lcyan;
+    background-color: $white;
+  }
+  &:focus {
+    color: $lcyan;
+    background-color: $white;
+  }
+}
+
+.delete {
+  width: 250px;
+  height: 50px;
+  border: 1px solid $red;
+  color: $red;
+  background-color: $light-grey;
+  margin: 0 auto;
+  &:hover {
+    color: $white;
+    background-color: $red;
+  }
+  &:focus {
+    color: $white;
+    background-color: $red;
+  }
+}
+
+.add {
+  width: 250px;
+  height: 50px;
+  border: 1px solid $green;
+  color: $green;
+  background-color: $light-grey;
+  margin: 0 auto;
+  &:hover {
+    color: $white;
+    background-color: $red;
+  }
+  &:focus {
+    color: $white;
+    background-color: $red;
+  }
+}
+
+
+.disabled {
+  border: 1px solid $grey;
+  color: $grey;
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 12px;
+  &:hover {
+    color: $grey;
+    background-color: rgba(0, 0, 0, 0);
+  }
+  &:focus {
+    color: $grey;
+    background-color: rgba(0, 0, 0, 0);
+  }
+  cursor:not-allowed;
+
 }
