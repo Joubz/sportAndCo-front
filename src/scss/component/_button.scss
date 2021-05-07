@@ -1,29 +1,27 @@
 button {
   font-weight: $fw-normal;
   font-size: $button-font-size-base;
-  width: 300px;
-  height: 60px;
+  width: auto;
+  height: 75px;
   text-align: center;
   margin: 0 auto;
   cursor: pointer;
 }
 
 // Bouton navigation principal_______________________________________________________________________________________________________
-.coomon {
-  width: 250px;
-  height: 50px;
-  border: 1.5px solid $lcyan; 
-  color: $white; 
+.common {
+  border: 1.5px solid $lcyan;
+  color: $white;
   background-color: $lcyan;
   box-sizing: border-box;
   border-radius: 12px;
   margin: 0 auto;
   &:hover {
-    color: $lcyan; 
+    color: $lcyan;
     background-color: $white;
   }
   &:focus {
-    color: $lcyan; 
+    color: $lcyan;
     background-color: $white;
   }
 }
@@ -42,54 +40,42 @@ button {
   }
 }
 
-.search {
-  border: 1.5px solid $green; 
-  color: $white; 
-  background-color: $green;
-  &:hover {
-    color: $white; 
-    background-color: $dgreen;
-  }
-  &:focus {
-    color: $white; 
-    background-color: $dgreen;
-  }
+
+.button-quantity {
+  width: 40px;
+  height: 40px;
 }
 
-.common {
-  width: 250px;
-  height: 50px;
-  border: 1.5px solid $lcyan; 
-  color: $white; 
-  background-color: $lcyan;
-  box-sizing: border-box;
-  border-radius: 12px;
-  margin: 0 auto;
+
+.search {
+  border: 1.5px solid $green;
+  color: $white;
+  background-color: $green;
   &:hover {
-    color: $lcyan; 
-    background-color: $white;
+    color: $white;
+    background-color: $dgreen;
   }
   &:focus {
-    color: $lcyan; 
-    background-color: $white;
+    color: $white;
+    background-color: $dgreen;
   }
 }
 
 .connexion {
   width: 350px;
-  height: 60px; 
-  border: 1.5px solid $lcyan; 
-  color: $white; 
+  height: 60px;
+  border: 1.5px solid $lcyan;
+  color: $white;
   background-color: $lcyan;
   box-sizing: border-box;
   border-radius: 12px;
   margin: 0 auto;
   &:hover {
-    color: $lcyan; 
+    color: $lcyan;
     background-color: $white;
   }
   &:focus {
-    color: $lcyan; 
+    color: $lcyan;
     background-color: $white;
   }
 }
@@ -102,12 +88,12 @@ button {
   background-color: $light-grey;
   margin: 0 auto;
   &:hover {
-      color: $white;
-      background-color: $red;
+    color: $white;
+    background-color: $red;
   }
   &:focus {
-      color: $white;
-      background-color: $red;
+    color: $white;
+    background-color: $red;
   }
 }
 
@@ -119,12 +105,12 @@ button {
   background-color: $light-grey;
   margin: 0 auto;
   &:hover {
-      color: $white;
-      background-color: $red;
+    color: $white;
+    background-color: $red;
   }
   &:focus {
-      color: $white;
-      background-color: $red;
+    color: $white;
+    background-color: $red;
   }
 }
 
@@ -133,13 +119,15 @@ button {
   border: 1px solid $grey;
   color: $grey;
   background-color: rgba(0, 0, 0, 0);
+  border-radius: 12px;
   &:hover {
-      color: $grey;
-      background-color: rgba(0, 0, 0, 0);
+    color: $grey;
+    background-color: rgba(0, 0, 0, 0);
   }
   &:focus {
-      color: $grey;
-      background-color: rgba(0, 0, 0, 0);
+    color: $grey;
+    background-color: rgba(0, 0, 0, 0);
   }
   cursor:not-allowed;
+
 }

@@ -6,22 +6,17 @@ main {
   display: block;
 }
 ._row {
-  width: 100%;
-  flex-wrap: wrap;
+  display: flex;
+  flex-wrap: nowrap;
   ._col {
-    margin: 0 auto;
-    width: 300px;
+    width: 50px;
   }
   ._col2 {
-    margin: 0 auto;
     width: 300px;
   }
   ._col3 {
-    margin: 0 auto;
     width: 300px;
   }
 }
 
-._listProduct {
-  
-}
+
