@@ -86,6 +86,11 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
   areDatesOk: boolean;
 
   /**
+   * Booleen indiquant si un produit est disponible à la vente
+   */
+  isEquipmentStillAvailable: boolean;
+
+  /**
    * Options des sélectionneurs de dates
    */
   startDatePickerOptions: DatepickerOptions = {
@@ -147,6 +152,12 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
       this.startDatePickerOptions.minDate = new Date(this.equipment.endDate);
       this.endDatePickerOptions.minDate = new Date(this.equipment.endDate);
 
+      if (new Date(this.equipment.endDate) < new Date()) {
+        this.isEquipmentStillAvailable = false;
+      } else {
+        this.isEquipmentStillAvailable = true;
+      }
+
       this.isEquipmentAvailable();
 
       this.equipmentLoaded = Promise.resolve(true);
@@ -166,9 +177,11 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
    */
   isEquipmentAvailable(): void {
     this.isAvailable = false;
-    this.quantityAvailable = this.equipment.totalQuantity;
 
-    this.orderListByEquipment.forEach(order => {
+    if (this.isEquipmentStillAvailable) {
+      this.quantityAvailable = this.equipment.totalQuantity;
+
+      this.orderListByEquipment.forEach(order => {
         const startDate = new Date(order.startDate);
         const endDate = new Date(order.endDate);
         let dateCorrespondante = false;
@@ -184,8 +197,9 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
         }
       });
 
-    if (this.quantityWanted <= this.quantityAvailable ) {
-      this.isAvailable = true;
+      if (this.quantityWanted <= this.quantityAvailable ) {
+        this.isAvailable = true;
+      }
     }
   }
 
@@ -261,7 +275,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
    * Fonction lançant la demande de location
    */
   rent() {
-    if (this.isAvailable && this.areDatesOk) {
+    if (this.isAvailable && this.areDatesOk && this.isEquipmentStillAvailable) {
       // TODO
     }
   }
