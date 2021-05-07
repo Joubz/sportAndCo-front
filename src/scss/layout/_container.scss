@@ -6,7 +6,11 @@ main {
   display: block;
 }
 ._row {
+<<<<<<< HEAD
   display: flex;
+=======
+  width: 100%;
+>>>>>>> b895a7129dcc400f15ca0d9bbae66feba192e122
   flex-wrap: nowrap;
   ._col {
     width: 50px;
@@ -19,4 +23,34 @@ main {
   }
 }
 
+<<<<<<< HEAD
 
+=======
+._list {
+  display: flex;
+  align-items: center;
+  justify-content: first baseline;
+}
+
+._listProduct {
+  columns: 3;
+  margin: 200px;
+  img {
+    width: 150px;
+    margin: 10px;
+  }
+}
+
+._productDetails {
+  width: auto;
+}
+
+._productOther {  
+  width: 20%;
+  img {
+    width: 75px;
+    margin: 5px;
+    border: solid 1px grey;
+  }
+}
+>>>>>>> b895a7129dcc400f15ca0d9bbae66feba192e122
