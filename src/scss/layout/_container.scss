@@ -22,30 +22,22 @@ main {
   }
 }
 
-._list {
-  display: flex;
-  align-items: center;
-  justify-content: first baseline;
-}
-
-._listProduct {
-  columns: 3;
-  margin: 200px;
-  img {
-    width: 150px;
-    margin: 10px;
-  }
-}
-
 ._productDetails {
   width: auto;
 }
 
-._productOther {  
+._productOther {
   width: 20%;
   img {
     width: 75px;
     margin: 5px;
     border: solid 1px grey;
   }
+}
+
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 50px;
 }

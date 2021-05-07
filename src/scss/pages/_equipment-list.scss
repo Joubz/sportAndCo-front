@@ -1,12 +1,27 @@
-.tab-item-equipment {
-  padding: 15px 0;
-  align-items: center;
-  border-radius: 20px;
-  background-color: grey;
-  display: flex;
-  margin: 10px auto;
+.card {
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  align-content: center;
+  width: 70%;
 
-  .span-text {
-    width: 350px;
+  img {
+    width: inherit!important;
+    margin-top: 10px;
   }
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+._formJustifyEnd {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  justify-content: end;
+
 }

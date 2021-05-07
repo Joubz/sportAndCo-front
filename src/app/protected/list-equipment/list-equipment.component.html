@@ -1,44 +1,43 @@
 <div *ngIf="listEquipmentLoaded | async">
 
   <h1>Résultat de la recherche</h1>
-  <button (click)="sortListEquipmentsByPriceAscendant()">Sort by Price Ascendant</button>
-  <button (click)="sortListEquipmentsByPriceDescendant()">Sort by Price Descendant</button>
-  <button (click)="sortListEquipmentsByName()">Sort by Price Descendant</button>
 
-  <form [formGroup]="filtersForm" >
-    <div >
-      <select  name="optionsTri" formControlName="selectOption" id="optionsTri" (change)="sortOnChange('selectOption')">
-        <option value="">Trie</option>
-        <option *ngFor="let selectOption of selectOptions" [ngValue]="selectOption.name" >{{selectOption.name}}</option>
-      </select>
+  <div style="display: flex">
+    <div style="flex : 2">
     </div>
-  </form>
+
+    <div style="flex : 9">
+
+      <div style=" display: flex;  align-content: end;">
+
+        <form class="_formJustifyEnd" [formGroup]="filtersForm" >
+          <div >
+            <select  name="optionsTri" formControlName="selectOption" id="optionsTri" (change)="sortOnChange('selectOption')">
+              <option value="">Trie</option>
+              <option *ngFor="let selectOption of selectOptions" [ngValue]="selectOption.name" >{{selectOption.name}}</option>
+            </select>
+          </div>
+        </form>
+
+      </div>
+
+      <div>
+        <div class="container" >
+          <a *ngFor="let equipment of listEquipment; index as i" (click)="goToEquipmentDetails(equipment.id)">
+            <div class="card --center">
+              <img alt="img" [src]="urlBasic.concat(equipment.imageLink1)" *ngIf="equipment.imageLink1" style="width:100%" />
+                <div class="--center">
+                  <h5>{{equipment.name}}</h5>
+                  <span>{{equipment.price}} €</span>
+                </div>
+            </div>
+
+          </a>
+        </div>
+      </div>
 
 
-  <div class="_list">
-    <div class="_listProduct" >
-      <div class="tab-item-equipment" *ngFor="let equipment of listEquipment; index as i">
-      <a (click)="goToEquipmentDetails(equipment.id)">
-        <img [src]="urlBasic.concat(equipment.imageLink1)" *ngIf="equipment.imageLink1" />
-          <span class="span-text">name : {{equipment.name}};</span> 
-          <span class="span-text">price: {{equipment.price}}</span>
-      </a>
-    </div>
-    </div>
-  </div>
 
-
-  <div class="_list">
-    <div class="_listProduct">
-      <img src="../../../assets/sportsCollectifs.jpg" />
-      <img src="../../../assets/sportsCollectifs.jpg" />
-      <img src="../../../assets/sportsCollectifs.jpg" />
-      <img src="../../../assets/sportsCollectifs.jpg" />
-      <img src="../../../assets/sportsCollectifs.jpg" />
-      <img src="../../../assets/sportsCollectifs.jpg" />
-      <img src="../../../assets/sportsCollectifs.jpg" />
-      <img src="../../../assets/sportsCollectifs.jpg" />
-      <img src="../../../assets/sportsCollectifs.jpg" />
     </div>
   </div>
 
