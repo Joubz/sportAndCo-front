@@ -25,10 +25,4 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  /**
-   * méthode pour aller au détails
-   */
-  goToDetailTest(): void {
-    this.router.navigate(['/equipment/equipment-details', 1]);
-  }
 }

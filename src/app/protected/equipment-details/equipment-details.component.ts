@@ -225,7 +225,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
   getButtonClass(buttonName: string): string {
     switch (buttonName) {
       case 'rent':
-        return !this.isAvailable ? 'report disabled' : 'validate';
+        return !this.isAvailable ? 'disabled' : 'common';
     }
   }
 

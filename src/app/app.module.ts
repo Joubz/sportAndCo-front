@@ -8,8 +8,8 @@ import { PublicModule } from './public/public.module';
 import { ProtectedModule } from './protected/protected.module';
 import { AdministratorModule } from "./administrator/administrator.module";
 import { RenterModule } from "./renter/renter.module";
-
 import { DatepickerModule } from 'ng2-datepicker';
+
 
 /**
  * Gestion des modules et composants généraux

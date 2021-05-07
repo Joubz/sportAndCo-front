@@ -52,7 +52,7 @@
     </div>
 
     <div class="equipment-card-btn my-7">
-      <button class="primary" (click)="goBack()"l> Retour </button>
+      <button class="common" (click)="goBack()"l> Retour </button>
 
       <button [class]="getButtonClass('rent')" (click)="rent()" [disabled]="!isAvailable || !areDatesOk" l>
         {{ this.isAvailable ? 'Louer' : 'Non disponible' }}</button>
