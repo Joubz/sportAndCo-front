@@ -6,6 +6,7 @@ import { ExempleComponentComponent } from './exemple-component/exemple-component
 import { EquipmentDetailsComponent } from './equipment-details/equipment-details.component';
 import { ListEquipmentComponent } from './list-equipment/list-equipment.component';
 import {DatepickerModule} from "ng2-datepicker";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 /**
@@ -16,7 +17,9 @@ import {DatepickerModule} from "ng2-datepicker";
   imports: [
     CommonModule,
     ProtectedRoutingModule,
-    DatepickerModule
+    DatepickerModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class ProtectedModule { }

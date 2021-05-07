@@ -36,6 +36,6 @@ export class HomeComponent implements OnInit {
    * méthode pour aller au résultats de la recherche/liste des équipments
    */
   goToListeEquipments(): void {
-    this.router.navigate(['/equipment/getListEquipment']);
+    this.router.navigate(['/equipment/equipment-list']);
   }
 }
