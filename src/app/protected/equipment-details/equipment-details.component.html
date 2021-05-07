@@ -5,7 +5,7 @@
     <h3 *ngIf="!isEquipmentStillAvailable" class="--center"> Erreur : Ce produit n'est plus disponible à la location </h3>
   </div>
 
-  <div class="equipment-card my-5">
+  <div class="equipment-details-card my-5">
     <div class="--center">
       <img class="imgProduct" [src]="urlBasic.concat(equipment.imageLink1)" *ngIf="equipment.imageLink1" />
 
@@ -19,7 +19,7 @@
       <span> {{ equipment.description }} </span>
     </div>
 
-    <div class="equipment-card my-5" *ngIf="isEquipmentStillAvailable">
+    <div class="equipment-details-card my-5" *ngIf="isEquipmentStillAvailable">
       <div class="--center">
         <div>
           <label-2>Quantité :</label-2>
@@ -52,7 +52,7 @@
       </div>
     </div>
 
-    <div class="equipment-card-btn my-7">
+    <div class="equipment-details-card my-7">
       <button class="common" (click)="goBack()"l> Retour </button>
 
       <button [class]="getButtonClass('rent')" (click)="rentEquipment()" [disabled]="!isAvailable || !areDatesOk || !isEquipmentStillAvailable" l>
