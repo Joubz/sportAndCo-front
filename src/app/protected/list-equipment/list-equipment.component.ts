@@ -147,4 +147,12 @@ export class ListEquipmentComponent implements OnInit, OnDestroy {
     this.getListEquipmentSub?.unsubscribe();
   }
 
+  /**
+   * Redirige vers le détail de l'éauipement
+   * @param id identifiant de l'équipement
+   */
+  goToEquipmentDetails(id: number): void {
+    this.router.navigate(['/equipment/equipment-details', id], { queryParams: { from: 'equipment-list' } });
+  }
+
 }
