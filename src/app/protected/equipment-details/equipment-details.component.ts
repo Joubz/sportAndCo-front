@@ -213,8 +213,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
    * Méthode pour retourner au tableau des listes
    */
   goBack() {
-    // TODO connecter quand la liste sera présente
-    // this.router.navigate(['/equipment', this.urlBack]);
+    this.router.navigate(['/equipment', this.urlBack]);
   }
 
   /**
