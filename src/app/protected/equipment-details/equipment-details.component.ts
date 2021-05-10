@@ -290,7 +290,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
   rentEquipment() {
     if (this.isAvailable && this.areDatesOk && this.isEquipmentStillAvailable) {
       // TODO
-      // TODO créer les objets order et bill à partir des infos présentents
+      // TODO créer les objets order et bill à partir des infos présentent
     }
   }
 

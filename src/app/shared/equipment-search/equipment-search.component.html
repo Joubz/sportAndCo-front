@@ -2,35 +2,40 @@
 
   <form class="_formJustifyEnd" [formGroup]="searchForm" >
 
-    <div>
+    <div class="--left">
       <input type="text" class="mt-7 secondary" placeholder="Saisie Produit" name="productName" id="productName"
              formControlName="productName" />
     </div>
+  </form>
 
-    <div>
-      <ngx-datepicker [(ngModel)]="startDateSelect" [options]="startDatePickerOptions" (ngModelChange)="changeStartDate()"></ngx-datepicker>
-    </div>
+  <div>
+    <ngx-datepicker [(ngModel)]="startDateSelect" [options]="startDatePickerOptions" (ngModelChange)="changeStartDate()"></ngx-datepicker>
+  </div>
 
-    <div>
-      <ngx-datepicker [(ngModel)]="endDateSelect" [options]="endDatePickerOptions" (ngModelChange)="changeEndDate()"></ngx-datepicker>
-    </div>
+  <div>
+    <ngx-datepicker [(ngModel)]="endDateSelect" [options]="endDatePickerOptions" (ngModelChange)="changeEndDate()"></ngx-datepicker>
+  </div>
+
+  <form class="_formJustifyEnd" [formGroup]="searchForm" >
 
     <div >
       <select  name="categorySelect" formControlName="categorySelect" id="categorySelect" >
         <option value="">Catégories</option>
-        <option *ngFor="let category of listCategory" [ngValue]="category.name" >{{ category.name }}</option>
+        <option *ngFor="let category of listCategory" [ngValue]="category.id" >{{ category.name }}</option>
       </select>
     </div>
 
     <div >
       <select  name="metropolisesSelect" formControlName="metropolisesSelect" id="metropolisesSelect" >
         <option value="">Lieu</option>
-        <option *ngFor="let metropolises of listMetropolises" [ngValue]="metropolises.name" >{{ metropolises.name }}</option>
+        <option *ngFor="let metropolises of listMetropolises" [ngValue]="metropolises.id" >{{ metropolises.name }}</option>
       </select>
     </div>
 
     <div class="equipment-details-card my-7">
-      <button class="common" (click)="search()"l> Rechercher </button>
+      <button [class]="getButtonClass('search')" (click)="search()"l [disabled]="!areDatesOk">
+        {{ this.areDatesOk ? 'Rechercher' : 'Non disponible' }} </button>
+      <span *ngIf="!areDatesOk">{{errorMessageDate}}</span>
     </div>
 
   </form>

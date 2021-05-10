@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import { environment } from 'src/environments/environment';
 import {ActivatedRoute, Router} from "@angular/router";
 import { firstBy } from 'thenby';
@@ -33,6 +33,31 @@ export class ListEquipmentComponent implements OnInit, OnDestroy {
    * Souscription au service de récupération de la liste des équipements
    */
   getListEquipmentSub: Subscription;
+
+  /**
+   * Le nom du produit passé dans la recherche
+   */
+  @Input() productName: string;
+
+  /**
+   * Date de début sélectionnée par le client
+   */
+  @Input() startDateSelect: Date;
+
+  /**
+   * Date de fin sélectionnée par le client
+   */
+  @Input() endDateSelect: Date;
+
+  /**
+   * L'id de la catégorie indiqué dans la recherche
+   */
+  @Input() categoryId: number;
+
+  /**
+   * L'id de la catégorie indiqué dans la recherche
+   */
+  @Input() metropolisesId: number;
 
   /**
    * url de l'application qui sera passé au HTML de l'image pour chargement de l'image sur le visuel

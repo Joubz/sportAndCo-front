@@ -58,7 +58,12 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
   /**
    * Date de fin sélectionnée par le client
    */
-  endDateSelect: Date = new Date();
+  endDateSelect: Date;
+
+  /**
+   * Message d'erreur sur le choix des dates
+   */
+  errorMessageDate = "Erreur : La date de fin ne peux être inférieur à la date de début";
 
   /**
    * Options des sélectionneurs de dates
@@ -117,6 +122,8 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
       this.listCategory = listCategory;
       this.listMetropolises = listMetropolises;
 
+      this.areDatesOk =  true;
+
       this.initForm();
 
       this.categoryAndMetropolisesLoaded = Promise.resolve(true);
@@ -170,10 +177,28 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
    * Fonction vérifiant si les dates sélectionnées sont conformes, affiche un message d'erreur sinon
    */
   areDatesCorrect(): void {
-    if (this.startDateSelect > this.endDateSelect) {
-      this.areDatesOk = false;
+
+    if (this.endDateSelect !== null) {
+      if (this.startDateSelect > this.endDateSelect) {
+        this.areDatesOk = false;
+      } else {
+        this.areDatesOk =  true;
+      }
     } else {
       this.areDatesOk =  true;
+    }
+
+  }
+
+  /**
+   * Récupère les classes à appliquer aux boutons en fonction du statut de disponibilité
+   * @param buttonName Nom du bouton affiché
+   * @returns Les classes CSS à appliquer
+   */
+  getButtonClass(buttonName: string): string {
+    switch (buttonName) {
+      case 'search':
+        return !this.areDatesOk ? 'disabled' : 'common';
     }
   }
 
@@ -181,7 +206,15 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
    * Fonction créant la recherche, et appellant la liste
    */
   search() {
-    // TODO
+    if (this.areDatesOk) {
+      console.log(this.f.productName.value);
+      console.log(this.startDateSelect);
+      console.log(this.endDateSelect);
+      console.log(this.f.categorySelect.value);
+      console.log(this.f.metropolisesSelect.value);
+    }
+
+    //  this.router.navigate(['../equipment-list', this.f.productName.value, this.startDateSelect, this.endDateSelect, this.f.categorySelect.value, this.f.metropolisesSelect.value]);
   }
 
 
