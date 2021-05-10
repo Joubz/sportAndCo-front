@@ -223,10 +223,6 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
   search() {
     if (this.areDatesOk) {
 
-      if (this.f.productName.value === "") {
-        this.f.productName.setValue(" ");
-      }
-
       if (this.endDateSelect === undefined) {
         this.endDateSelect = new Date();
       }

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import { environment } from 'src/environments/environment';
 import {ActivatedRoute, Router} from "@angular/router";
 import {forkJoin, Subscription} from "rxjs";
@@ -71,17 +71,25 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
    */
   quantityAvailable: number;
 
-  // TODO transformer en input quand dispo depuis la recherche
   /**
    * Date de début sélectionnée par le client
    */
-  startDateSelect: Date = new Date();
+  startDateSelectString = this.route.snapshot.paramMap.get('startDate');
 
-  // TODO transformer en input quand dispo depuis la recherche
   /**
    * Date de fin sélectionnée par le client
    */
-  endDateSelect: Date = new Date();
+  endDateSelectString = this.route.snapshot.paramMap.get('endDate');
+
+  /**
+   * Date de début sélectionnée par le client
+   */
+  startDateSelect: Date;
+
+  /**
+   * Date de fin sélectionnée par le client
+   */
+   endDateSelect: Date;
 
   /**
    * Vérifie si les dates sélectionnées sont ok
@@ -153,6 +161,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
    * Initialise le composant, récupère l'équipement correspondant et la liste des commandes concernés par l'équipement (pour vérifier si l'équipement est disponible)
    */
   ngOnInit(): void {
+    console.log(this.urlBack);
     this.getEquipmentSub = forkJoin([
       this.equipmentService.getEquipment(parseInt(this.route.snapshot.paramMap.get('id'), 10)),
       this.orderService.getOrderByEquipmentForAvailability(parseInt(this.route.snapshot.paramMap.get('id'), 10))
@@ -162,6 +171,9 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
 
       this.quantityWanted = 1;
       this.quantityAvailable = this.equipment.totalQuantity;
+
+      this.startDateSelect = new Date(this.startDateSelectString);
+      this.endDateSelect = new Date(this.endDateSelectString);
 
       this.areDatesOk = true;
       this.startDatePickerOptions.minDate = new Date(this.equipment.endDate);

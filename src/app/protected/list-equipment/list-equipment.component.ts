@@ -98,6 +98,10 @@ export class ListEquipmentComponent implements OnInit, OnDestroy {
    * Initialise le composant, récupère la liste des équipements correspondant à la recherche
    */
   ngOnInit(): void {
+    if (this.productName === "") {
+      this.productName = " ";
+    }
+
     this.getListEquipmentSub = this.equipmentService.searchEquipment(this.productName, this.startDateSelect, this.endDateSelect, parseInt(this.categoryId, 10), parseInt(this.metropolisesId, 10)).subscribe(listEquipment => {
       this.listEquipment = listEquipment;
       this.listEquipment.sort((a, b) => a.name.localeCompare(b.name));
@@ -176,7 +180,13 @@ export class ListEquipmentComponent implements OnInit, OnDestroy {
    * @param id identifiant de l'équipement
    */
   goToEquipmentDetails(id: number): void {
-    this.router.navigate(['/equipment/equipment-details', id], { queryParams: { from: 'equipment-list' } });
+    if (this.productName === " ") {
+      this.productName = "";
+    }
+    console.log('equipment-list/' + this.productName + "/" + this.startDateSelect  + "/" + this.endDateSelect  + "/" +
+      this.categoryId  + "/" + this.metropolisesId);
+    this.router.navigate(['/equipment/equipment-details', id, this.startDateSelect, this.endDateSelect], { queryParams: { from: 'equipment-list/' + this.productName + "/" + this.startDateSelect  + "/" + this.endDateSelect  + "/" +
+        this.categoryId  + "/" + this.metropolisesId,   } });
   }
 
 }
