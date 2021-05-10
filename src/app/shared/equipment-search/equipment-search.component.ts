@@ -198,7 +198,7 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
   getButtonClass(buttonName: string): string {
     switch (buttonName) {
       case 'search':
-        return !this.areDatesOk ? 'disabled' : 'common';
+        return !this.areDatesOk ? 'disabled' : 'search';
     }
   }
 
