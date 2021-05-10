@@ -12,13 +12,12 @@ header {
         margin: 0 auto; 
     
         &hover {
-            cursor: pointer; 
-            transform: scale(1.1, 1.1);            
+            cursor: pointer;         
         }
     }
     .menu {
         text-align: center;
-        margin : 20px; 
+        margin : 20px;
     }
 
     .nav_showing {

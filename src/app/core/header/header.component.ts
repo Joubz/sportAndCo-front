@@ -9,6 +9,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  
+  /**
+   * Variable d'identification admin
+   */
+    isAdmin = false;
+
+   /**
+   * Variable d'identification client
+   */
+    isClient = false;
+
+    /**
+   * Variable d'identification loueur 
+   */
+   isRenter = false;
+  
+  
   /**
    * Constructeur du composant
    */
