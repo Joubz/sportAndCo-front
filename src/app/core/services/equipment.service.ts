@@ -56,10 +56,11 @@ export class EquipmentService {
         const equipmentList = [];
         jsonResponse.forEach(element => {
           const equipment: Equipment = Equipment.fromJson(element);
-          equipmentList.push(equipment );
+          equipmentList.push(equipment);
         });
         return equipmentList;
       })
     );
   }
+
 }
