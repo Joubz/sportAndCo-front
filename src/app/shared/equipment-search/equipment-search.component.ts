@@ -9,6 +9,7 @@ import {MetropolisesService} from "../../core/services/metropolises.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {DatepickerOptions} from "ng2-datepicker";
 import locale from "date-fns/locale/en-US";
+import {EquipmentSearchProvider} from "../../core/providers/equipment-search.providers";
 
 /**
  * Composant de le la recherche
@@ -101,12 +102,14 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
    * Constructeur du composant
    * @param categoryService Service de gestion des catégories
    * @param metropolisesService Service de gestion des métropoles
+   * @param equipmentSearchProvider Provider pour la sauvegarde de champs de la rercherche
    * @param router Service de gestion des routes
    * @param fb Utilitaire de création de formulaire
    */
   constructor(
     private categoryService: CategoryService,
     private metropolisesService: MetropolisesService,
+    private equipmentSearchProvider: EquipmentSearchProvider,
     private router: Router,
     private fb: FormBuilder
   ) { }
@@ -126,6 +129,22 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
 
       this.initForm();
 
+      if ( this.equipmentSearchProvider.searchFields.productName !== null) {
+        this.f.productName.setValue(this.equipmentSearchProvider.searchFields.productName);
+      }
+      if ( this.equipmentSearchProvider.searchFields.startDate !== null) {
+        this.startDateSelect = new Date(this.equipmentSearchProvider.searchFields.startDate);
+      }
+      if ( this.equipmentSearchProvider.searchFields.endDate !== null) {
+        this.endDateSelect = new Date(this.equipmentSearchProvider.searchFields.endDate);
+      }
+      if ( this.equipmentSearchProvider.searchFields.category !== null) {
+        this.f.categorySelect.setValue(this.equipmentSearchProvider.searchFields.category);
+      }
+      if ( this.equipmentSearchProvider.searchFields.metropolises !== null) {
+        this.f.metropolisesSelect.setValue(this.equipmentSearchProvider.searchFields.metropolises);
+      }
+
       this.categoryAndMetropolisesLoaded = Promise.resolve(true);
     });
   }
@@ -134,6 +153,7 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
    * Unsubscribe
    */
   ngOnDestroy(): void {
+    this.equipmentSearchProvider.cleanProvider();
     this.getSearchSub?.unsubscribe();
   }
 
@@ -234,6 +254,12 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
       if (this.f.metropolisesSelect.value === "") {
         this.f.metropolisesSelect.setValue("0");
       }
+
+      this.equipmentSearchProvider.searchFields.productName = this.f.productName.value;
+      this.equipmentSearchProvider.searchFields.startDate = this.formatDate(this.startDateSelect);
+      this.equipmentSearchProvider.searchFields.endDate = this.formatDate(this.endDateSelect);
+      this.equipmentSearchProvider.searchFields.category = this.f.categorySelect.value;
+      this.equipmentSearchProvider.searchFields.metropolises = this.f.metropolisesSelect.value;
 
       this.router.navigate(['../equipment/equipment-list', this.f.productName.value, this.formatDate(this.startDateSelect), this.formatDate(this.endDateSelect), this.f.categorySelect.value, this.f.metropolisesSelect.value]);
     }
