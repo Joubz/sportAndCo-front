@@ -9,7 +9,7 @@ const routes: Routes = [
     path: 'equipment',
     children: [
       {
-        path: 'equipment-list',
+        path: 'equipment-list/:equipmentName/:startDate/:endDate/:categoryId/:metropolisesId',
         component: ListEquipmentComponent
       },
       {

@@ -223,17 +223,23 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
   search() {
     if (this.areDatesOk) {
 
+      if (this.f.productName.value === "") {
+        this.f.productName.setValue(" ");
+      }
+
       if (this.endDateSelect === undefined) {
         this.endDateSelect = new Date();
       }
 
-      console.log(this.f.productName.value);
-      console.log(this.formatDate(this.startDateSelect));
-      console.log(this.formatDate(this.endDateSelect));
-      console.log(this.f.categorySelect.value);
-      console.log(this.f.metropolisesSelect.value);
+      if (this.f.categorySelect.value === "") {
+        this.f.categorySelect.setValue("0");
+      }
 
-      this.router.navigate(['equipment/equipment-list', this.f.productName.value, this.formatDate(this.startDateSelect), this.formatDate(this.endDateSelect), this.f.categorySelect.value, this.f.metropolisesSelect.value]);
+      if (this.f.metropolisesSelect.value === "") {
+        this.f.metropolisesSelect.setValue("0");
+      }
+
+      this.router.navigate(['../equipment/equipment-list', this.f.productName.value, this.formatDate(this.startDateSelect), this.formatDate(this.endDateSelect), this.f.categorySelect.value, this.f.metropolisesSelect.value]);
     }
   }
 
