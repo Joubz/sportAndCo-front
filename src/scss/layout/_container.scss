@@ -18,6 +18,9 @@ main {
   ._col3 {
     width: 40%px;
   }
+  .element:nth-child(6){
+    align-self: flex-end;
+}
 }
 
 ._list {

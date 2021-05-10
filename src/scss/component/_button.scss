@@ -51,6 +51,8 @@ button {
   border: 1.5px solid $green;
   color: $white;
   background-color: $green;
+  height: 50px;
+  width: 200px;
   &:hover {
     color: $white;
     background-color: $dgreen;

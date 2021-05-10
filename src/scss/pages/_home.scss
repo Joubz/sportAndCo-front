@@ -1,0 +1,28 @@
+.champRecherche {
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 5%;
+    margin-right: 5%;
+    height : 65%; 
+}
+
+.boutonR {
+    position: relative; 
+    float: right;
+    margin-right: 5%;
+}
+
+
+@media screen and (max-width: 1200px) {
+    .imgSearch {
+        height : 300px; 
+    }
+    .champRecherche {
+        display: flex;
+        flex-wrap: wrap; 
+        flex-direction: column;
+        justify-content: center;
+        margin-top: 5%; 
+
+        }
+    }
