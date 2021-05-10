@@ -42,22 +42,22 @@ export class ListEquipmentComponent implements OnInit, OnDestroy {
   /**
    * Date de début sélectionnée par le client
    */
-  @Input() startDateSelect: Date;
+  @Input() startDateSelect: string;
 
   /**
    * Date de fin sélectionnée par le client
    */
-  @Input() endDateSelect: Date;
+  @Input() endDateSelect: string;
 
   /**
    * L'id de la catégorie indiqué dans la recherche
    */
-  @Input() categoryId: number;
+  @Input() categoryId: string;
 
   /**
    * L'id de la catégorie indiqué dans la recherche
    */
-  @Input() metropolisesId: number;
+  @Input() metropolisesId: string;
 
   /**
    * url de l'application qui sera passé au HTML de l'image pour chargement de l'image sur le visuel
@@ -98,14 +98,27 @@ export class ListEquipmentComponent implements OnInit, OnDestroy {
    * Initialise le composant, récupère la liste des équipements correspondant à la recherche
    */
   ngOnInit(): void {
-    this.getListEquipmentSub = this.equipmentService.getListEquipment().subscribe(
-      (listEquipment) => {
-        this.listEquipment = listEquipment;
-        this.listEquipment.sort((a, b) => a.name.localeCompare(b.name));
-        this.initForm();
-        this.listEquipmentLoaded = Promise.resolve(true);
-      });
 
+    console.log(this.categoryId);
+
+    console.log(this.startDateSelect);
+
+    console.log(this.endDateSelect);
+
+    if (this.categoryId === "") {
+      this.categoryId = "0";
+    }
+
+    if (this.metropolisesId === "") {
+      this.categoryId = "0";
+    }
+
+    this.getListEquipmentSub = this.equipmentService.searchEquipment(this.productName, this.startDateSelect, this.endDateSelect, parseInt(this.categoryId, 10), parseInt(this.metropolisesId, 10)).subscribe(listEquipment => {
+      this.listEquipment = listEquipment;
+      this.listEquipment.sort((a, b) => a.name.localeCompare(b.name));
+      this.initForm();
+      this.listEquipmentLoaded = Promise.resolve(true);
+    });
   }
 
   /**

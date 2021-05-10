@@ -202,19 +202,39 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
     }
   }
 
+  formatDate(date: Date): string {
+    let month = '' + (date.getMonth() + 1);
+    let day = '' + date.getDate();
+    const year = date.getFullYear();
+
+    if (month.length < 2) {
+      month = '0' + month;
+    }
+    if (day.length < 2) {
+      day = '0' + day;
+    }
+
+    return [year, month, day].join('-');
+  }
+
   /**
    * Fonction créant la recherche, et appellant la liste
    */
   search() {
     if (this.areDatesOk) {
+
+      if (this.endDateSelect === undefined) {
+        this.endDateSelect = new Date();
+      }
+
       console.log(this.f.productName.value);
-      console.log(this.startDateSelect);
-      console.log(this.endDateSelect);
+      console.log(this.formatDate(this.startDateSelect));
+      console.log(this.formatDate(this.endDateSelect));
       console.log(this.f.categorySelect.value);
       console.log(this.f.metropolisesSelect.value);
-    }
 
-    //  this.router.navigate(['../equipment-list', this.f.productName.value, this.startDateSelect, this.endDateSelect, this.f.categorySelect.value, this.f.metropolisesSelect.value]);
+      this.router.navigate(['equipment/equipment-list', this.f.productName.value, this.formatDate(this.startDateSelect), this.formatDate(this.endDateSelect), this.f.categorySelect.value, this.f.metropolisesSelect.value]);
+    }
   }
 
 
