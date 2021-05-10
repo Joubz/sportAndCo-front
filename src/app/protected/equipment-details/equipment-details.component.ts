@@ -94,6 +94,16 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
   isEquipmentStillAvailable: boolean;
 
   /**
+   * Message d'erreur quand la quantité voulue n'est pas disponible
+   */
+  errorMessageQuantity = "Erreur : Ce produit n'est pas disponible à la location";
+
+  /**
+   * Message d'erreur sur le choix des dates
+   */
+  errorMessageDate = "Erreur : La date de fin ne peux être inférieur à la date de début";
+
+  /**
    * Options des sélectionneurs de dates
    */
   startDatePickerOptions: DatepickerOptions = {

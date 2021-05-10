@@ -1,63 +1,75 @@
 <div *ngIf="equipmentLoaded | async">
-
-  <div class="equipment-details-title-card my-5">
-    <h2> {{ equipment.name }} </h2>
-    <h3 *ngIf="!isEquipmentStillAvailable" class="--center"> Erreur : Ce produit n'est plus disponible à la location </h3>
-  </div>
-
-  <div class="equipment-details-card my-5">
-    <div class="--center">
-      <img class="imgProduct" [src]="urlBasic.concat(equipment.imageLink1)" *ngIf="equipment.imageLink1" />
-
-      <h3>Loueur :  </h3>
-      <span> {{ equipment.renter.companyName }} </span>
-
-      <h3>Catégories : </h3>
-      <span> {{ equipment.category.name }} </span>
-
-      <h3>Description : </h3>
-      <span> {{ equipment.description }} </span>
+  <div *ngIf="equipment ; else noEquipment ">
+    <div class="equipment-details-title-card my-5">
+      <h2> {{ equipment.name }} </h2>
+      <h3 *ngIf="!isEquipmentStillAvailable" class="--center"> Erreur : Ce produit n'est plus disponible à la location </h3>
     </div>
 
-    <div class="equipment-details-card my-5" *ngIf="isEquipmentStillAvailable">
+    <div class="equipment-details-card my-5">
       <div class="--center">
-        <div>
-          <label-2>Quantité :</label-2>
-          <button class="button-quantity" (click)="diminishQuantity()" [disabled]="quantityWanted === 1" l> <i class="fa fa-minus"></i> </button>
-          <input type="text" [value]="quantityWanted" disabled>
-          <button class="button-quantity" (click)="augmentQuantity()" [disabled]="quantityWanted === equipment.totalQuantity" l><i class="fa fa-plus"></i> </button>
-        </div>
+        <img class="imgProduct" [src]="urlBasic.concat(equipment.imageLink1)" *ngIf="equipment.imageLink1" />
 
-        <div>
-          <label-2>Prix </label-2>
-          <span> {{ equipment.price }} € / Jour</span>
-        </div>
+        <h3>Loueur :  </h3>
+        <span> {{ equipment.renter.companyName }} </span>
 
-        <div>
-          <label-2>Prix Total</label-2>
-          <span> {{ equipment.price * quantityWanted }} € / Jour</span>
-        </div>
+        <h3>Catégories : </h3>
+        <span> {{ equipment.category.name }} </span>
 
-        <br>
+        <h3>Description : </h3>
+        <span> {{ equipment.description }} </span>
+      </div>
 
-        <p *ngIf="isAvailable"> disponible </p>
-        <p *ngIf="!isAvailable">non disponible </p>
+      <div class="equipment-details-card my-5" *ngIf="isEquipmentStillAvailable">
+        <div class="--center">
+          <div>
+            <label-2>Quantité :</label-2>
+            <button class="button-quantity" (click)="diminishQuantity()" [disabled]="quantityWanted === 1" l> <i class="fa fa-minus"></i> </button>
+            <input type="text" [value]="quantityWanted" disabled>
+            <button class="button-quantity" (click)="augmentQuantity()" [disabled]="quantityWanted === equipment.totalQuantity" l><i class="fa fa-plus"></i> </button>
+          </div>
+
+          <div>
+            <label-2>Prix </label-2>
+            <span> {{ equipment.price }} € / Jour</span>
+          </div>
+
+          <div>
+            <label-2>Prix Total</label-2>
+            <span> {{ equipment.price * quantityWanted }} € / Jour</span>
+          </div>
+
+          <br>
+
+          <p *ngIf="isAvailable"> disponible </p>
+          <p *ngIf="!isAvailable"> {{ errorMessageQuantity }} </p>
 
 
-        <div>
-          <ngx-datepicker [(ngModel)]="startDateSelect" [options]="startDatePickerOptions" (ngModelChange)="changeStartDate()"></ngx-datepicker>
-          <ngx-datepicker [(ngModel)]="endDateSelect" [options]="endDatePickerOptions" (ngModelChange)="changeEndDate()"></ngx-datepicker>
-          <p *ngIf="!areDatesOk"> Erreur : La date de fin ne peux être inférieur à la date de début </p>
+          <div>
+            <ngx-datepicker [(ngModel)]="startDateSelect" [options]="startDatePickerOptions" (ngModelChange)="changeStartDate()"></ngx-datepicker>
+            <ngx-datepicker [(ngModel)]="endDateSelect" [options]="endDatePickerOptions" (ngModelChange)="changeEndDate()"></ngx-datepicker>
+            <p *ngIf="!areDatesOk"> {{ errorMessageDate }} </p>
+          </div>
         </div>
       </div>
+
+      <div class="equipment-details-card my-7">
+        <button class="common" (click)="goBack()"l> Retour </button>
+
+        <button [class]="getButtonClass('rent')" (click)="rentEquipment()" [disabled]="!isAvailable || !areDatesOk || !isEquipmentStillAvailable" l>
+          {{ this.isAvailable ? 'Louer' : 'Non disponible' }}</button>
+      </div>
+
     </div>
-
-    <div class="equipment-details-card my-7">
-      <button class="common" (click)="goBack()"l> Retour </button>
-
-      <button [class]="getButtonClass('rent')" (click)="rentEquipment()" [disabled]="!isAvailable || !areDatesOk || !isEquipmentStillAvailable" l>
-        {{ this.isAvailable ? 'Louer' : 'Non disponible' }}</button>
-    </div>
-
   </div>
+
+  <ng-template #noEquipment>
+    <div class="my-7 p-6 --center">
+      Cette équipement n'existe pas.
+
+
+      <button class="common" (click)="goBack()"l> Retour </button>
+    </div>
+  </ng-template>
+
+
 </div>
