@@ -4,34 +4,48 @@ main {
 
 ._container {
   display: block;
+  width: 100%;
 }
 ._row {
-  width: 100%;
+  display: flex;
   flex-wrap: nowrap;
   ._col {
-    margin: 0 auto;
-    width: 300px;
+    width: 5%;
   }
   ._col2 {
-    margin: 0 auto;
-    width: 300px;
+    width: 40%;
   }
   ._col3 {
-    margin: 0 auto;
-    width: 300px;
+    width: 40%px;
   }
 }
+
 
 ._productDetails {
   width: auto;
 }
 
+._listProduct {
+  columns: 3;
+  margin: 200px;
+  img {
+    width: 150px;
+    margin: 10px;
+  }
+}
+
 ._productOther {
+
   width: 20%;
   img {
     width: 75px;
     margin: 5px;
     border: solid 1px grey;
+  }
+  ._list {
+    display: flex;
+    align-items: center;
+    justify-content: first baseline;
   }
 }
 

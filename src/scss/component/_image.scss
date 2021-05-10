@@ -8,39 +8,71 @@ img {
 .imgSearch {
   height: 100px;
   background-image: url("../images/fondRecherche.png");
-  background-position: 50% 50%;
+  background-position:50% 50%;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .imgAuth {
   height: 300px;
+  background-image: url("../images/fondAuth.png");
+  background-position:50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .imgCategories {
 
-  width: 150px;
-  margin: 0 auto;
-  img {
-    width: 150px;
-    margin: 50px;
+  .outdoor {
+    position: absolute;
+    width: 90px;
+    height: 60px;
+    left: 22px;
+    top: 250px;
+    border-radius: 5px;
   }
-  width: 100%;
-  display: flex;
+
+  .winter {
+    position: absolute;
+    width: 90px;
+    height: 60px;
+    left: 201px;
+    top: 250px;
+    border-radius: 5px;
+  }
+
+  .nautical {
+    position: absolute;
+    width: 90px;
+    height: 60px;
+    left: 27px;
+    top: 350px;
+    border-radius: 5px;
+  }
+
+  .indoor {
+    position: absolute;
+    width: 90px;
+    height: 60px;
+    left: 206px;
+    top: 350px;
+    border-radius: 5px;
+  }
 }
 
 .imgProduct {
-  width: 300px;
-  margin: 300px;
-  border: solid 1px grey;
+  width: 100px;
+  border: solid 1px;
 }
 
 .imgRenter {
   height: auto;
-  width: 100px;
+  width: 200px;
 }
 
 .logo {
   height: auto;
-  width: 100px;
+  width: 200px;
 }
+
+

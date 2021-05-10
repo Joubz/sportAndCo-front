@@ -1,0 +1,39 @@
+footer {
+    .row {
+        padding-top: 60px;
+    }
+    .footer-link {
+        width : 100%; 
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding-bottom: 30px;
+        padding-top: 20px;
+        &-item {
+            width: 300px;
+            ul {
+                font-size: 14px;
+                li {
+                    padding-bottom:  10px;
+                    a { 
+                        &:hover {
+                            color: $cyan;
+                        }
+                        &:focus {
+                            color: $cyan;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        .footer-link {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+    
+            }
+        }
+}
