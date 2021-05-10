@@ -6,6 +6,7 @@ import { EquipmentDetailsComponent } from './equipment-details/equipment-details
 import { ListEquipmentComponent } from './list-equipment/list-equipment.component';
 import {DatepickerModule} from "ng2-datepicker";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {SharedModule} from "../shared/shared.module";
 
 
 /**
@@ -13,12 +14,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
  */
 @NgModule({
   declarations: [EquipmentDetailsComponent, ListEquipmentComponent],
-  imports: [
-    CommonModule,
-    ProtectedRoutingModule,
-    DatepickerModule,
-    FormsModule,
-    ReactiveFormsModule,
-  ]
+    imports: [
+        CommonModule,
+        ProtectedRoutingModule,
+        DatepickerModule,
+        FormsModule,
+        ReactiveFormsModule,
+        SharedModule,
+    ]
 })
 export class ProtectedModule { }

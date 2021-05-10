@@ -240,7 +240,6 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
 
   /**
    * Fonction qui gère le changement de date
-   * @param $event Date de début
    */
   changeStartDate(): void {
     this.areDatesCorrect();
@@ -249,7 +248,6 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
 
   /**
    * Fonction qui gère le changement de date
-   * @param $event Date de fin
    */
   changeEndDate(): void {
     this.areDatesCorrect();
