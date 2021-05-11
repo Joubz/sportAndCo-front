@@ -1,9 +1,9 @@
 <div *ngIf="equipmentLoaded | async">
   <div *ngIf="equipment ; else noEquipment ">
-  <div class="equipment-title-card my-5">
-    <h1> Détail de location </h1>
-    <h3 *ngIf="!isEquipmentStillAvailable" class="--center"> Erreur : Ce produit n'est plus disponible à la location </h3>
-  </div>
+    <div class="equipment-title-card my-5">
+      <h1> Détail de location </h1>
+      <h3 *ngIf="!isEquipmentStillAvailable" class="--center"> Erreur : Ce produit n'est plus disponible à la location </h3>
+    </div>
 
     <div class="mx-5">
       <h2> {{ equipment.name }} </h2><br><br>
@@ -78,7 +78,7 @@
           {{ this.isAvailable ? 'Louer' : 'Non disponible' }}</button>
       </div>
 
-  </div>
+    </div>
   </div>
 
   <ng-template #noEquipment>
