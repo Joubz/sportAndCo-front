@@ -32,11 +32,11 @@
 
     <div class=" my-7 grid-only"  *ngIf="isEquipmentStillAvailable">
       <div class="my-5 flex-align-center flex-justify-content-center" >
-        <div >
+        <div class="flex-align-center" >
           <label-2 class="font-size-rem">Quantité : </label-2>
-          <button class="button-quantity" (click)="diminishQuantity()" [disabled]="quantityWanted === 1" l> <i class="fa fa-minus"></i> </button>
+          <button class="button-quantity m-0" (click)="diminishQuantity()" [disabled]="quantityWanted === 1" l> <i class="fa fa-minus"></i> </button>
           <input type="text" [value]="quantityWanted" disabled class="heightQuantityInput">
-          <button class="button-quantity" (click)="augmentQuantity()" [disabled]="quantityWanted === equipment.totalQuantity" l><i class="fa fa-plus"></i> </button>
+          <button class="button-quantity m-0" (click)="augmentQuantity()" [disabled]="quantityWanted === equipment.totalQuantity" l><i class="fa fa-plus"></i> </button>
         </div>
         <div class="ml-5">
           <ngx-datepicker [(ngModel)]="startDateSelect" [options]="startDatePickerOptions" (ngModelChange)="changeStartDate()"></ngx-datepicker>
