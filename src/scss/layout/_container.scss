@@ -4,57 +4,50 @@ main {
 
 ._container {
   display: block;
-  width: 100%;
 }
 ._row {
-  display: flex;
+  width: 100%;
   flex-wrap: nowrap;
   ._col {
-    width: 5%;
+    margin: 0 auto;
+    width: 300px;
   }
   ._col2 {
-    width: 40%;
+    margin: 0 auto;
+    width: 300px;
   }
   ._col3 {
-    width: 40%px;
-  }
-  .element:nth-child(6){
-    align-self: flex-end;
-}
-}
-
-
-._productDetails {
-  width: auto;
-}
-
-._listProduct {
-  columns: 3;
-  margin: 200px;
-  img {
-    width: 150px;
-    margin: 10px;
+    margin: 0 auto;
+    width: 300px;
   }
 }
 
-._productOther {
-
-  width: 20%;
-  img {
-    width: 75px;
-    margin: 5px;
-    border: solid 1px grey;
-  }
-  ._list {
-    display: flex;
-    align-items: center;
-    justify-content: first baseline;
-  }
-}
-
-
-.container {
+._grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 50px;
+}
+
+.section-flex{
+  display: flex;
+}
+
+.flex-align-center {
+  display: flex;
+  align-items: center;
+}
+
+.flex-justify-content-center{
+  display: flex;
+  justify-content: center;
+}
+
+.grid-only{
+  display: grid;
+}
+
+.flex-justify-content-self-center{
+  display: flex;
+  justify-content: center;
+  justify-self: center;
 }

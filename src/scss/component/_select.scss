@@ -1,0 +1,74 @@
+
+select{
+
+}
+
+option{
+  padding: 1rem;
+  cursor: pointer;
+  background-color: #ddd;
+  list-style: none;
+  content: '';
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  float: right;
+  width: .5rem;
+  height: .5rem;
+  border-bottom: 1px solid;
+  margin: 0;
+  border-bottom: 1px solid #ccc;
+  border-radius: 12px;
+  transition: 120ms all ease-in;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+.select {
+  width: 100%;
+  min-width: 15ch;
+  max-width: 30ch;
+  border: 1px solid var(--select-border);
+  border-radius: 0.25em;
+  padding: 0.25em 0.5em;
+  font-size: 1.25rem;
+  cursor: pointer;
+  line-height: 1.1;
+  background-color: #fff;
+  background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+  grid-template-areas: "select";
+  display: grid;
+  align-items: center;
+  .select::after {
+    content: "";
+    width: 0.8em;
+    height: 0.5em;
+    background-color: var(--select-arrow);
+    clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+    grid-area: select;
+    justify-self: end;
+  }
+}
+
+:root {
+  --select-border: #777;
+  --select-focus: blue;
+  --select-arrow: var(--select-border);
+}
+
+select[multiple] {
+  padding-right: 0;
+
+}
+
+.select:not(.select--multiple)::after{
+
+}
+
+select[multiple] option {
+  white-space: normal;
+}
+

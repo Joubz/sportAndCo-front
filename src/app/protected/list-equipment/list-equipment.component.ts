@@ -74,6 +74,11 @@ export class ListEquipmentComponent implements OnInit, OnDestroy {
   ];
 
   /**
+   * La valeur de select par défaut
+   */
+  defaultSelected = "Ordre Alphabétique";
+
+  /**
    * Formulaire de sélection des filtres
    */
   filtersForm: FormGroup;
@@ -108,29 +113,16 @@ export class ListEquipmentComponent implements OnInit, OnDestroy {
       this.initForm();
       this.listEquipmentLoaded = Promise.resolve(true);
     });
+
   }
 
   /**
-   * Trie la liste des équipements par ordre de prix ascendant
+   * Initialisation du formulaire
    */
-  sortListEquipmentsByPriceAscendant(): void {
-    this.listEquipment.sort(
-      firstBy(function(v1: Equipment, v2: Equipment) { return v1.price - v2.price; }));
-  }
-
-  /**
-   * Trie la liste des équipements par ordre de prix ascendant
-   */
-  sortListEquipmentsByPriceDescendant(): void {
-    this.listEquipment.sort(
-      firstBy(function(v1: Equipment, v2: Equipment) { return v2.price - v1.price; }));
-  }
-
-  /**
-   * Trie la liste des équipements par ordre alphabétique
-   */
-  sortListEquipmentsByName(): void {
-    this.listEquipment.sort((a, b) => a.name.localeCompare(b.name));
+  initForm(): void {
+    this.filtersForm = this.fb.group({
+      selectOption: ['']
+    });
   }
 
   /**
@@ -153,12 +145,26 @@ export class ListEquipmentComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Initialisation du formulaire
+   * Trie la liste des équipements par ordre de prix ascendant
    */
-  initForm(): void {
-    this.filtersForm = this.fb.group({
-      selectOption: ['']
-    });
+   sortListEquipmentsByPriceAscendant(): void {
+    this.listEquipment.sort(
+      firstBy(function(v1: Equipment, v2: Equipment) { return v1.price - v2.price; }));
+  }
+
+  /**
+   * Trie la liste des équipements par ordre de prix ascendant
+   */
+  sortListEquipmentsByPriceDescendant(): void {
+    this.listEquipment.sort(
+      firstBy(function(v1: Equipment, v2: Equipment) { return v2.price - v1.price; }));
+  }
+
+  /**
+   * Trie la liste des équipements par ordre alphabétique
+   */
+  sortListEquipmentsByName(): void {
+    this.listEquipment.sort((a, b) => a.name.localeCompare(b.name));
   }
 
   /**
@@ -171,7 +177,7 @@ export class ListEquipmentComponent implements OnInit, OnDestroy {
   /**
    * Unsubscribe
    */
-  ngOnDestroy(): void {
+   ngOnDestroy(): void {
     this.getListEquipmentSub?.unsubscribe();
   }
 
