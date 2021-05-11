@@ -265,7 +265,7 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
       this.equipmentSearchProvider.searchFields.category = this.f.categorySelect.value;
       this.equipmentSearchProvider.searchFields.metropolises = this.f.metropolisesSelect.value;
 
-      this.router.navigate(['../equipment/equipment-list', this.f.productName.value, this.formatDate(this.startDateSelect), this.formatDate(this.endDateSelect), this.f.categorySelect.value, this.f.metropolisesSelect.value]);
+      this.router.navigate(['../equipment/equipment-list']);
     }
   }
 

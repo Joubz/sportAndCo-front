@@ -12,7 +12,7 @@ const routes: Routes = [
     canDeactivate: [EquipmentSearchGuard],
     children: [
       {
-        path: 'equipment-list/:equipmentName/:startDate/:endDate/:categoryId/:metropolisesId',
+        path: 'equipment-list',
         component: ListEquipmentComponent
       },
       {

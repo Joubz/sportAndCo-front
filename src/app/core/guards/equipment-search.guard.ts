@@ -16,7 +16,7 @@ export class EquipmentSearchGuard implements CanActivateChild, CanDeactivate<unk
    * Nom des routes disponibles
    */
   routesNames = {
-    equipmentList: 'equipment-list/:equipmentName/:startDate/:endDate/:categoryId/:metropolisesId',
+    equipmentList: 'equipment-list',
     equipmentDetail: 'equipment-details/:id/:startDate/:endDate'
   };
 

@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { environment } from 'src/environments/environment';
 import {ActivatedRoute, Router} from "@angular/router";
 import { firstBy } from 'thenby';
@@ -8,6 +8,7 @@ import {OrderService} from "../../core/services/order.service";
 import {Equipment} from "../../shared/models/equipment.model";
 import {Subscription} from "rxjs";
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {EquipmentSearchProvider} from "../../core/providers/equipment-search.providers";
 
 /**
  * Composant de la liste des équipements
@@ -37,27 +38,27 @@ export class ListEquipmentComponent implements OnInit, OnDestroy {
   /**
    * Le nom du produit passé dans la recherche
    */
-   productName = this.route.snapshot.paramMap.get('equipmentName');
+   productName: string;
 
   /**
    * Date de début sélectionnée par le client
    */
-   startDateSelect = this.route.snapshot.paramMap.get('startDate');
+   startDateSelect: string;
 
   /**
    * Date de fin sélectionnée par le client
    */
-   endDateSelect = this.route.snapshot.paramMap.get('endDate');
+   endDateSelect: string;
 
   /**
    * L'id de la catégorie indiqué dans la recherche
    */
-  categoryId = this.route.snapshot.paramMap.get('categoryId');
+  categoryId: string;
 
   /**
    * L'id de la catégorie indiqué dans la recherche
    */
-   metropolisesId = this.route.snapshot.paramMap.get('metropolisesId');
+   metropolisesId: string;
 
   /**
    * url de l'application qui sera passé au HTML de l'image pour chargement de l'image sur le visuel
@@ -89,6 +90,7 @@ export class ListEquipmentComponent implements OnInit, OnDestroy {
    * @param orderService Service de gestion des commandes
    * @param router Service de gestion des routes
    * @param route Service angular de gestion de la route actuelle
+   * @param equipmentSearchProvider Provider pour la sauvegarde de champs de la rercherche
    * @param fb Utilitaire de création de formulaire
    */
   constructor(
@@ -96,6 +98,7 @@ export class ListEquipmentComponent implements OnInit, OnDestroy {
     private orderService: OrderService,
     private router: Router,
     private route: ActivatedRoute,
+    private equipmentSearchProvider: EquipmentSearchProvider,
     private fb: FormBuilder,
   ) {}
 
@@ -103,6 +106,12 @@ export class ListEquipmentComponent implements OnInit, OnDestroy {
    * Initialise le composant, récupère la liste des équipements correspondant à la recherche
    */
   ngOnInit(): void {
+    this.productName = this.equipmentSearchProvider.searchFields.productName;
+    this.startDateSelect = this.equipmentSearchProvider.searchFields.startDate;
+    this.endDateSelect = this.equipmentSearchProvider.searchFields.endDate;
+    this.categoryId = this.equipmentSearchProvider.searchFields.category;
+    this.metropolisesId = this.equipmentSearchProvider.searchFields.metropolises;
+
     if (this.productName === "") {
       this.productName = " ";
     }
@@ -190,7 +199,7 @@ export class ListEquipmentComponent implements OnInit, OnDestroy {
       this.productName = "";
     }
     this.router.navigate(['/equipment/equipment-details', id, this.startDateSelect, this.endDateSelect],
-      { queryParams: { from: 'equipment-list/' + this.productName + "/" + this.startDateSelect  + "/" + this.endDateSelect  + "/" + this.categoryId  + "/" + this.metropolisesId } });
+      { queryParams: { from: 'equipment-list' } });
   }
 
 }
