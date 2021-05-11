@@ -49,6 +49,11 @@ export class ListEquipmentComponent implements OnInit, OnDestroy {
   ];
 
   /**
+   * La valeur de select par défaut
+   */
+  defaultSelected = "Ordre Alphabétique";
+
+  /**
    * Formulaire de sélection des filtres
    */
   filtersForm: FormGroup;
