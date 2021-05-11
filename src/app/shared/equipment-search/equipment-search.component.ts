@@ -130,8 +130,11 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
       this.initForm();
 
       if ( this.equipmentSearchProvider.searchFields.productName !== null) {
-        this.f.productName.setValue(this.equipmentSearchProvider.searchFields.productName);
+        if (this.equipmentSearchProvider.searchFields.productName !== " ") {
+          this.f.productName.setValue(this.equipmentSearchProvider.searchFields.productName);
+        }
       }
+
       if ( this.equipmentSearchProvider.searchFields.startDate !== null) {
         this.startDateSelect = new Date(this.equipmentSearchProvider.searchFields.startDate);
       }
@@ -139,10 +142,14 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
         this.endDateSelect = new Date(this.equipmentSearchProvider.searchFields.endDate);
       }
       if ( this.equipmentSearchProvider.searchFields.category !== null) {
-        this.f.categorySelect.setValue(this.equipmentSearchProvider.searchFields.category);
+        if ( this.equipmentSearchProvider.searchFields.category !== "0") {
+          this.f.categorySelect.setValue(this.equipmentSearchProvider.searchFields.category);
+        }
       }
       if ( this.equipmentSearchProvider.searchFields.metropolises !== null) {
-        this.f.metropolisesSelect.setValue(this.equipmentSearchProvider.searchFields.metropolises);
+        if ( this.equipmentSearchProvider.searchFields.metropolises !== "0") {
+          this.f.metropolisesSelect.setValue(this.equipmentSearchProvider.searchFields.metropolises);
+        }
       }
 
       this.categoryAndMetropolisesLoaded = Promise.resolve(true);
