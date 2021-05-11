@@ -36,31 +36,6 @@ export class ListEquipmentComponent implements OnInit, OnDestroy {
   getListEquipmentSub: Subscription;
 
   /**
-   * Le nom du produit passé dans la recherche
-   */
-   productName: string;
-
-  /**
-   * Date de début sélectionnée par le client
-   */
-   startDateSelect: string;
-
-  /**
-   * Date de fin sélectionnée par le client
-   */
-   endDateSelect: string;
-
-  /**
-   * L'id de la catégorie indiqué dans la recherche
-   */
-  categoryId: string;
-
-  /**
-   * L'id de la catégorie indiqué dans la recherche
-   */
-   metropolisesId: string;
-
-  /**
    * url de l'application qui sera passé au HTML de l'image pour chargement de l'image sur le visuel
    */
   urlBasic: string = environment.URL_BASE;
@@ -106,17 +81,9 @@ export class ListEquipmentComponent implements OnInit, OnDestroy {
    * Initialise le composant, récupère la liste des équipements correspondant à la recherche
    */
   ngOnInit(): void {
-    this.productName = this.equipmentSearchProvider.searchFields.productName;
-    this.startDateSelect = this.equipmentSearchProvider.searchFields.startDate;
-    this.endDateSelect = this.equipmentSearchProvider.searchFields.endDate;
-    this.categoryId = this.equipmentSearchProvider.searchFields.category;
-    this.metropolisesId = this.equipmentSearchProvider.searchFields.metropolises;
-
-    if (this.productName === "") {
-      this.productName = " ";
-    }
-
-    this.getListEquipmentSub = this.equipmentService.searchEquipment(this.productName, this.startDateSelect, this.endDateSelect, parseInt(this.categoryId, 10), parseInt(this.metropolisesId, 10)).subscribe(listEquipment => {
+    this.getListEquipmentSub = this.equipmentService.searchEquipment(this.equipmentSearchProvider.searchFields.productName, this.equipmentSearchProvider.searchFields.startDate,
+      this.equipmentSearchProvider.searchFields.endDate, parseInt(this.equipmentSearchProvider.searchFields.category, 10), parseInt(this.equipmentSearchProvider.searchFields.metropolises, 10))
+      .subscribe(listEquipment => {
       this.listEquipment = listEquipment;
       this.listEquipment.sort((a, b) => a.name.localeCompare(b.name));
       this.initForm();
@@ -195,10 +162,7 @@ export class ListEquipmentComponent implements OnInit, OnDestroy {
    * @param id identifiant de l'équipement
    */
   goToEquipmentDetails(id: number): void {
-    if (this.productName === " ") {
-      this.productName = "";
-    }
-    this.router.navigate(['/equipment/equipment-details', id, this.startDateSelect, this.endDateSelect],
+    this.router.navigate(['/equipment/equipment-details', id, this.equipmentSearchProvider.searchFields.startDate, this.equipmentSearchProvider.searchFields.endDate],
       { queryParams: { from: 'equipment-list' } });
   }
 

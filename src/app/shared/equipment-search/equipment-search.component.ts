@@ -242,12 +242,20 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
   search() {
     if (this.areDatesOk) {
 
+      if (this.f.productName.value === "") {
+        this.f.productName.setValue(" ");
+      }
+
       if (this.startDateSelect === undefined) {
         this.startDateSelect = new Date();
       }
 
       if (this.endDateSelect === undefined) {
-        this.endDateSelect = new Date();
+        if (this.startDateSelect === undefined) {
+          this.endDateSelect = new Date();
+        } else {
+          this.endDateSelect = this.startDateSelect;
+        }
       }
 
       if (this.f.categorySelect.value === "") {
@@ -258,12 +266,8 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
         this.f.metropolisesSelect.setValue("0");
       }
 
-      this.equipmentSearchProvider.searchFields.isFilled = true;
-      this.equipmentSearchProvider.searchFields.productName = this.f.productName.value;
-      this.equipmentSearchProvider.searchFields.startDate = this.formatDate(this.startDateSelect);
-      this.equipmentSearchProvider.searchFields.endDate = this.formatDate(this.endDateSelect);
-      this.equipmentSearchProvider.searchFields.category = this.f.categorySelect.value;
-      this.equipmentSearchProvider.searchFields.metropolises = this.f.metropolisesSelect.value;
+      this.equipmentSearchProvider.fillProvider(this.f.productName.value, this.formatDate(this.startDateSelect), this.formatDate(this.endDateSelect),
+        this.f.categorySelect.value,  this.f.metropolisesSelect.value);
 
       this.router.navigate(['../equipment/equipment-list']);
     }
