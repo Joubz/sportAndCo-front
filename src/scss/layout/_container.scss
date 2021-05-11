@@ -22,22 +22,32 @@ main {
   }
 }
 
-._productDetails {
-  width: auto;
-}
-
-._productOther {
-  width: 20%;
-  img {
-    width: 75px;
-    margin: 5px;
-    border: solid 1px grey;
-  }
-}
-
-
-.container {
+._grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 50px;
+}
+
+.section-flex{
+  display: flex;
+}
+
+.flex-align-center {
+  display: flex;
+  align-items: center;
+}
+
+.flex-justify-content-center{
+  display: flex;
+  justify-content: center;
+}
+
+.grid-only{
+  display: grid;
+}
+
+.flex-justify-content-self-center{
+  display: flex;
+  justify-content: center;
+  justify-self: center;
 }

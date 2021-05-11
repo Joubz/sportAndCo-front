@@ -13,12 +13,12 @@
 @import "./component/button";
 @import "./component/image";
 @import "./component/modal";
+@import "./component/select";
 
 @import "./layout/container";
-@import "src/scss/layout/footer";
+@import "./layout/footer";
 @import "./layout/header";
 
 @import "./pages/home";
 @import "./pages/equipement-details";
-@import "./pages/equipment-list";
-
+@import "./pages/list-equipment";

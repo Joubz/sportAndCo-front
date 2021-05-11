@@ -11,31 +11,26 @@
       <div style=" display: flex;  align-content: end;">
 
         <form class="_formJustifyEnd" [formGroup]="filtersForm" >
-          <div >
-            <select  name="optionsTri" formControlName="selectOption" id="optionsTri" (change)="sortOnChange('selectOption')">
-              <option value="">Trie</option>
-              <option *ngFor="let selectOption of selectOptions" [ngValue]="selectOption.name" >{{selectOption.name}}</option>
+            <select  name="optionsTri" class="select" formControlName="selectOption" id="optionsTri" (change)="sortOnChange('selectOption')" [(ngModel)]="defaultSelected">
+
+              <option *ngFor="let selectOption of selectOptions" [ngValue]="selectOption.name" [selected]="selectOption.name == 'Ordre Alphabétique'">{{selectOption.name}}</option>
             </select>
-          </div>
+
         </form>
 
       </div>
 
-      <div>
-        <div class="container" >
-          <a *ngFor="let equipment of listEquipment; index as i" (click)="goToEquipmentDetails(equipment.id)">
-            <div class="card --center">
-              <img alt="img" [src]="urlBasic.concat(equipment.imageLink1)" *ngIf="equipment.imageLink1" style="width:100%" />
-                <div class="--center">
-                  <h5>{{equipment.name}}</h5>
-                  <span>{{equipment.price}} €</span>
-                </div>
-            </div>
-
-          </a>
-        </div>
+      <div class="_grid" >
+        <a *ngFor="let equipment of listEquipment; index as i" (click)="goToEquipmentDetails(equipment.id)">
+          <div class="card --center">
+            <img alt="img" [src]="urlBasic.concat(equipment.imageLink1)" *ngIf="equipment.imageLink1" style="width:100%" />
+              <div class="--center">
+                <h5>{{equipment.name}}</h5>
+                <span>{{equipment.price}} €</span>
+              </div>
+          </div>
+        </a>
       </div>
-
 
 
     </div>

@@ -30,17 +30,17 @@ img {
 }
 
 .imgProduct {
-  width: 300px;
-  margin: 300px;
+  width: 80%;
+}
+
+.imgProductOther {
+  width: 40%;
   border: solid 1px grey;
+  height: inherit;
+
 }
 
 .imgRenter {
-  height: auto;
-  width: 100px;
-}
-
-.logo {
   height: auto;
   width: 100px;
 }

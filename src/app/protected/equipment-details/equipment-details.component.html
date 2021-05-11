@@ -1,65 +1,84 @@
 <div *ngIf="equipmentLoaded | async">
   <div *ngIf="equipment ; else noEquipment ">
-    <div class="equipment-details-title-card my-5">
-      <h2> {{ equipment.name }} </h2>
-      <h3 *ngIf="!isEquipmentStillAvailable" class="--center"> Erreur : Ce produit n'est plus disponible à la location </h3>
-    </div>
+  <div class="equipment-title-card my-5">
+    <h1> Détail de location </h1>
+    <h3 *ngIf="!isEquipmentStillAvailable" class="--center"> Erreur : Ce produit n'est plus disponible à la location </h3>
+  </div>
 
-    <div class="equipment-details-card my-5">
-      <div class="--center">
-        <img class="imgProduct" [src]="urlBasic.concat(equipment.imageLink1)" *ngIf="equipment.imageLink1" />
+    <div class="mx-5">
+      <h2> {{ equipment.name }} </h2><br><br>
 
-        <h3>Loueur :  </h3>
-        <span> {{ equipment.renter.companyName }} </span>
+      <div class="section-flex">
 
-        <h3>Catégories : </h3>
-        <span> {{ equipment.category.name }} </span>
+        <div class="column ">
+          <img class=" row imgProductOther" [src]="urlBasic.concat(equipment.imageLink1)" *ngIf="equipment.imageLink1" />
+          <img class=" row imgProductOther" [src]="urlBasic.concat(equipment.imageLink1)" *ngIf="equipment.imageLink1" />
+          <img class="row imgProductOther" [src]="urlBasic.concat(equipment.imageLink1)" *ngIf="equipment.imageLink1" />
+        </div>
+        <div class="column">
+          <img class="imgProduct" [src]="urlBasic.concat(equipment.imageLink1)" *ngIf="equipment.imageLink1" />
+        </div>
+        <div class="column pr-7 font-size-rem">
+          <h3>Loueur :  </h3>
+          <span> {{ equipment.renter.companyName }} </span>
 
-        <h3>Description : </h3>
-        <span> {{ equipment.description }} </span>
+          <h3>Catégories : </h3>
+          <span> {{ equipment.category.name }} </span>
+
+          <h3>Description : </h3>
+          <span> {{ equipment.description }} </span>
+        </div>
       </div>
 
-      <div class="equipment-details-card my-5" *ngIf="isEquipmentStillAvailable">
-        <div class="--center">
-          <div>
-            <label-2>Quantité :</label-2>
-            <button class="button-quantity" (click)="diminishQuantity()" [disabled]="quantityWanted === 1" l> <i class="fa fa-minus"></i> </button>
-            <input type="text" [value]="quantityWanted" disabled>
-            <button class="button-quantity" (click)="augmentQuantity()" [disabled]="quantityWanted === equipment.totalQuantity" l><i class="fa fa-plus"></i> </button>
+      <div class=" my-7 grid-only"  *ngIf="isEquipmentStillAvailable">
+        <div class="my-5 flex-align-center flex-justify-content-center" >
+          <div class="flex-align-center" >
+            <label-2 class="font-size-rem">Quantité : </label-2>
+            <button class="button-quantity m-0" (click)="diminishQuantity()" [disabled]="quantityWanted === 1" l> <i class="fa fa-minus"></i> </button>
+            <input type="text" [value]="quantityWanted" disabled class="heightQuantityInput">
+            <button class="button-quantity m-0" (click)="augmentQuantity()" [disabled]="quantityWanted === equipment.totalQuantity" l><i class="fa fa-plus"></i> </button>
           </div>
-
-          <div>
-            <label-2>Prix </label-2>
-            <span> {{ equipment.price }} € / Jour</span>
-          </div>
-
-          <div>
-            <label-2>Prix Total</label-2>
-            <span> {{ equipment.price * quantityWanted }} € / Jour</span>
-          </div>
-
-          <br>
-
-          <p *ngIf="isAvailable"> disponible </p>
-          <p *ngIf="!isAvailable"> {{ errorMessageQuantity }} </p>
-
-
-          <div>
+          <div class="ml-5">
             <ngx-datepicker [(ngModel)]="startDateSelect" [options]="startDatePickerOptions" (ngModelChange)="changeStartDate()"></ngx-datepicker>
             <ngx-datepicker [(ngModel)]="endDateSelect" [options]="endDatePickerOptions" (ngModelChange)="changeEndDate()"></ngx-datepicker>
             <p *ngIf="!areDatesOk"> {{ errorMessageDate }} </p>
           </div>
         </div>
+
+        <div class="flex-justify-content-center">
+          <div class="">
+            <label-2 class="font-size-rem" >Prix : </label-2>
+            <span class="font-size-rem"> {{ equipment.price }} € / Jour</span>
+          </div>
+
+          <div class="ml-5">
+            <label-2 class="font-size-rem">Prix Total : </label-2>
+            <span class="font-size-rem"> {{ equipment.price * quantityWanted }} € / Jour</span>
+          </div>
+        </div>
+        <br>
+
+        <p *ngIf="isAvailable" class="--green flex-justify-content-center my-5 font-size-rem"> Disponible </p>
+        <p *ngIf="!isAvailable" class="--red flex-justify-content-center my-5 font-size-rem">Non Disponible </p>
+
+        <h1>Avis clients</h1>
+        <div class="avis-width flex-justify-content-self-center " >
+
+          <p class="font-size-rem">
+            Proin mi. Aliquam gravida mauris ut mi. Duis risus odio, auctor vitae, aliquet nec, imperdiet nec, leo. Morbi neque tellus, imperdiet non, vestibulum nec, euismod in, dolor. Fusce feugiat. Lorem ipsum dolor sit amet, consectetuer
+          </p>
+        </div>
+
       </div>
 
-      <div class="equipment-details-card my-7">
+      <div class="section-flex">
         <button class="common" (click)="goBack()"l> Retour </button>
 
         <button [class]="getButtonClass('rent')" (click)="rentEquipment()" [disabled]="!isAvailable || !areDatesOk || !isEquipmentStillAvailable" l>
           {{ this.isAvailable ? 'Louer' : 'Non disponible' }}</button>
       </div>
 
-    </div>
+  </div>
   </div>
 
   <ng-template #noEquipment>
