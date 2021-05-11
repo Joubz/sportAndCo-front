@@ -134,7 +134,6 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
           this.f.productName.setValue(this.equipmentSearchProvider.searchFields.productName);
         }
       }
-
       if ( this.equipmentSearchProvider.searchFields.startDate !== null) {
         this.startDateSelect = new Date(this.equipmentSearchProvider.searchFields.startDate);
       }
