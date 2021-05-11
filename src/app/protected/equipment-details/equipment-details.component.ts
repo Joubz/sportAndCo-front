@@ -161,7 +161,6 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
    * Initialise le composant, récupère l'équipement correspondant et la liste des commandes concernés par l'équipement (pour vérifier si l'équipement est disponible)
    */
   ngOnInit(): void {
-    console.log(this.urlBack);
     this.getEquipmentSub = forkJoin([
       this.equipmentService.getEquipment(parseInt(this.route.snapshot.paramMap.get('id'), 10)),
       this.orderService.getOrderByEquipmentForAvailability(parseInt(this.route.snapshot.paramMap.get('id'), 10))

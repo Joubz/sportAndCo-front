@@ -12,12 +12,14 @@ export class EquipmentSearchProvider {
    * Champs de la recherche à afficher
    */
   searchFields: {
+    isFilled: boolean
     productName: string,
     startDate: string,
     endDate: string,
     category: string,
     metropolises: string
   } = {
+    isFilled: false,
     productName: null,
     startDate: null,
     endDate: null,
@@ -26,10 +28,19 @@ export class EquipmentSearchProvider {
   };
 
   /**
+   * Retourne l'état de remplissage du provider
+   * @return isFilled l'état de remplissage
+   */
+  isFilled(): boolean {
+    return this.searchFields.isFilled;
+  }
+
+  /**
    * Vider le provider
    */
   cleanProvider(): void {
     this.searchFields = {
+      isFilled: false,
       productName: null,
       startDate: null,
       endDate: null,

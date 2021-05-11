@@ -54,7 +54,7 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
   /**
    * Date de début sélectionnée par le client
    */
-  startDateSelect: Date = new Date();
+  startDateSelect: Date;
 
   /**
    * Date de fin sélectionnée par le client
@@ -153,7 +153,6 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
    * Unsubscribe
    */
   ngOnDestroy(): void {
-    this.equipmentSearchProvider.cleanProvider();
     this.getSearchSub?.unsubscribe();
   }
 
@@ -243,6 +242,10 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
   search() {
     if (this.areDatesOk) {
 
+      if (this.startDateSelect === undefined) {
+        this.startDateSelect = new Date();
+      }
+
       if (this.endDateSelect === undefined) {
         this.endDateSelect = new Date();
       }
@@ -255,6 +258,7 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
         this.f.metropolisesSelect.setValue("0");
       }
 
+      this.equipmentSearchProvider.searchFields.isFilled = true;
       this.equipmentSearchProvider.searchFields.productName = this.f.productName.value;
       this.equipmentSearchProvider.searchFields.startDate = this.formatDate(this.startDateSelect);
       this.equipmentSearchProvider.searchFields.endDate = this.formatDate(this.endDateSelect);

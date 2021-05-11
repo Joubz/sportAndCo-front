@@ -183,8 +183,6 @@ export class ListEquipmentComponent implements OnInit, OnDestroy {
     if (this.productName === " ") {
       this.productName = "";
     }
-    console.log('equipment-list/' + this.productName + "/" + this.startDateSelect  + "/" + this.endDateSelect  + "/" +
-      this.categoryId  + "/" + this.metropolisesId);
     this.router.navigate(['/equipment/equipment-details', id, this.startDateSelect, this.endDateSelect], { queryParams: { from: 'equipment-list/' + this.productName + "/" + this.startDateSelect  + "/" + this.endDateSelect  + "/" +
         this.categoryId  + "/" + this.metropolisesId,   } });
   }

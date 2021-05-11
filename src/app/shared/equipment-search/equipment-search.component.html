@@ -3,12 +3,9 @@
   <div class = "_container imgSearch">
     <div class="_row --center champRecherche">
 
-      <form class="_formJustifyEnd" [formGroup]="searchForm" >
-
-        <div class="--left">
-          <input type="text" class="mt-7 secondary" placeholder="Rechercher un produit" name="search" id="productName"
-                 formControlName="productName" />
-        </div>
+      <form [formGroup]="searchForm" >
+        <input type="text" placeholder="Rechercher un produit" name="search" id="productName"
+               formControlName="productName" />
       </form>
 
       <ngx-datepicker [(ngModel)]="startDateSelect" [options]="startDatePickerOptions" (ngModelChange)="changeStartDate()"></ngx-datepicker>
@@ -16,8 +13,7 @@
       <ngx-datepicker [(ngModel)]="endDateSelect" [options]="endDatePickerOptions" (ngModelChange)="changeEndDate()"></ngx-datepicker>
 
 
-      <form class="_formJustifyEnd" [formGroup]="searchForm" >
-
+      <form [formGroup]="searchForm" >
         <div>
           <select  name="category" formControlName="categorySelect" id="categorySelect" >
             <option value="">Catégories</option>
@@ -26,8 +22,7 @@
         </div>
       </form>
 
-      <form class="_formJustifyEnd" [formGroup]="searchForm" >
-
+      <form [formGroup]="searchForm" >
         <div>
           <select  name="metropolisesSelect" formControlName="metropolisesSelect" id="metropolisesSelect" >
             <option value="">Lieu</option>
