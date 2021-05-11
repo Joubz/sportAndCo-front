@@ -8,39 +8,12 @@
   display: flex;
 }
 
-.equipment-card {
-  background-color: $white;
-  margin-left: auto;
-  margin-right: auto;
-  &-btn {
-    display: flex;
-    justify-content: space-around;
-    i {
-      margin-right: 30px;
-    }
-  }
-}
-
-// Attribut
-label-2 {
-  font-weight: $fw-light;
-  font-size: $h4-font-size-base;
-  text-transform: uppercase;
-  color: $grey;
-  margin: $margin-h4-base 0px;
-  margin-top: 25px;
-}
-
 .row{
-  //flex-wrap: nowrap;
   justify-content: space-between;
   display: flex;
 }
 
-.rowImagesPremierBloc{
-  align-content: space-between;
-}
-
+//premiere colonne de la ligne des images
 .column:nth-of-type(1){
   flex: 3;
   justify-content: space-around;
@@ -48,32 +21,17 @@ label-2 {
   flex-direction: column;
   align-items: end;
 }
-
+//deuxieme colonne de la ligne des images
 .column:nth-of-type(2) {
   flex: 8;
   display: flex;
   justify-content: center;
 }
 
+//troisieme colonne de la ligne des images
 .column:nth-of-type(3) {
   flex: 3;
 }
-
-
-.premierColumnFlex{
-  //flex-direction: column;
-  width: 33.33%;
-  align-content: space-between;
-  flex-wrap: wrap;
-}
-
-
-
-.margin_top {
-  margin-top: 100px;
-}
-
-//.details_rest
 
 .avis-width{
   width: 675px;
