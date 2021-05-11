@@ -62,6 +62,11 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
   endDateSelect: Date;
 
   /**
+   * Date du jour
+   */
+  todayDate = new Date();
+
+  /**
    * Message d'erreur sur le choix des dates
    */
   errorMessageDate = "Erreur : La date de fin ne peux être inférieur à la date de début";
@@ -78,8 +83,7 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
     locale,
     position: 'bottom',
     calendarClass: 'datepicker-default',
-    scrollBarColor: '#dfe3e9',
-    maxDate: new Date()
+    scrollBarColor: '#dfe3e9'
   };
 
   /**
@@ -94,8 +98,7 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
     locale,
     position: 'bottom',
     calendarClass: 'datepicker-default',
-    scrollBarColor: '#dfe3e9',
-    maxDate: new Date(),
+    scrollBarColor: '#dfe3e9'
   };
 
   /**
@@ -125,6 +128,9 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
       this.listCategory = listCategory;
       this.listMetropolises = listMetropolises;
 
+      this.todayDate.setDate(this.todayDate.getDate() - 1);
+      this.startDatePickerOptions.maxDate = this.todayDate;
+      this.endDatePickerOptions.maxDate = this.todayDate;
       this.areDatesOk =  true;
 
       this.initForm();

@@ -92,6 +92,11 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
    endDateSelect: Date;
 
   /**
+   * Date du jour
+   */
+  todayDate = new Date();
+
+  /**
    * Vérifie si les dates sélectionnées sont ok
    */
   areDatesOk: boolean;
@@ -123,8 +128,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
     locale,
     position: 'bottom',
     calendarClass: 'datepicker-default',
-    scrollBarColor: '#dfe3e9',
-    maxDate: new Date()
+    scrollBarColor: '#dfe3e9'
   };
 
   /**
@@ -139,8 +143,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
     locale,
     position: 'bottom',
     calendarClass: 'datepicker-default',
-    scrollBarColor: '#dfe3e9',
-    maxDate: new Date(),
+    scrollBarColor: '#dfe3e9'
   };
 
   /**
@@ -174,6 +177,9 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
       this.startDateSelect = new Date(this.startDateSelectString);
       this.endDateSelect = new Date(this.endDateSelectString);
 
+      this.todayDate.setDate(this.todayDate.getDate() - 1);
+      this.startDatePickerOptions.maxDate = this.todayDate;
+      this.endDatePickerOptions.maxDate = this.todayDate;
       this.areDatesOk = true;
       this.startDatePickerOptions.minDate = new Date(this.equipment.endDate);
       this.endDatePickerOptions.minDate = new Date(this.equipment.endDate);
