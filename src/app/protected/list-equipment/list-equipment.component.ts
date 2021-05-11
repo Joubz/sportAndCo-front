@@ -84,11 +84,11 @@ export class ListEquipmentComponent implements OnInit, OnDestroy {
     this.getListEquipmentSub = this.equipmentService.searchEquipment(this.equipmentSearchProvider.searchFields.productName, this.equipmentSearchProvider.searchFields.startDate,
       this.equipmentSearchProvider.searchFields.endDate, parseInt(this.equipmentSearchProvider.searchFields.category, 10), parseInt(this.equipmentSearchProvider.searchFields.metropolises, 10))
       .subscribe(listEquipment => {
-      this.listEquipment = listEquipment;
-      this.listEquipment.sort((a, b) => a.name.localeCompare(b.name));
-      this.initForm();
-      this.listEquipmentLoaded = Promise.resolve(true);
-    });
+        this.listEquipment = listEquipment;
+        this.listEquipment.sort((a, b) => a.name.localeCompare(b.name));
+        this.initForm();
+        this.listEquipmentLoaded = Promise.resolve(true);
+      });
 
   }
 
@@ -123,7 +123,7 @@ export class ListEquipmentComponent implements OnInit, OnDestroy {
   /**
    * Trie la liste des équipements par ordre de prix ascendant
    */
-   sortListEquipmentsByPriceAscendant(): void {
+  sortListEquipmentsByPriceAscendant(): void {
     this.listEquipment.sort(
       firstBy(function(v1: Equipment, v2: Equipment) { return v1.price - v2.price; }));
   }
@@ -153,7 +153,7 @@ export class ListEquipmentComponent implements OnInit, OnDestroy {
   /**
    * Unsubscribe
    */
-   ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.getListEquipmentSub?.unsubscribe();
   }
 
