@@ -4,22 +4,21 @@ main {
 
 ._container {
   display: block;
+  width: 100%;
 }
 ._row {
-  width: 100%;
+  display: flex;
   flex-wrap: nowrap;
   ._col {
-    margin: 0 auto;
-    width: 300px;
+    width: 5%;
   }
   ._col2 {
-    margin: 0 auto;
-    width: 300px;
+    width: 40%;
   }
   ._col3 {
-    margin: 0 auto;
-    width: 300px;
+    width: 40%;
   }
+
 }
 
 ._grid {
