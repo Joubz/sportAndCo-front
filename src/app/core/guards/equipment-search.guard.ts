@@ -16,8 +16,8 @@ export class EquipmentSearchGuard implements CanActivateChild, CanDeactivate<unk
    * Nom des routes disponibles
    */
   routesNames = {
-    equipmentList: 'equipment-list',
-    equipmentDetail: 'equipment-details'
+    equipmentList: 'equipment-list/:equipmentName/:startDate/:endDate/:categoryId/:metropolisesId',
+    equipmentDetail: 'equipment-details/:id/:startDate/:endDate'
   };
 
   /**
@@ -38,23 +38,14 @@ export class EquipmentSearchGuard implements CanActivateChild, CanDeactivate<unk
    */
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    const isProviderOK = true;
-    console.log(childRoute.routeConfig?.path);
+    let isProviderOK = true;
 
-    /*
     if (childRoute.routeConfig?.path === this.routesNames.equipmentList) {
       isProviderOK = this.equipmentSearchProvider.isFilled();
     }
-    */
-
-
-    const parentUrl = state.url.slice(0, state.url.indexOf(childRoute.url[childRoute.url.length - 1].path));
-
 
     return isProviderOK;
   }
-
-  //  return isProviderOK ? true : this.router.navigate([parentUrl, "equipment-list"]);
 
   /**
    * Vide le provider avant que l'utilisateur ne quitte le parcours

@@ -280,6 +280,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
    * Méthode pour retourner au tableau des listes
    */
   goBack() {
+    console.log(this.urlBack);
     this.router.navigate(['/equipment', this.urlBack]);
   }
 
