@@ -45,6 +45,8 @@ button {
 .button-quantity {
   width: 40px;
   height: 40px;
+  margin: 0px;
+  border: 1px;
 }
 
 
@@ -134,3 +136,16 @@ button {
   cursor:not-allowed;
 
 }
+
+/*.date-picker::ng-deep {
+
+      font-weight: $fw-normal;
+      font-size: $button-font-size-base;
+      width: 300px;
+      height: 60px;
+      text-align: center;
+      margin: 0 auto;
+      cursor: pointer;
+
+
+}*/

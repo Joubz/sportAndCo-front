@@ -1,0 +1,46 @@
+.equipment-title-card {
+  box-shadow: 2px 2px 7px 1px rgba(0, 0, 0, 0.25);
+  background-color: $lcyan;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100px;
+  justify-content: center;
+  display: flex;
+}
+
+.row{
+  justify-content: space-between;
+  display: flex;
+}
+
+//premiere colonne de la ligne des images
+.column:nth-of-type(1){
+  flex: 3;
+  justify-content: space-around;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+//deuxieme colonne de la ligne des images
+.column:nth-of-type(2) {
+  flex: 8;
+  display: flex;
+  justify-content: center;
+}
+
+//troisieme colonne de la ligne des images
+.column:nth-of-type(3) {
+  flex: 3;
+}
+
+.avis-width{
+  width: 675px;
+}
+
+.font-size-rem{
+  font-size: 1.2rem!important;
+}
+
+.heightQuantityInput{
+  height: 40px;
+}

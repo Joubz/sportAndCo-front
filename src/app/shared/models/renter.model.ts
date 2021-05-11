@@ -87,7 +87,7 @@ export class Renter {
     id: number,
     password: string,
     metropolises: Metropolises,
-    isAccepted: boolean,
+    isAccepted: number,
     companyName: string,
     lastName: string,
     firstName: string,
@@ -103,7 +103,11 @@ export class Renter {
     this.id = options.id;
     this.password = options.password;
     this.metropolises = options.metropolises;
-    this.isAccepted = options.isAccepted;
+    if (options.isAccepted === 0) {
+      this.isAccepted = false;
+    } else {
+      this.isAccepted = true;
+    }
     this.companyName = options.companyName;
     this.lastName = options.lastName;
     this.firstName = options.firstName;
@@ -126,7 +130,7 @@ export class Renter {
     return new Renter({
       id: json.RENTER_ID,
       password: json.PASSWORD,
-      metropolises: Metropolises.fromJson({id: json.METROPOLISES_ID, name: json.METROPOLISES_NAME}),
+      metropolises: Metropolises.fromJson({METROPOLISES_ID: json.METROPOLISES_ID, METROPOLISES_NAME: json.METROPOLISES_NAME}),
       isAccepted: json.ACCEPTED,
       companyName: json.COMPANY_NAME,
       lastName: json.LAST_NAME,

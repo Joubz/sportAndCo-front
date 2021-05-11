@@ -22,6 +22,11 @@ export class Equipment {
   category: Category;
 
   /**
+   * Métropole du loueur
+   */
+  metropolises: Metropolises;
+
+  /**
    * Nom de l'équipement
    */
   name: string;
@@ -32,34 +37,39 @@ export class Equipment {
   description: string;
 
   /**
-   * Date de création
+   * Date de début de location pour produit
    */
-  creationDate: string;
+  startDate: string;
+
+  /**
+   * Date de fin de location pour produit
+   */
+  endDate: string;
 
   /**
    * Prix de l'équipement
    */
-  price: string;
+  price: number;
 
   /**
    * Quantité au total
    */
-  totalQuantity: string;
+  totalQuantity: number;
 
   /**
-   * Quantité restante
+   * Lien de l'image N°1
    */
-  availableQuantity: string;
+  imageLink1: string;
 
   /**
-   * Lien de l'image
+   * Lien de l'image N°2
    */
-  imageLink: string;
+  imageLink2: string;
 
   /**
-   * Précision écrite si la catégorie "autre" est sélectionné par le loueur
+   * Lien de l'image N°3
    */
-  otherText: string;
+  imageLink3: string;
 
   /**
    * Constructeur de l'objet, tous les paramètres sont obligatoires
@@ -68,27 +78,31 @@ export class Equipment {
   constructor(options: {
     id: number,
     renter: Renter,
+    metropolises: Metropolises,
     category: Category,
     name: string,
     description: string,
-    creationDate: string,
-    price: string,
-    totalQuantity: string,
-    availableQuantity: string,
-    imageLink: string,
-    otherText
+    startDate: string,
+    endDate: string,
+    price: number,
+    totalQuantity: number,
+    imageLink1: string,
+    imageLink2: string,
+    imageLink3: string
   }) {
     this.id = options.id;
     this.renter = options.renter;
+    this.metropolises = options.metropolises;
     this.category = options.category;
     this.name = options.name;
     this.description = options.description;
-    this.creationDate = options.creationDate;
+    this.startDate = options.startDate;
+    this.endDate = options.endDate;
     this.price = options.price;
     this.totalQuantity = options.totalQuantity;
-    this.availableQuantity = options.availableQuantity;
-    this.imageLink = options.imageLink;
-    this.otherText = options.otherText;
+    this.imageLink1 = options.imageLink1;
+    this.imageLink2 = options.imageLink2;
+    this.imageLink3 = options.imageLink3;
   }
 
   /**
@@ -99,18 +113,20 @@ export class Equipment {
   public static fromJson(json: any): Equipment {
     return new Equipment({
       id: json.EQUIPMENT_ID,
-      renter: Renter.fromJson({id: json.RENTER_ID, metropolises: Metropolises.fromJson({id: json.METROPOLISES_ID, name: json.METROPOLISES_NAME}), companyName: json.COMPANY_NAME,
-        lastName: json.LAST_NAME, firstName: json.FIRST_NAME, email: json.EMAIL, phone: json.PHONE, birthDate: json.BIRTH_DATE, address: json.ADDRESS, additionalAddress: json.ADDITIONNAL_ADDRESS,
-        postalCode: json.POSTAL_CODE, city: json.CITY, imageLink: json.IMAGE_LINK}),
-      category: Category.fromJson({id: json.CATEGORY_ID, name: json.CATEGORY_NAME}),
+      renter: Renter.fromJson({RENTER_ID: json.RENTER_ID,
+        COMPANY_NAME: json.COMPANY_NAME, LAST_NAME: json.LAST_NAME, FIRST_NAME: json.FIRST_NAME, EMAIL: json.EMAIL, PHONE: json.PHONE, BIRTH_DATE: json.BIRTH_DATE, ADDRESS: json.ADDRESS,
+        ADDITIONAL_ADDRESS: json.ADDITIONAL_ADDRESS, POSTAL_CODE: json.POSTAL_CODE, CITY: json.CITY, IMAGE_LINK: json.IMAGE_LINK}),
+      metropolises: Metropolises.fromJson({METROPOLISES_ID: json.METROPOLISES_ID, METROPOLISES_NAME: json.METROPOLISES_NAME}),
+      category: Category.fromJson({CATEGORY_ID: json.CATEGORY_ID, CATEGORY_NAME: json.CATEGORY_NAME}),
       name: json.EQUIPMENT_NAME,
       description: json.DESCRIPTION,
-      creationDate: json.CREATION_DATE,
+      startDate: json.START_DATE,
+      endDate: json.END_DATE,
       price: json.PRICE,
       totalQuantity: json.TOTAL_QUANTITY,
-      availableQuantity: json.AVAILABLE_QUANTITY,
-      imageLink: json.IMAGE_LINK,
-      otherText: json.OTHER_TEXT
+      imageLink1: json.IMAGE_LINK_1,
+      imageLink2: json.IMAGE_LINK_2,
+      imageLink3: json.IMAGE_LINK_3
     });
 
   }

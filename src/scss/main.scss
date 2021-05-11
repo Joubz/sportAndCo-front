@@ -1,5 +1,10 @@
+@import "./import/fontawesome/scss/fontawesome.scss";
+@import "./import/fontawesome/scss/solid.scss";
+@import "./import/fontawesome/scss/brands.scss";
 
 @import "./utils/variables";
+@import "./utils/spacers";
+
 
 @import "./base/base";
 @import "./base/browser";
@@ -9,14 +14,20 @@
 @import "./component/image";
 @import "./component/modal";
 @import "./component/form";
+@import "./component/select";
 
 @import "./layout/container";
-@import "src/scss/layout/footer";
+@import "./layout/footer";
 @import "./layout/header";
 @import "./layout/nav";
 
 @import "./pages/home";
+@import "./pages/equipement-details";
+@import "./pages/list-equipment";
 
 @import "./import/fontawesome/scss/fontawesome.scss";
 @import "./import/fontawesome/scss/solid.scss";
 @import "./import/fontawesome/scss/brands.scss";
+
+@import "./pages/equipement-details";
+@import "./pages/list-equipment";

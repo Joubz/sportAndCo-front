@@ -7,9 +7,7 @@ import { RouterModule } from '@angular/router';
  * Gestion des modules et composants de Shared
  */
 @NgModule({
-  declarations: [
-
-  ],
+  declarations: [],
   imports: [
     CommonModule,
     RouterModule,

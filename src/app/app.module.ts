@@ -8,6 +8,8 @@ import { PublicModule } from './public/public.module';
 import { ProtectedModule } from './protected/protected.module';
 import { AdministratorModule } from "./administrator/administrator.module";
 import { RenterModule } from "./renter/renter.module";
+import { DatepickerModule } from 'ng2-datepicker';
+
 
 /**
  * Gestion des modules et composants généraux
@@ -19,11 +21,12 @@ import { RenterModule } from "./renter/renter.module";
   imports: [
     BrowserModule,
     CoreModule,
-    AppRoutingModule,
     PublicModule,
     ProtectedModule,
     AdministratorModule,
-    RenterModule
+    RenterModule,
+    AppRoutingModule,
+    DatepickerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

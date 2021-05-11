@@ -23,19 +23,24 @@ main {
 }
 }
 
-._list {
-  display: flex;
-  align-items: center;
-  justify-content: first baseline;
+._grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 50px;
 }
 
-._listProduct {
-  columns: 3;
-  margin: 200px;
-  img {
-    width: 150px;
-    margin: 10px;
-  }
+.section-flex{
+  display: flex;
+}
+
+.flex-align-center {
+  display: flex;
+  align-items: center;
+}
+
+.flex-justify-content-center{
+  display: flex;
+  justify-content: center;
 }
 
 ._productOther {  
@@ -45,4 +50,14 @@ main {
     margin: 5px;
     border: solid 1px grey;
   }
+}
+
+.grid-only{
+  display: grid;
+}
+
+.flex-justify-content-self-center{
+  display: flex;
+  justify-content: center;
+  justify-self: center;
 }

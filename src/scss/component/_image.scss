@@ -61,14 +61,17 @@ img {
 }
 
 .imgProduct {
-  width: 100px;
-  border: solid 1px;
+  width: 80%;
+}
+
+.imgProductOther {
+  width: 40%;
+  border: solid 1px grey;
+  height: inherit;
+
 }
 
 .imgRenter {
   height: auto;
-  width: 200px;
+  width: 100px;
 }
-
-
-
