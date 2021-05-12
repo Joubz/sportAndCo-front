@@ -101,7 +101,6 @@ export class EquipmentSearchComponent implements OnInit {
     position: 'bottom',
     calendarClass: 'datepicker-default',
     scrollBarColor: '#dfe3e9',
-    maxDate: new Date(),
   };
 
 
@@ -222,6 +221,7 @@ export class EquipmentSearchComponent implements OnInit {
    */
   search() {
     if (this.areDatesOk) {
+
       if (this.f.productName.value === '') {
         this.f.productName.setValue(' ');
       }
@@ -261,6 +261,10 @@ export class EquipmentSearchComponent implements OnInit {
       category: this.f.categorySelect.value,
       metropolises: this.f.metropolisesSelect.value,
     };
+
+    if (this.f.productName.value === ' ') {
+      this.f.productName.setValue('');
+    }
 
     this.searchEmitter.emit(searchObject);
   }
