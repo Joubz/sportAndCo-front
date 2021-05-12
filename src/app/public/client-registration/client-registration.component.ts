@@ -135,7 +135,7 @@ export class ClientRegistrationComponent implements OnInit {
       firstName: ['', [Validators.required, Validators.maxLength(100)]],
       lastName: ['', [Validators.required, Validators.maxLength(100)]],
       password: ['', [Validators.required, Validators.maxLength(15)]],
-      email: ['', [Validators.required, Validators.maxLength(250)]],
+      email: ['', [Validators.required, Validators.maxLength(250), Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
       phone: ['', [Validators.required, Validators.maxLength(100)]],
       address: ['', [Validators.required, Validators.maxLength(250)]],
       additionalAddress: ['', [Validators.required, Validators.maxLength(250)]],
@@ -185,10 +185,10 @@ export class ClientRegistrationComponent implements OnInit {
       case 'password': {
         if (this.f.password.invalid && (this.f.password.dirty || this.f.password.touched || this.isSubmit)) {
           if (this.f.password.errors.required) {
-            this.messageError3 = "Le champ doit être rempli";
+            this.messageError3 = "Le mot de passe doit être rempli";
             return true;
           } else if (this.f.password.errors.maxlength) {
-            this.messageError3 = "Le champ doit être d'une longueur maximale de 15 caractères";
+            this.messageError3 = "Le mot de passe doit être d'une longueur maximale de 15 caractères";
             return true;
           }
         }
@@ -201,6 +201,10 @@ export class ClientRegistrationComponent implements OnInit {
             return true;
           } else if (this.f.email.errors.maxlength) {
             this.messageError4 = "Le champ doit être d'une longueur maximale de 250 caractères";
+            return true;
+          }
+          else if (this.f.email.errors.pattern) {
+            this.messageError4 = "Le mail doit être valide";
             return true;
           }
         }
