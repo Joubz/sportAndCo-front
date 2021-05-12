@@ -69,6 +69,11 @@ export class EquipmentSearchComponent implements OnInit {
     'Erreur : La date de fin ne peux être inférieur à la date de début';
 
   /**
+   * Date du jour
+   */
+  todayDate = new Date();
+
+  /**
    * Options des sélectionneurs de dates
    */
   startDatePickerOptions: DatepickerOptions = {
@@ -81,7 +86,6 @@ export class EquipmentSearchComponent implements OnInit {
     position: 'bottom',
     calendarClass: 'datepicker-default',
     scrollBarColor: '#dfe3e9',
-    maxDate: new Date(),
   };
 
   /**
@@ -99,6 +103,7 @@ export class EquipmentSearchComponent implements OnInit {
     scrollBarColor: '#dfe3e9',
     maxDate: new Date(),
   };
+
 
   /**
    * Constructeur du composant
@@ -120,6 +125,11 @@ export class EquipmentSearchComponent implements OnInit {
    */
   ngOnInit(): void {
     this.initForm();
+    this.todayDate.setDate(this.todayDate.getDate() - 1);
+    this.startDatePickerOptions.maxDate = this.todayDate;
+    this.endDatePickerOptions.maxDate = this.todayDate;
+    this.areDatesOk =  true;
+
     this.areDatesOk = true;
     this.listCategory$ = this.categoryService.getListCategory();
     this.listMetropolises$ = this.metropolisesService.getListMetropolises();
@@ -188,6 +198,10 @@ export class EquipmentSearchComponent implements OnInit {
     }
   }
 
+  /**
+   * Fonction qui formate la date en année-mois-jour
+   * @param date Date passée en paramètres
+   */
   formatDate(date: Date): string {
     let month = '' + (date.getMonth() + 1);
     let day = '' + date.getDate();
