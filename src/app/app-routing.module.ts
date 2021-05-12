@@ -7,7 +7,7 @@ import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '**',
-    redirectTo: '/page-404'
+    redirectTo: '/404'
   }
 ];
 
