@@ -1,5 +1,5 @@
 
-<div>
+<div class="--center">
 
   <form [formGroup]="clientForm" class="my-4">
     <div>
@@ -32,16 +32,17 @@
 
     <div>
       <input type="text" formControlName="phone" [ngClass]="{ 'field-error': errorDetection('phone') }"
-             placeholder="Email" name="phone" id="phone" required />
-      <span class="tiny-txt">Nombre de caractères : {{ phoneChars }} / 250</span>
+             placeholder="Numéro de téléphone" name="phone" id="phone" required />
+      <span class="tiny-txt">Nombre de caractères : {{ phoneChars }} / 100</span>
       <span *ngIf="errorDetection('phone')" class="field-error-message tiny-txt">{{messageError5}}</span>
     </div>
   </form>
 
   <div class="ml-5">
-    <ngx-datepicker [(ngModel)]="birthDate" [options]="birthDatePickerOptions" (ngModelChange)="changeBirthDate()"></ngx-datepicker>
-    <p *ngIf="!isBirthDateFilled"> {{ errorMessageDate }} </p>
+    <ngx-datepicker [(ngModel)]="birthDate" [options]="birthDatePickerOptions" (ngModelChange)="changeBirthDate()" required></ngx-datepicker>
+    <span *ngIf="!isBirthDateFilled" class="field-error-message tiny-txt"> {{ errorMessageDate }} </span>
   </div>
+
   <form [formGroup]="clientForm" class="my-4">
     <div>
       <input type="text" formControlName="address" [ngClass]="{ 'field-error': errorDetection('address') }"
@@ -73,6 +74,6 @@
   </form>
 
 
-  <button class="common" (click)="onSubmit()" requestInProgress>S'inscrire</button>
+  <button class="common" (click)="onSubmit()">S'inscrire</button>
 
 </div>

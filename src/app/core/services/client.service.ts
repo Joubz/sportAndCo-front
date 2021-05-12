@@ -37,25 +37,11 @@ export class ClientService {
 
   /**
    * Ajoute un client depuis l'API Sport&Co
-   * @param client l'objet client
+   * @param newClient l'objet client
+   * @return Code_200 Le retour HTTP
    */
-  createClient(client: Client): Observable<any> {
-    const password =  Md5.hashStr(client.password).toString();
-    const body = {
-      "newClient": {
-        "password": password,
-        "firstName": client.firstName,
-        "lastName": client.lastName,
-        "email": client.email,
-        "phone": client.phone,
-        "birthDate": client.birthDate,
-        "address": client.address,
-        "additionalAddress": client.additionalAddress,
-        "postalCode": client.postalCode,
-        "city": client.city
-      }
-    };
-
-    return this.http.post(this.clientEndpoint, { body }, httpOptions);
+  createClient(newClient: Client): Observable<any> {
+    newClient.password =  Md5.hashStr(newClient.password).toString();
+    return this.http.post(this.clientEndpoint, { newClient }, httpOptions);
   }
 }

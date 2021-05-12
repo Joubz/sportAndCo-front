@@ -133,7 +133,7 @@ export class ClientRegistrationComponent implements OnInit {
       lastName: ['', [Validators.required, Validators.maxLength(100)]],
       password: ['', [Validators.required, Validators.maxLength(15)]],
       email: ['', [Validators.required, Validators.maxLength(250)]],
-      phone: ['', [Validators.required, Validators.maxLength(250)]],
+      phone: ['', [Validators.required, Validators.maxLength(100)]],
       address: ['', [Validators.required, Validators.maxLength(250)]],
       additionalAddress: ['', [Validators.required, Validators.maxLength(250)]],
       postalCode: ['', [Validators.required, Validators.maxLength(250)]],
@@ -359,41 +359,41 @@ export class ClientRegistrationComponent implements OnInit {
    * Fonction de création du client
    */
   onSubmit(): void {
-    if () {
-      this.isSubmit = true;
+    this.isSubmit = true;
 
-      if (
-        !this.f.firstName.invalid &&
-        !this.f.lastName.invalid &&
-        !this.f.password.invalid &&
-        !this.f.email.invalid &&
-        !this.f.phone.invalid &&
-        !this.isBirthDateFilled &&
-        !this.f.address.invalid &&
-        !this.f.additionalAddress.invalid &&
-        !this.f.postalCode.invalid &&
-        !this.f.city.invalid
-      ) {
-        const newClient = new Client({
-          id: -1,
-          password: this.f.password.value,
-          firstName: this.f.firstName.value,
-          lastName: this.f.lastName.value,
-          email: this.f.email.value,
-          phone: this.f.postalCode.value,
-          birthDate: this.formatDate(this.birthDate),
-          address: this.f.address.value,
-          additionalAddress: this.f.additionalAddress.value,
-          postalCode: this.f.postalCode.value,
-          city: this.f.city.value
-        });
+    if (
+      !this.f.firstName.invalid &&
+      !this.f.lastName.invalid &&
+      !this.f.password.invalid &&
+      !this.f.email.invalid &&
+      !this.f.phone.invalid &&
+      this.isBirthDateFilled &&
+      !this.f.address.invalid &&
+      !this.f.additionalAddress.invalid &&
+      !this.f.postalCode.invalid &&
+      !this.f.city.invalid
+    ) {
+      const newClient = new Client({
+        id: -1,
+        password: this.f.password.value,
+        firstName: this.f.firstName.value,
+        lastName: this.f.lastName.value,
+        email: this.f.email.value,
+        phone: this.f.phone.value,
+        birthDate: this.formatDate(this.birthDate),
+        address: this.f.address.value,
+        additionalAddress: this.f.additionalAddress.value,
+        postalCode: this.f.postalCode.value,
+        city: this.f.city.value
+      });
 
-        this.clientService.createClient(newClient).subscribe(result => {
-          this.router.navigate(['/home']);
-        })
-      }
+      this.clientService.createClient(newClient).subscribe(result => {
+        console.log("in suscribe");
 
+        this.router.navigate(['/home']);
+      });
     }
+
   }
 
 }
