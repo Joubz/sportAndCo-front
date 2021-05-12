@@ -236,6 +236,9 @@ export class EquipmentSearchComponent implements OnInit {
     }
   }
 
+  /**
+   * Emission de l'objet de recherche pour le composant parent (trigger la fonction updateList du composant parent)
+   */
   private _emitSearchObject() {
     const searchObject: Search = {
       productName: this.f.productName.value,

@@ -18,7 +18,13 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./list-equipment.component.css'],
 })
 export class ListEquipmentComponent implements OnInit {
+  /**
+   * Date de début courante
+   */
   currentStartDate: string;
+  /**
+   * Date de fin courante
+   */
   currentEndDate: string;
   /**
    * url de l'application qui sera passé au HTML de l'image pour chargement de l'image sur le visuel
@@ -44,6 +50,9 @@ export class ListEquipmentComponent implements OnInit {
    */
   filtersForm: FormGroup;
 
+  /**
+   * Liste des équipements
+   */
   listEquipment$: Observable<Equipment[]>;
 
   /**
@@ -166,6 +175,10 @@ export class ListEquipmentComponent implements OnInit {
     this.sortOnChange();
   }
 
+  /**
+   * Met à jour les dates courantes
+   * @param searchObject paramètres de la recherche
+   */
   private _updateDates(searchObject: Search) {
     this.currentStartDate = searchObject.startDate;
     this.currentEndDate = searchObject.endDate;
