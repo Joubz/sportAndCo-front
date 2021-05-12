@@ -41,6 +41,16 @@ main {
   justify-content: center;
 }
 
+
+._productOther {
+  width: 20%;
+  img {
+    width: 75px;
+    margin: 5px;
+    border: solid 1px grey;
+  }
+}
+
 .grid-only{
   display: grid;
 }
