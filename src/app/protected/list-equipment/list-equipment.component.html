@@ -2,8 +2,7 @@
   (searchEmitter)="updateList($event)"
 ></app-equipment-search>
 
-<!-- <div *ngIf="listEquipmentLoaded | async"> -->
-<div>
+<div *ngIf="listEquipment$">
   <h1>Résultat de la recherche</h1>
   <div *ngIf="(listEquipment$ | async)?.length > 0; else noEquipment">
     <div style="display: flex">
@@ -17,13 +16,12 @@
               class="select"
               formControlName="selectOption"
               id="optionsTri"
-              (change)="sortOnChange('selectOption')"
-              [(ngModel)]="defaultSelected"
+              (change)="sortOnChange()"
+              [(ngModel)]="defaultSelectedOption"
             >
               <option
                 *ngFor="let selectOption of selectOptions"
                 [ngValue]="selectOption.name"
-                [selected]="selectOption.name == 'Ordre Alphabétique'"
               >
                 {{ selectOption.name }}
               </option>

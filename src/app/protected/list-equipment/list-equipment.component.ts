@@ -37,7 +37,7 @@ export class ListEquipmentComponent implements OnInit {
   /**
    * La valeur de select par défaut
    */
-  defaultSelected = 'Ordre Alphabétique';
+  defaultSelectedOption: string;
 
   /**
    * Formulaire de sélection des filtres
@@ -62,6 +62,7 @@ export class ListEquipmentComponent implements OnInit {
    * Initialise le composant, initiaalise le formulaire
    */
   ngOnInit(): void {
+    this.defaultSelectedOption = 'Ordre Alphabétique';
     this.initForm();
   }
 
@@ -77,17 +78,13 @@ export class ListEquipmentComponent implements OnInit {
   /**
    * Trie la liste des équipements en fonction de l'option choisie dans le select
    */
-  sortOnChange(option: string): void {
-    switch (option) {
-      case 'selectOption':
-        if (this.f.selectOption.value === 'Ordre Alphabétique') {
-          this.sortListEquipmentsByName();
-        } else if (this.f.selectOption.value === 'Prix Ascendant') {
-          this.sortListEquipmentsByPriceAscendant();
-        } else if (this.f.selectOption.value === 'Prix Descendant') {
-          this.sortListEquipmentsByPriceDescendant();
-        }
-        break;
+  sortOnChange(): void {
+    if (this.defaultSelectedOption === 'Ordre Alphabétique') {
+      this.sortListEquipmentsByName();
+    } else if (this.defaultSelectedOption === 'Prix Ascendant') {
+      this.sortListEquipmentsByPriceAscendant();
+    } else if (this.defaultSelectedOption === 'Prix Descendant') {
+      this.sortListEquipmentsByPriceDescendant();
     }
   }
 
@@ -166,6 +163,7 @@ export class ListEquipmentComponent implements OnInit {
       parseInt(searchObject.category, 10),
       parseInt(searchObject.metropolises, 10)
     );
+    this.sortOnChange();
   }
 
   private _updateDates(searchObject: Search) {

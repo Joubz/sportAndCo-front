@@ -231,25 +231,20 @@ export class EquipmentSearchComponent implements OnInit {
       if (this.f.metropolisesSelect.value === '') {
         this.f.metropolisesSelect.setValue('0');
       }
-
-      // this.equipmentSearchProvider.fillProvider(
-      //   this.f.productName.value,
-      //   this.formatDate(this.startDateSelect),
-      //   this.formatDate(this.endDateSelect),
-      //   this.f.categorySelect.value,
-      //   this.f.metropolisesSelect.value
-      // );
-      const searchObject: Search = {
-        productName: this.f.productName.value,
-        startDate: this.formatDate(this.startDateSelect),
-        endDate: this.formatDate(this.endDateSelect),
-        category: this.f.categorySelect.value,
-        metropolises: this.f.metropolisesSelect.value,
-      };
-
-      this.searchEmitter.emit(searchObject);
-
+      this._emitSearchObject();
       this.router.navigate(['../equipment/equipment-list']);
     }
+  }
+
+  private _emitSearchObject() {
+    const searchObject: Search = {
+      productName: this.f.productName.value,
+      startDate: this.formatDate(this.startDateSelect),
+      endDate: this.formatDate(this.endDateSelect),
+      category: this.f.categorySelect.value,
+      metropolises: this.f.metropolisesSelect.value,
+    };
+
+    this.searchEmitter.emit(searchObject);
   }
 }
