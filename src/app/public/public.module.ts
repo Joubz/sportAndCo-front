@@ -9,12 +9,13 @@ import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ClientRegistrationComponent } from './client-registration/client-registration.component';
 import {DatepickerModule} from "ng2-datepicker";
+import { ClientLoginComponent } from './client-login/client-login.component';
 
 /**
  * Gestion des modules et composants de Public
  */
 @NgModule({
-  declarations: [HomeComponent, LegalNoticeComponent, NotFoundComponent, ClientRegistrationComponent],
+  declarations: [HomeComponent, LegalNoticeComponent, NotFoundComponent, ClientRegistrationComponent, ClientLoginComponent],
     imports: [
         CommonModule,
         PublicRoutingModule,

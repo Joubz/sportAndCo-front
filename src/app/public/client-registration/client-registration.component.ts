@@ -118,6 +118,9 @@ export class ClientRegistrationComponent implements OnInit {
     private router: Router,
   ) { }
 
+  /**
+   * Initialise le composant
+   */
   ngOnInit(): void {
     this.isSubmit = false;
     this.isBirthDateFilled = false;
