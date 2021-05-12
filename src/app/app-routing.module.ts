@@ -17,7 +17,7 @@ const routes: Routes = [
 const routerOptions: ExtraOptions = {
   scrollPositionRestoration: 'enabled',
   useHash: false,
-  anchorScrolling: 'enabled'
+  anchorScrolling: 'enabled',
 };
 
 /**
@@ -25,6 +25,6 @@ const routerOptions: ExtraOptions = {
  */
 @NgModule({
   imports: [RouterModule.forRoot(routes, routerOptions)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -1,3 +1,7 @@
-
-<app-equipment-search></app-equipment-search>
-
+<app-equipment-search
+  (searchEmitter)="updateList($event)"
+></app-equipment-search>
+<app-list-equipment
+  [listEquipment]="listEquipment$ | async"
+  [period]="period"
+></app-list-equipment>

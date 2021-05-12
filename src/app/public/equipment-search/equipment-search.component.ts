@@ -1,15 +1,20 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
-import {forkJoin, Subscription} from "rxjs";
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { Router } from '@angular/router';
+import { forkJoin, Observable } from 'rxjs';
 
-import {Category} from "../models/category.model";
-import {CategoryService} from "../../core/services/category.service";
-import {Metropolises} from "../models/metropolises.model";
-import {MetropolisesService} from "../../core/services/metropolises.service";
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {DatepickerOptions} from "ng2-datepicker";
-import locale from "date-fns/locale/en-US";
-import {EquipmentSearchProvider} from "../../core/providers/equipment-search.providers";
+import { Category } from '../../shared/models/category.model';
+import { CategoryService } from '../../core/services/category.service';
+import { Metropolises } from '../../shared/models/metropolises.model';
+import { MetropolisesService } from '../../core/services/metropolises.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { DatepickerOptions } from 'ng2-datepicker';
+import locale from 'date-fns/locale/en-US';
+import { Search } from '../../shared/models/search.model';
 
 /**
  * Composant de le la recherche
@@ -17,9 +22,10 @@ import {EquipmentSearchProvider} from "../../core/providers/equipment-search.pro
 @Component({
   selector: 'app-equipment-search',
   templateUrl: './equipment-search.component.html',
-  styleUrls: ['./equipment-search.component.css']
+  styleUrls: ['./equipment-search.component.css'],
 })
-export class EquipmentSearchComponent implements OnInit, OnDestroy {
+export class EquipmentSearchComponent implements OnInit {
+  @Output() searchEmitter: EventEmitter<Search> = new EventEmitter<Search>();
 
   /**
    * Permet d'attendre que les catégories & les métropoles soient chargées pour afficher la barre de recherch
@@ -27,19 +33,14 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
   categoryAndMetropolisesLoaded: Promise<boolean>;
 
   /**
-   * Souscription au service de récupération des champs de la recherche
-   */
-  getSearchSub: Subscription;
-
-  /**
    * Liste des catégories
    */
-  listCategory: Category[];
+  listCategory$: Observable<Category[]>;
 
   /**
    * Liste des métropoles
    */
-  listMetropolises: Metropolises[];
+  listMetropolises$: Observable<Metropolises[]>;
 
   /**
    * Formulaire de sélection de la recherche
@@ -69,7 +70,8 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
   /**
    * Message d'erreur sur le choix des dates
    */
-  errorMessageDate = "Erreur : La date de fin ne peux être inférieur à la date de début";
+  errorMessageDate =
+    'Erreur : La date de fin ne peux être inférieur à la date de début';
 
   /**
    * Options des sélectionneurs de dates
@@ -101,6 +103,7 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
     scrollBarColor: '#dfe3e9'
   };
 
+
   /**
    * Constructeur du composant
    * @param categoryService Service de gestion des catégories
@@ -112,60 +115,23 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
   constructor(
     private categoryService: CategoryService,
     private metropolisesService: MetropolisesService,
-    private equipmentSearchProvider: EquipmentSearchProvider,
     private router: Router,
     private fb: FormBuilder
-  ) { }
+  ) {}
 
   /**
    * Initialise le composant
    */
   ngOnInit(): void {
-    this.getSearchSub = forkJoin([
-      this.categoryService.getListCategory(),
-      this.metropolisesService.getListMetropolises(),
-    ]).subscribe(([listCategory, listMetropolises]) => {
-      this.listCategory = listCategory;
-      this.listMetropolises = listMetropolises;
+    this.initForm();
+    this.todayDate.setDate(this.todayDate.getDate() - 1);
+    this.startDatePickerOptions.maxDate = this.todayDate;
+    this.endDatePickerOptions.maxDate = this.todayDate;
+    this.areDatesOk =  true;
 
-      this.todayDate.setDate(this.todayDate.getDate() - 1);
-      this.startDatePickerOptions.maxDate = this.todayDate;
-      this.endDatePickerOptions.maxDate = this.todayDate;
-      this.areDatesOk =  true;
-
-      this.initForm();
-
-      if ( this.equipmentSearchProvider.searchFields.productName !== null) {
-        if (this.equipmentSearchProvider.searchFields.productName !== " ") {
-          this.f.productName.setValue(this.equipmentSearchProvider.searchFields.productName);
-        }
-      }
-      if ( this.equipmentSearchProvider.searchFields.startDate !== null) {
-        this.startDateSelect = new Date(this.equipmentSearchProvider.searchFields.startDate);
-      }
-      if ( this.equipmentSearchProvider.searchFields.endDate !== null) {
-        this.endDateSelect = new Date(this.equipmentSearchProvider.searchFields.endDate);
-      }
-      if ( this.equipmentSearchProvider.searchFields.category !== null) {
-        if ( this.equipmentSearchProvider.searchFields.category !== "0") {
-          this.f.categorySelect.setValue(this.equipmentSearchProvider.searchFields.category);
-        }
-      }
-      if ( this.equipmentSearchProvider.searchFields.metropolises !== null) {
-        if ( this.equipmentSearchProvider.searchFields.metropolises !== "0") {
-          this.f.metropolisesSelect.setValue(this.equipmentSearchProvider.searchFields.metropolises);
-        }
-      }
-
-      this.categoryAndMetropolisesLoaded = Promise.resolve(true);
-    });
-  }
-
-  /**
-   * Unsubscribe
-   */
-  ngOnDestroy(): void {
-    this.getSearchSub?.unsubscribe();
+    this.areDatesOk = true;
+    this.listCategory$ = this.categoryService.getListCategory();
+    this.listMetropolises$ = this.metropolisesService.getListMetropolises();
   }
 
   /**
@@ -175,7 +141,7 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
     this.searchForm = this.fb.group({
       productName: [''],
       categorySelect: [''],
-      metropolisesSelect: ['']
+      metropolisesSelect: [''],
     });
   }
 
@@ -208,17 +174,15 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
    * Fonction vérifiant si les dates sélectionnées sont conformes, affiche un message d'erreur sinon
    */
   areDatesCorrect(): void {
-
     if (this.endDateSelect !== null) {
       if (this.startDateSelect > this.endDateSelect) {
         this.areDatesOk = false;
       } else {
-        this.areDatesOk =  true;
+        this.areDatesOk = true;
       }
     } else {
-      this.areDatesOk =  true;
+      this.areDatesOk = true;
     }
-
   }
 
   /**
@@ -258,8 +222,8 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
   search() {
     if (this.areDatesOk) {
 
-      if (this.f.productName.value === "") {
-        this.f.productName.setValue(" ");
+      if (this.f.productName.value === '') {
+        this.f.productName.setValue(' ');
       }
 
       if (this.startDateSelect === undefined) {
@@ -274,20 +238,34 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
         }
       }
 
-      if (this.f.categorySelect.value === "") {
-        this.f.categorySelect.setValue("0");
+      if (this.f.categorySelect.value === '') {
+        this.f.categorySelect.setValue('0');
       }
 
-      if (this.f.metropolisesSelect.value === "") {
-        this.f.metropolisesSelect.setValue("0");
+      if (this.f.metropolisesSelect.value === '') {
+        this.f.metropolisesSelect.setValue('0');
       }
 
-      this.equipmentSearchProvider.fillProvider(this.f.productName.value, this.formatDate(this.startDateSelect), this.formatDate(this.endDateSelect),
-        this.f.categorySelect.value,  this.f.metropolisesSelect.value);
-
-      this.router.navigate(['../equipment/equipment-list']);
+      this._emitSearchObject();
     }
   }
 
+  /**
+   * Emission de l'objet de recherche pour le composant parent (trigger la fonction updateList du composant parent)
+   */
+  private _emitSearchObject() {
+    const searchObject: Search = {
+      productName: this.f.productName.value,
+      startDate: this.formatDate(this.startDateSelect),
+      endDate: this.formatDate(this.endDateSelect),
+      category: this.f.categorySelect.value,
+      metropolises: this.f.metropolisesSelect.value,
+    };
 
+    if (this.f.productName.value === ' ') {
+      this.f.productName.setValue('');
+    }
+
+    this.searchEmitter.emit(searchObject);
+  }
 }
