@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
-
-import { EquipmentService } from '../../core/services/equipment.service';
 import { Equipment } from '../../shared/models/equipment.model';
-import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Search } from 'src/app/shared/models/search.model';
-import { map } from 'rxjs/operators';
+import { Period } from 'src/app/shared/models/period.model';
 
 /**
  * Composant de la liste des équipements
@@ -17,7 +20,17 @@ import { map } from 'rxjs/operators';
   templateUrl: './list-equipment.component.html',
   styleUrls: ['./list-equipment.component.css'],
 })
-export class ListEquipmentComponent implements OnInit {
+export class ListEquipmentComponent implements OnInit, OnChanges {
+  /**
+   * Liste des équipements
+   */
+  @Input() listEquipment: Equipment[];
+
+  /**
+   * Contient la date de début et de fin des paramètres de recherche
+   */
+  @Input() period: Period;
+
   /**
    * Date de début courante
    */
@@ -51,21 +64,11 @@ export class ListEquipmentComponent implements OnInit {
   filtersForm: FormGroup;
 
   /**
-   * Liste des équipements
-   */
-  listEquipment$: Observable<Equipment[]>;
-
-  /**
    * Constructeur du composant
-   * @param equipmentService Service de gestion des éqyipements
    * @param router Service de gestion des routes
    * @param fb Utilitaire de création de formulaire
    */
-  constructor(
-    private equipmentService: EquipmentService,
-    private router: Router,
-    private fb: FormBuilder
-  ) {}
+  constructor(private router: Router, private fb: FormBuilder) {}
 
   /**
    * Initialise le composant, initiaalise le formulaire
@@ -73,6 +76,22 @@ export class ListEquipmentComponent implements OnInit {
   ngOnInit(): void {
     this.defaultSelectedOption = 'Ordre Alphabétique';
     this.initForm();
+  }
+
+  /**
+   * Se lance à l'initialisation et à chaque fois qu'un @Input est modifié (voir lifecycle hooks sur la doc Angular pour + d'infos)
+   */
+  ngOnChanges(changes: SimpleChanges): void {
+    if (
+      changes.period &&
+      changes.period.previousValue !== changes.period.currentValue
+    ) {
+      this._updateDates();
+    }
+
+    if (this.listEquipment) {
+      this.sortOnChange();
+    }
   }
 
   /**
@@ -101,12 +120,10 @@ export class ListEquipmentComponent implements OnInit {
    * Trie la liste des équipements par ordre de prix ascendant
    */
   sortListEquipmentsByPriceAscendant(): void {
-    this.listEquipment$ = this.listEquipment$.pipe(
-      map((equipments) =>
-        equipments.sort((v1: Equipment, v2: Equipment) => {
-          return v1.price - v2.price;
-        })
-      )
+    this.listEquipment = this.listEquipment.sort(
+      (v1: Equipment, v2: Equipment) => {
+        return v1.price - v2.price;
+      }
     );
   }
 
@@ -114,12 +131,10 @@ export class ListEquipmentComponent implements OnInit {
    * Trie la liste des équipements par ordre de prix ascendant
    */
   sortListEquipmentsByPriceDescendant(): void {
-    this.listEquipment$ = this.listEquipment$.pipe(
-      map((equipments) =>
-        equipments.sort((v1: Equipment, v2: Equipment) => {
-          return v2.price - v1.price;
-        })
-      )
+    this.listEquipment = this.listEquipment.sort(
+      (v1: Equipment, v2: Equipment) => {
+        return v2.price - v1.price;
+      }
     );
   }
 
@@ -127,12 +142,10 @@ export class ListEquipmentComponent implements OnInit {
    * Trie la liste des équipements par ordre alphabétique
    */
   sortListEquipmentsByName(): void {
-    this.listEquipment$ = this.listEquipment$.pipe(
-      map((equipments) =>
-        equipments.sort((v1: Equipment, v2: Equipment) => {
-          return v1.name.localeCompare(v2.name);
-        })
-      )
+    this.listEquipment = this.listEquipment.sort(
+      (v1: Equipment, v2: Equipment) => {
+        return v1.name.localeCompare(v2.name);
+      }
     );
   }
 
@@ -160,27 +173,10 @@ export class ListEquipmentComponent implements OnInit {
   }
 
   /**
-   * Met à jour la liste des équipement
-   * @param searchObject paramètres de la recherche
-   */
-  updateList(searchObject: Search) {
-    this._updateDates(searchObject);
-    this.listEquipment$ = this.equipmentService.searchEquipment(
-      searchObject.productName,
-      searchObject.startDate,
-      searchObject.endDate,
-      parseInt(searchObject.category, 10),
-      parseInt(searchObject.metropolises, 10)
-    );
-    this.sortOnChange();
-  }
-
-  /**
    * Met à jour les dates courantes
-   * @param searchObject paramètres de la recherche
    */
-  private _updateDates(searchObject: Search) {
-    this.currentStartDate = searchObject.startDate;
-    this.currentEndDate = searchObject.endDate;
+  private _updateDates() {
+    this.currentStartDate = this.period.startDate;
+    this.currentEndDate = this.period.endDate;
   }
 }

@@ -8,14 +8,14 @@ import {
 import { Router } from '@angular/router';
 import { forkJoin, Observable, Subscription } from 'rxjs';
 
-import { Category } from '../models/category.model';
+import { Category } from '../../shared/models/category.model';
 import { CategoryService } from '../../core/services/category.service';
-import { Metropolises } from '../models/metropolises.model';
+import { Metropolises } from '../../shared/models/metropolises.model';
 import { MetropolisesService } from '../../core/services/metropolises.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DatepickerOptions } from 'ng2-datepicker';
 import locale from 'date-fns/locale/en-US';
-import { Search } from '../models/search.model';
+import { Search } from '../../shared/models/search.model';
 
 /**
  * Composant de le la recherche
@@ -231,8 +231,8 @@ export class EquipmentSearchComponent implements OnInit {
       if (this.f.metropolisesSelect.value === '') {
         this.f.metropolisesSelect.setValue('0');
       }
+
       this._emitSearchObject();
-      this.router.navigate(['../equipment/equipment-list']);
     }
   }
 

@@ -1,10 +1,6 @@
-<app-equipment-search
-  (searchEmitter)="updateList($event)"
-></app-equipment-search>
-
-<div *ngIf="listEquipment$">
+<div *ngIf="!!listEquipment">
   <h1>Résultat de la recherche</h1>
-  <div *ngIf="(listEquipment$ | async)?.length > 0; else noEquipment">
+  <div *ngIf="listEquipment?.length > 0; else noEquipment">
     <div style="display: flex">
       <div style="flex: 2"></div>
 
@@ -31,7 +27,7 @@
 
         <div class="_grid">
           <a
-            *ngFor="let equipment of listEquipment$ | async; index as i"
+            *ngFor="let equipment of listEquipment; index as i"
             (click)="goToEquipmentDetails(equipment.id)"
           >
             <div class="card --center">
