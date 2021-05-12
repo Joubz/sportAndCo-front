@@ -4,6 +4,7 @@ import {ClientService} from "../../core/services/client.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {DatepickerOptions} from "ng2-datepicker";
 import locale from "date-fns/locale/en-US";
+import {Router} from "@angular/router";
 
 /**
  * Composant de la page inscription d'un client
@@ -109,11 +110,12 @@ export class ClientRegistrationComponent implements OnInit {
    * Constructeur du composant
    * @param clientService Service de gestion client
    * @param fb Constructeur de formulaire natif angular
+   * @param router Gestion du routing (natif angular)
    */
   constructor(
     private clientService: ClientService,
     private fb: FormBuilder,
-
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -327,16 +329,69 @@ export class ClientRegistrationComponent implements OnInit {
     return this.f.city.value?.length || 0;
   }
 
+  /**
+   * Met à jour le booleen de date de naissance
+   */
   changeBirthDate(): void {
     this.isBirthDateFilled = true;
+  }
+
+  /**
+   * Fonction qui formate la date en année-mois-jour
+   * @param date Date passée en paramètres
+   */
+  formatDate(date: Date): string {
+    let month = '' + (date.getMonth() + 1);
+    let day = '' + date.getDate();
+    const year = date.getFullYear();
+
+    if (month.length < 2) {
+      month = '0' + month;
+    }
+    if (day.length < 2) {
+      day = '0' + day;
+    }
+
+    return [year, month, day].join('-');
   }
 
   /**
    * Fonction de création du client
    */
   onSubmit(): void {
-    if (this.isBirthDateFilled) {
+    if () {
       this.isSubmit = true;
+
+      if (
+        !this.f.firstName.invalid &&
+        !this.f.lastName.invalid &&
+        !this.f.password.invalid &&
+        !this.f.email.invalid &&
+        !this.f.phone.invalid &&
+        !this.isBirthDateFilled &&
+        !this.f.address.invalid &&
+        !this.f.additionalAddress.invalid &&
+        !this.f.postalCode.invalid &&
+        !this.f.city.invalid
+      ) {
+        const newClient = new Client({
+          id: -1,
+          password: this.f.password.value,
+          firstName: this.f.firstName.value,
+          lastName: this.f.lastName.value,
+          email: this.f.email.value,
+          phone: this.f.postalCode.value,
+          birthDate: this.formatDate(this.birthDate),
+          address: this.f.address.value,
+          additionalAddress: this.f.additionalAddress.value,
+          postalCode: this.f.postalCode.value,
+          city: this.f.city.value
+        });
+
+        this.clientService.createClient(newClient).subscribe(result => {
+          this.router.navigate(['/home']);
+        })
+      }
 
     }
   }
