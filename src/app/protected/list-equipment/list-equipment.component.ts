@@ -1,14 +1,13 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import {ActivatedRoute, Router} from "@angular/router";
-import { firstBy } from 'thenby';
+import { Router } from '@angular/router';
 
-import {EquipmentService} from "../../core/services/equipment.service";
-import {OrderService} from "../../core/services/order.service";
-import {Equipment} from "../../shared/models/equipment.model";
-import {Subscription} from "rxjs";
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {EquipmentSearchProvider} from "../../core/providers/equipment-search.providers";
+import { EquipmentService } from '../../core/services/equipment.service';
+import { Equipment } from '../../shared/models/equipment.model';
+import { Observable } from 'rxjs';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Search } from 'src/app/shared/models/search.model';
+import { map } from 'rxjs/operators';
 
 /**
  * Composant de la liste des équipements
@@ -16,25 +15,11 @@ import {EquipmentSearchProvider} from "../../core/providers/equipment-search.pro
 @Component({
   selector: 'app-list-equipment',
   templateUrl: './list-equipment.component.html',
-  styleUrls: ['./list-equipment.component.css']
+  styleUrls: ['./list-equipment.component.css'],
 })
-export class ListEquipmentComponent implements OnInit, OnDestroy {
-
-  /**
-   * Permet d'attendre que l'équipement soit chargé pour l'afficher
-   */
-  listEquipmentLoaded: Promise<boolean>;
-
-  /**
-   * Liste des équipements correspondants à la recherche de l'utilisateur
-   */
-  listEquipment: Equipment[];
-
-  /**
-   * Souscription au service de récupération de la liste des équipements
-   */
-  getListEquipmentSub: Subscription;
-
+export class ListEquipmentComponent implements OnInit {
+  currentStartDate: string;
+  currentEndDate: string;
   /**
    * url de l'application qui sera passé au HTML de l'image pour chargement de l'image sur le visuel
    */
@@ -46,50 +31,38 @@ export class ListEquipmentComponent implements OnInit, OnDestroy {
   selectOptions = [
     { name: 'Ordre Alphabétique' },
     { name: 'Prix Ascendant' },
-    { name: 'Prix Descendant' }
+    { name: 'Prix Descendant' },
   ];
 
   /**
    * La valeur de select par défaut
    */
-  defaultSelected = "Ordre Alphabétique";
+  defaultSelected = 'Ordre Alphabétique';
 
   /**
    * Formulaire de sélection des filtres
    */
   filtersForm: FormGroup;
 
+  listEquipment$: Observable<Equipment[]>;
+
   /**
    * Constructeur du composant
    * @param equipmentService Service de gestion des éqyipements
-   * @param orderService Service de gestion des commandes
    * @param router Service de gestion des routes
-   * @param route Service angular de gestion de la route actuelle
-   * @param equipmentSearchProvider Provider pour la sauvegarde de champs de la rercherche
    * @param fb Utilitaire de création de formulaire
    */
   constructor(
     private equipmentService: EquipmentService,
-    private orderService: OrderService,
     private router: Router,
-    private route: ActivatedRoute,
-    private equipmentSearchProvider: EquipmentSearchProvider,
-    private fb: FormBuilder,
+    private fb: FormBuilder
   ) {}
 
   /**
-   * Initialise le composant, récupère la liste des équipements correspondant à la recherche
+   * Initialise le composant, initiaalise le formulaire
    */
   ngOnInit(): void {
-    this.getListEquipmentSub = this.equipmentService.searchEquipment(this.equipmentSearchProvider.searchFields.productName, this.equipmentSearchProvider.searchFields.startDate,
-      this.equipmentSearchProvider.searchFields.endDate, parseInt(this.equipmentSearchProvider.searchFields.category, 10), parseInt(this.equipmentSearchProvider.searchFields.metropolises, 10))
-      .subscribe(listEquipment => {
-        this.listEquipment = listEquipment;
-        this.listEquipment.sort((a, b) => a.name.localeCompare(b.name));
-        this.initForm();
-        this.listEquipmentLoaded = Promise.resolve(true);
-      });
-
+    this.initForm();
   }
 
   /**
@@ -97,23 +70,21 @@ export class ListEquipmentComponent implements OnInit, OnDestroy {
    */
   initForm(): void {
     this.filtersForm = this.fb.group({
-      selectOption: ['']
+      selectOption: [''],
     });
   }
 
   /**
    * Trie la liste des équipements en fonction de l'option choisie dans le select
    */
-  sortOnChange(option: string): void{
+  sortOnChange(option: string): void {
     switch (option) {
-      case "selectOption":
-        if (this.f.selectOption.value === "Ordre Alphabétique"){
+      case 'selectOption':
+        if (this.f.selectOption.value === 'Ordre Alphabétique') {
           this.sortListEquipmentsByName();
-        }
-        else if (this.f.selectOption.value === "Prix Ascendant" ){
+        } else if (this.f.selectOption.value === 'Prix Ascendant') {
           this.sortListEquipmentsByPriceAscendant();
-        }
-        else if (this.f.selectOption.value === "Prix Descendant" ){
+        } else if (this.f.selectOption.value === 'Prix Descendant') {
           this.sortListEquipmentsByPriceDescendant();
         }
         break;
@@ -124,23 +95,39 @@ export class ListEquipmentComponent implements OnInit, OnDestroy {
    * Trie la liste des équipements par ordre de prix ascendant
    */
   sortListEquipmentsByPriceAscendant(): void {
-    this.listEquipment.sort(
-      firstBy(function(v1: Equipment, v2: Equipment) { return v1.price - v2.price; }));
+    this.listEquipment$ = this.listEquipment$.pipe(
+      map((equipments) =>
+        equipments.sort((v1: Equipment, v2: Equipment) => {
+          return v1.price - v2.price;
+        })
+      )
+    );
   }
 
   /**
    * Trie la liste des équipements par ordre de prix ascendant
    */
   sortListEquipmentsByPriceDescendant(): void {
-    this.listEquipment.sort(
-      firstBy(function(v1: Equipment, v2: Equipment) { return v2.price - v1.price; }));
+    this.listEquipment$ = this.listEquipment$.pipe(
+      map((equipments) =>
+        equipments.sort((v1: Equipment, v2: Equipment) => {
+          return v2.price - v1.price;
+        })
+      )
+    );
   }
 
   /**
    * Trie la liste des équipements par ordre alphabétique
    */
   sortListEquipmentsByName(): void {
-    this.listEquipment.sort((a, b) => a.name.localeCompare(b.name));
+    this.listEquipment$ = this.listEquipment$.pipe(
+      map((equipments) =>
+        equipments.sort((v1: Equipment, v2: Equipment) => {
+          return v1.name.localeCompare(v2.name);
+        })
+      )
+    );
   }
 
   /**
@@ -151,19 +138,38 @@ export class ListEquipmentComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Unsubscribe
-   */
-  ngOnDestroy(): void {
-    this.getListEquipmentSub?.unsubscribe();
-  }
-
-  /**
    * Redirige vers le détail de l'éauipement
    * @param id identifiant de l'équipement
    */
   goToEquipmentDetails(id: number): void {
-    this.router.navigate(['/equipment/equipment-details', id, this.equipmentSearchProvider.searchFields.startDate, this.equipmentSearchProvider.searchFields.endDate],
-      { queryParams: { from: 'equipment-list' } });
+    this.router.navigate(
+      [
+        '/equipment/equipment-details',
+        id,
+        this.currentStartDate,
+        this.currentEndDate,
+      ],
+      { queryParams: { from: 'equipment-list' } }
+    );
   }
 
+  /**
+   * Met à jour la liste des équipement
+   * @param searchObject paramètres de la recherche
+   */
+  updateList(searchObject: Search) {
+    this._updateDates(searchObject);
+    this.listEquipment$ = this.equipmentService.searchEquipment(
+      searchObject.productName,
+      searchObject.startDate,
+      searchObject.endDate,
+      parseInt(searchObject.category, 10),
+      parseInt(searchObject.metropolises, 10)
+    );
+  }
+
+  private _updateDates(searchObject: Search) {
+    this.currentStartDate = searchObject.startDate;
+    this.currentEndDate = searchObject.endDate;
+  }
 }

@@ -1,43 +1,74 @@
-<div *ngIf="categoryAndMetropolisesLoaded | async">
-
-  <div class = "_container imgSearch">
+<div>
+  <div class="_container imgSearch">
     <div class="_row --center champRecherche">
-
-      <form [formGroup]="searchForm" >
-        <input type="text" placeholder="Rechercher un produit" name="search" id="productName"
-               formControlName="productName" />
+      <form [formGroup]="searchForm">
+        <input
+          type="text"
+          placeholder="Rechercher un produit"
+          name="search"
+          id="productName"
+          formControlName="productName"
+        />
       </form>
 
-      <ngx-datepicker [(ngModel)]="startDateSelect" [options]="startDatePickerOptions" (ngModelChange)="changeStartDate()"></ngx-datepicker>
+      <ngx-datepicker
+        [(ngModel)]="startDateSelect"
+        [options]="startDatePickerOptions"
+        (ngModelChange)="changeStartDate()"
+      ></ngx-datepicker>
 
-      <ngx-datepicker [(ngModel)]="endDateSelect" [options]="endDatePickerOptions" (ngModelChange)="changeEndDate()"></ngx-datepicker>
+      <ngx-datepicker
+        [(ngModel)]="endDateSelect"
+        [options]="endDatePickerOptions"
+        (ngModelChange)="changeEndDate()"
+      ></ngx-datepicker>
 
-
-      <form [formGroup]="searchForm" >
+      <form [formGroup]="searchForm">
         <div>
-          <select  name="category" formControlName="categorySelect" id="categorySelect" >
+          <select
+            name="category"
+            formControlName="categorySelect"
+            id="categorySelect"
+          >
             <option value="">Catégories</option>
-            <option *ngFor="let category of listCategory" [ngValue]="category.id" >{{ category.name }}</option>
+            <option
+              *ngFor="let category of listCategory$ | async"
+              [ngValue]="category.id"
+            >
+              {{ category.name }}
+            </option>
           </select>
         </div>
       </form>
 
-      <form [formGroup]="searchForm" >
+      <form [formGroup]="searchForm">
         <div>
-          <select  name="metropolisesSelect" formControlName="metropolisesSelect" id="metropolisesSelect" >
+          <select
+            name="metropolisesSelect"
+            formControlName="metropolisesSelect"
+            id="metropolisesSelect"
+          >
             <option value="">Lieu</option>
-            <option *ngFor="let metropolises of listMetropolises" [ngValue]="metropolises.id" >{{ metropolises.name }}</option>
+            <option
+              *ngFor="let metropolises of listMetropolises$ | async"
+              [ngValue]="metropolises.id"
+            >
+              {{ metropolises.name }}
+            </option>
           </select>
         </div>
       </form>
     </div>
     <div class="boutonR">
-      <button [class]="getButtonClass('search')" (click)="search()"l [disabled]="!areDatesOk">
-        {{ this.areDatesOk ? 'Rechercher' : 'Non disponible' }} </button>
-      <span *ngIf="!areDatesOk">{{errorMessageDate}}</span>
+      <button
+        [class]="getButtonClass('search')"
+        (click)="search()"
+        l
+        [disabled]="!areDatesOk"
+      >
+        {{ this.areDatesOk ? "Rechercher" : "Non disponible" }}
+      </button>
+      <span *ngIf="!areDatesOk">{{ errorMessageDate }}</span>
     </div>
   </div>
-
 </div>
-
-

@@ -1,31 +1,51 @@
-<app-equipment-search></app-equipment-search>
+<app-equipment-search
+  (searchEmitter)="updateList($event)"
+></app-equipment-search>
 
-<div *ngIf="listEquipmentLoaded | async">
-
+<!-- <div *ngIf="listEquipmentLoaded | async"> -->
+<div>
   <h1>Résultat de la recherche</h1>
-  <div *ngIf="listEquipment.length != 0 ; else noEquipment ">
+  <div *ngIf="(listEquipment$ | async)?.length > 0; else noEquipment">
     <div style="display: flex">
-      <div style="flex : 2">
-      </div>
+      <div style="flex: 2"></div>
 
-      <div style="flex : 9">
-
-        <div style=" display: flex;  align-content: end;">
-
-          <form class="_formJustifyEnd" [formGroup]="filtersForm" >
-            <select  name="optionsTri" class="select" formControlName="selectOption" id="optionsTri" (change)="sortOnChange('selectOption')" [(ngModel)]="defaultSelected">
-              <option *ngFor="let selectOption of selectOptions" [ngValue]="selectOption.name" [selected]="selectOption.name == 'Ordre Alphabétique'">{{selectOption.name}}</option>
+      <div style="flex: 9">
+        <div style="display: flex; align-content: end">
+          <form class="_formJustifyEnd" [formGroup]="filtersForm">
+            <select
+              name="optionsTri"
+              class="select"
+              formControlName="selectOption"
+              id="optionsTri"
+              (change)="sortOnChange('selectOption')"
+              [(ngModel)]="defaultSelected"
+            >
+              <option
+                *ngFor="let selectOption of selectOptions"
+                [ngValue]="selectOption.name"
+                [selected]="selectOption.name == 'Ordre Alphabétique'"
+              >
+                {{ selectOption.name }}
+              </option>
             </select>
           </form>
         </div>
 
-        <div class="_grid" >
-          <a *ngFor="let equipment of listEquipment; index as i" (click)="goToEquipmentDetails(equipment.id)">
+        <div class="_grid">
+          <a
+            *ngFor="let equipment of listEquipment$ | async; index as i"
+            (click)="goToEquipmentDetails(equipment.id)"
+          >
             <div class="card --center">
-              <img alt="img" [src]="urlBasic.concat(equipment.imageLink1)" *ngIf="equipment.imageLink1" style="width:100%" />
+              <img
+                alt="img"
+                [src]="urlBasic.concat(equipment.imageLink1)"
+                *ngIf="equipment.imageLink1"
+                style="width: 100%"
+              />
               <div class="--center">
-                <h5>{{equipment.name}}</h5>
-                <span>{{equipment.price}} €</span>
+                <h5>{{ equipment.name }}</h5>
+                <span>{{ equipment.price }} €</span>
               </div>
             </div>
           </a>
@@ -35,10 +55,7 @@
   </div>
   <ng-template #noEquipment>
     <div class="my-7 p-6 --center">
-      <p class="font-size-rem">
-        Aucun résultat
-      </p>
+      <p class="font-size-rem">Aucun résultat</p>
     </div>
   </ng-template>
-
 </div>
