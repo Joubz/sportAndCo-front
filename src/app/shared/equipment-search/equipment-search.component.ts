@@ -233,6 +233,10 @@ export class EquipmentSearchComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Fonction qui formate la date en année-mois-jour
+   * @param date Date passée en paramètres
+   */
   formatDate(date: Date): string {
     let month = '' + (date.getMonth() + 1);
     let day = '' + date.getDate();
