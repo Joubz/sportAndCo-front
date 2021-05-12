@@ -35,10 +35,12 @@ export class ListEquipmentComponent implements OnInit, OnChanges {
    * Date de début courante
    */
   currentStartDate: string;
+
   /**
    * Date de fin courante
    */
   currentEndDate: string;
+
   /**
    * url de l'application qui sera passé au HTML de l'image pour chargement de l'image sur le visuel
    */
