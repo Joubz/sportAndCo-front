@@ -1,0 +1,8 @@
+<div *ngIf="notificationProperties" (click)="close()">
+  <div class="container_notif" [class]="delayToClass(15)">
+    <div class="content_notif" [class]="notificationProperties.background">
+      <i [class]="notificationProperties.icon"> </i>
+      <div>{{ notificationProperties.message }}</div>
+    </div>
+  </div>
+</div>

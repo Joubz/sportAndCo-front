@@ -1,0 +1,29 @@
+
+.container_notif {
+  display: block;
+  z-index: 100;
+  width: auto;
+  height: auto;
+  opacity: 0;
+  position: fixed;
+  animation-duration: 5s;
+  animation-name: notif_transition;
+  .content_notif {
+    padding: 20px;
+    width: 300px;
+    height: auto;
+    background-color: $green;
+    color: $white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 15px;
+    i {
+      width: 25px;
+      font-size: 28px;
+    }
+    div {
+      width: 210px;
+    }
+  }
+}

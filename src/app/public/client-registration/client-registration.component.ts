@@ -5,6 +5,9 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {DatepickerOptions} from "ng2-datepicker";
 import locale from "date-fns/locale/en-US";
 import {Router} from "@angular/router";
+import {NotificationsService} from "../../core/services/notification.service";
+import { Notification, NotificationBackground, NotificationIcon } from 'src/app/shared/models/notification.model';
+
 
 /**
  * Composant de la page inscription d'un client
@@ -111,11 +114,13 @@ export class ClientRegistrationComponent implements OnInit {
    * @param clientService Service de gestion client
    * @param fb Constructeur de formulaire natif angular
    * @param router Gestion du routing (natif angular)
+   * @param notificationsService Service de gestion des popin de notification
    */
   constructor(
     private clientService: ClientService,
     private fb: FormBuilder,
     private router: Router,
+    private notificationsService: NotificationsService
   ) { }
 
   /**
@@ -395,9 +400,15 @@ export class ClientRegistrationComponent implements OnInit {
       });
 
       this.clientService.createClient(newClient).subscribe(result => {
-        console.log("in suscribe");
+        const notification = new Notification({
+          message: 'Votre compte à bien été créer. Un email de confirmation va vous être envoyé.',
+          background: NotificationBackground.GREEN,
+          icon: NotificationIcon.CHECK
+        });
 
-        this.router.navigate(['/home']);
+        this.notificationsService.genericNotification(notification);
+
+        this.router.navigate(['/client-login']);
       });
     }
 
