@@ -202,6 +202,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
       }
 
       this.isEquipmentAvailable();
+
       // TODO Récupérer le client
 
       this.equipmentLoaded = Promise.resolve(true);
@@ -259,7 +260,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Augmente la quantité, vérifie la disponibilité
+   * Diminue la quantité, vérifie la disponibilité
    */
   diminishQuantity(): void {
     if (this.quantityWanted !== 1) {
@@ -319,8 +320,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
    */
   rentEquipment() {
     if (this.isAvailable && this.areDatesOk && this.isEquipmentStillAvailable) {
-      // TODO
-      // TODO créer les objets order et bill à partir des infos présentent
+
       const order: Order = new Order({
         id: -1,
         client: this.client,
@@ -338,8 +338,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
         quantityRented: this.quantityWanted
         }
       );
-      const varDTO = 5;
-      this.router.navigateByUrl('/equipment/reservation', { state: {"data": varDTO } });
+      this.router.navigateByUrl('/equipment/reservation', { state: {"order": order } });
 
     }
   }
