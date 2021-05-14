@@ -12,6 +12,8 @@ import { DatepickerOptions } from 'ng2-datepicker';
 import locale from 'date-fns/locale/en-US';
 import { Client } from '../../shared/models/clientRent.model';
 import { Location } from '@angular/common';
+import {state} from "@angular/animations";
+import {Bill} from "../../shared/models/bill.model";
 
 /**
  * Composant de la page détail d'un équipement
@@ -36,6 +38,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
    * Données du client qui visite la page et souhaite louer le produit
    */
   client: Client;
+  // TODO Récupérer le client
 
   /**
    * Liste des commandes concernés par l'équipement
@@ -199,6 +202,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
       }
 
       this.isEquipmentAvailable();
+      // TODO Récupérer le client
 
       this.equipmentLoaded = Promise.resolve(true);
     });
@@ -317,6 +321,45 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
     if (this.isAvailable && this.areDatesOk && this.isEquipmentStillAvailable) {
       // TODO
       // TODO créer les objets order et bill à partir des infos présentent
+      const order: Order = new Order({
+        id: -1,
+        client: this.client,
+        equipment: this.equipment,
+        bill: new Bill({
+          id: -1,
+          description: "",
+          billDate: this.formatDate(new Date()),
+          billPrice: (this.quantityWanted * this.equipment.price).toString()
+        }),
+        startDate: this.formatDate(this.startDateSelect),
+        endDate: this.formatDate(this.endDateSelect),
+        rentDate: this.formatDate(new Date()),
+        statusReturned: 0,
+        quantityRented: this.quantityWanted
+        }
+      );
+      const varDTO = 5;
+      this.router.navigateByUrl('/equipment/reservation', { state: {"data": varDTO } });
+
     }
+  }
+
+  /**
+   * Fonction qui formate la date en année-mois-jour
+   * @param date Date passée en paramètres
+   */
+  formatDate(date: Date): string {
+    let month = '' + (date.getMonth() + 1);
+    let day = '' + date.getDate();
+    const year = date.getFullYear();
+
+    if (month.length < 2) {
+      month = '0' + month;
+    }
+    if (day.length < 2) {
+      day = '0' + day;
+    }
+
+    return [year, month, day].join('-');
   }
 }
