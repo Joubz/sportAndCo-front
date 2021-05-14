@@ -1,16 +1,17 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import {ActivatedRoute, Router} from "@angular/router";
-import {forkJoin, Subscription} from "rxjs";
+import { ActivatedRoute, Router } from '@angular/router';
+import { forkJoin, Subscription } from 'rxjs';
 
-import {Equipment} from "../../shared/models/equipment.model";
-import {EquipmentService} from "../../core/services/equipment.service";
-import {Order} from "../../shared/models/order.model";
-import {OrderService} from "../../core/services/order.service";
+import { Equipment } from '../../shared/models/equipment.model';
+import { EquipmentService } from '../../core/services/equipment.service';
+import { Order } from '../../shared/models/order.model';
+import { OrderService } from '../../core/services/order.service';
 
 import { DatepickerOptions } from 'ng2-datepicker';
 import locale from 'date-fns/locale/en-US';
-import {Client} from "../../shared/models/clientRent.model";
+import { Client } from '../../shared/models/clientRent.model';
+import { Location } from '@angular/common';
 
 /**
  * Composant de la page détail d'un équipement
@@ -18,7 +19,7 @@ import {Client} from "../../shared/models/clientRent.model";
 @Component({
   selector: 'app-equipment-details',
   templateUrl: './equipment-details.component.html',
-  styleUrls: ['./equipment-details.component.css']
+  styleUrls: ['./equipment-details.component.css'],
 })
 export class EquipmentDetailsComponent implements OnInit, OnDestroy {
   /**
@@ -49,7 +50,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
   /**
    * url de l'application qui sera passé au HTML de l'image pour chargement de l'image sur le visuel
    */
-  urlBasic: string  = environment.URL_BASE;
+  urlBasic: string = environment.URL_BASE;
 
   /**
    * Url de retour pour le clic sur le bouton "Retour au tableau" ou les actions sur l'anomalie
@@ -89,7 +90,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
   /**
    * Date de fin sélectionnée par le client
    */
-   endDateSelect: Date;
+  endDateSelect: Date;
 
   /**
    * Date du jour
@@ -109,12 +110,14 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
   /**
    * Message d'erreur quand la quantité voulue n'est pas disponible
    */
-  errorMessageQuantity = "Erreur : Ce produit n'est pas disponible à la location";
+  errorMessageQuantity =
+    "Erreur : Ce produit n'est pas disponible à la location";
 
   /**
    * Message d'erreur sur le choix des dates
    */
-  errorMessageDate = "Erreur : La date de fin ne peux être inférieur à la date de début";
+  errorMessageDate =
+    'Erreur : La date de fin ne peux être inférieur à la date de début';
 
   /**
    * Options des sélectionneurs de dates
@@ -157,16 +160,21 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
     private equipmentService: EquipmentService,
     private orderService: OrderService,
     private router: Router,
-    private route: ActivatedRoute
-  ) { }
+    private route: ActivatedRoute,
+    private location: Location
+  ) {}
 
   /**
    * Initialise le composant, récupère l'équipement correspondant et la liste des commandes concernés par l'équipement (pour vérifier si l'équipement est disponible)
    */
   ngOnInit(): void {
     this.getEquipmentSub = forkJoin([
-      this.equipmentService.getEquipment(parseInt(this.route.snapshot.paramMap.get('id'), 10)),
-      this.orderService.getOrderByEquipmentForAvailability(parseInt(this.route.snapshot.paramMap.get('id'), 10))
+      this.equipmentService.getEquipment(
+        parseInt(this.route.snapshot.paramMap.get('id'), 10)
+      ),
+      this.orderService.getOrderByEquipmentForAvailability(
+        parseInt(this.route.snapshot.paramMap.get('id'), 10)
+      ),
     ]).subscribe(([equipment, listOrder]) => {
       this.equipment = equipment;
       this.orderListByEquipment = listOrder;
@@ -184,7 +192,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
       this.startDatePickerOptions.minDate = new Date(this.equipment.endDate);
       this.endDatePickerOptions.minDate = new Date(this.equipment.endDate);
 
-      if (new Date(this.equipment.endDate) < new Date() ) {
+      if (new Date(this.equipment.endDate) < new Date()) {
         this.isEquipmentStillAvailable = false;
       } else {
         this.isEquipmentStillAvailable = true;
@@ -213,13 +221,14 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
     if (this.isEquipmentStillAvailable) {
       this.quantityAvailable = this.equipment.totalQuantity;
 
-      this.orderListByEquipment.forEach(order => {
+      this.orderListByEquipment.forEach((order) => {
         const startDate = new Date(order.startDate);
         const endDate = new Date(order.endDate);
         let dateCorrespondante = false;
 
-        if ( !(this.endDateSelect <= startDate || this.startDateSelect >= endDate) )
-        {
+        if (
+          !(this.endDateSelect <= startDate || this.startDateSelect >= endDate)
+        ) {
           dateCorrespondante = true;
           this.quantityAvailable -= order.quantityRented;
         }
@@ -229,7 +238,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
         }
       });
 
-      if (this.quantityWanted <= this.quantityAvailable ) {
+      if (this.quantityWanted <= this.quantityAvailable) {
         this.isAvailable = true;
       }
     }
@@ -278,7 +287,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
     if (this.startDateSelect > this.endDateSelect) {
       this.areDatesOk = false;
     } else {
-      this.areDatesOk =  true;
+      this.areDatesOk = true;
     }
   }
 
@@ -286,7 +295,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
    * Méthode pour retourner au tableau des listes
    */
   goBack() {
-    this.router.navigate(['/equipment', this.urlBack]);
+    this.location.back();
   }
 
   /**
@@ -310,6 +319,4 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
       // TODO créer les objets order et bill à partir des infos présentent
     }
   }
-
-
 }

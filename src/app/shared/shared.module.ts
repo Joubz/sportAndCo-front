@@ -2,26 +2,21 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { EquipmentSearchComponent } from './equipment-search/equipment-search.component';
-import {DatepickerModule} from "ng2-datepicker";
+
+import { DatepickerModule } from 'ng2-datepicker';
 
 /**
  * Gestion des modules et composants de Shared
  */
 @NgModule({
-  declarations: [
-    EquipmentSearchComponent
-  ],
+  declarations: [],
   imports: [
     CommonModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    DatepickerModule
+    DatepickerModule,
   ],
-    exports: [
-        EquipmentSearchComponent
-
-    ]
+  exports: [],
 })
-export class SharedModule { }
+export class SharedModule {}
