@@ -4,7 +4,6 @@ import { ClientService } from '../../core/services/client.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NotificationsService } from '../../core/services/notification.service';
-import { Notification, NotificationBackground, NotificationIcon } from 'src/app/shared/models/notification.model';
 import { TokenStorageService } from 'src/app/core/services/token-storage.service';
 
 /**
@@ -64,7 +63,7 @@ export class ClientLoginComponent implements OnInit, OnDestroy {
   /**
    * Destruction du composant
    */
-   ngOnDestroy(): void {
+  ngOnDestroy(): void {
   }
 
   /**
@@ -165,7 +164,7 @@ export class ClientLoginComponent implements OnInit, OnDestroy {
     this.isSubmit = true;
 
     if (!this.f.email.invalid &&
-        !this.f.password.invalid) {
+      !this.f.password.invalid) {
       const loginClient = new Client({
         id: -1,
         password: this.f.password.value,
@@ -189,7 +188,6 @@ export class ClientLoginComponent implements OnInit, OnDestroy {
         }
       );
 
-    
     }
-}
+  }
 }
