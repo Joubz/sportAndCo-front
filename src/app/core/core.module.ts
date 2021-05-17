@@ -29,7 +29,9 @@ import { NotificationsComponent } from './notification/notification.component';
   exports: [
     HeaderComponent,
     FooterComponent,
-    ModalComponent],
+    ModalComponent,
+    NotificationsComponent
+  ],
   providers: [httpErrorInterceptorProviders]
 })
 export class CoreModule {
