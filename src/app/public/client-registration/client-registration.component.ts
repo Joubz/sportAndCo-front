@@ -141,10 +141,10 @@ export class ClientRegistrationComponent implements OnInit {
       lastName: ['', [Validators.required, Validators.maxLength(100)]],
       password: ['', [Validators.required, Validators.maxLength(15)]],
       email: ['', [Validators.required, Validators.maxLength(250), Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-      phone: ['', [Validators.required, Validators.maxLength(100)]],
+      phone: ['', [Validators.required, Validators.maxLength(100), Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       address: ['', [Validators.required, Validators.maxLength(250)]],
       additionalAddress: ['', [Validators.required, Validators.maxLength(250)]],
-      postalCode: ['', [Validators.required, Validators.maxLength(250)]],
+      postalCode: ['', [Validators.required, Validators.maxLength(5), Validators.pattern("^[0-9]*$")]],
       city: ['', [Validators.required, Validators.maxLength(250)]],
     });
   }
@@ -223,6 +223,9 @@ export class ClientRegistrationComponent implements OnInit {
           } else if (this.f.phone.errors.maxlength) {
             this.messageError5 = "Le champ doit être d'une longueur maximale de 250 caractères";
             return true;
+          }  else if (this.f.phone.errors.pattern) {
+            this.messageError5 = "Le téléphone doit être valide";
+            return true;
           }
         }
         break;
@@ -257,7 +260,10 @@ export class ClientRegistrationComponent implements OnInit {
             this.messageError8 = "Le champ doit être rempli";
             return true;
           } else if (this.f.postalCode.errors.maxlength) {
-            this.messageError8 = "Le champ doit être d'une longueur maximale de 250 caractères";
+            this.messageError8 = "Le champ doit être d'une longueur maximale de 5 caractères";
+            return true;
+          }  else if (this.f.postalCode.errors.pattern) {
+            this.messageError8 = "Format incorrect";
             return true;
           }
         }

@@ -17,7 +17,7 @@
     </div>
 
     <div>
-      <input type="text" formControlName="password" [ngClass]="{ 'field-error': errorDetection('password') }"
+      <input type="password" formControlName="password" [ngClass]="{ 'field-error': errorDetection('password') }"
              placeholder="Mot de passe" name="password" id="password" required />
       <span class="tiny-txt">Nombre de caractères : {{ passwordChars }} / 15</span>
       <span *ngIf="errorDetection('password')" class="field-error-message tiny-txt">{{messageError3}}</span>
@@ -31,7 +31,7 @@
     </div>
 
     <div>
-      <input type="text" formControlName="phone" [ngClass]="{ 'field-error': errorDetection('phone') }"
+      <input type="tel" formControlName="phone" [ngClass]="{ 'field-error': errorDetection('phone') }"
              placeholder="Numéro de téléphone" name="phone" id="phone" required />
       <span class="tiny-txt">Nombre de caractères : {{ phoneChars }} / 100</span>
       <span *ngIf="errorDetection('phone')" class="field-error-message tiny-txt">{{messageError5}}</span>
@@ -59,9 +59,9 @@
     </div>
 
     <div>
-      <input type="text" formControlName="postalCode" [ngClass]="{ 'field-error': errorDetection('postalCode') }"
-             placeholder="Code Postal" name="postalCode" id="postalCode" required />
-      <span class="tiny-txt">Nombre de caractères : {{ postalCodeChars }} / 250</span>
+      <input type="text"  formControlName="postalCode" [ngClass]="{ 'field-error': errorDetection('postalCode') }"
+             placeholder="Code Postal" name="postalCode" id="postalCode" required  />
+      <span class="tiny-txt">Nombre de caractères : {{ postalCodeChars }} / 5</span>
       <span *ngIf="errorDetection('postalCode')" class="field-error-message tiny-txt">{{messageError8}}</span>
     </div>
 
