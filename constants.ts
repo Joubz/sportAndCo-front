@@ -14,7 +14,9 @@ export class Constants {
     // Utilisation GET, POST, PUT, DELETE
     EXEMPLE: '/exemple',
     EQUIPMENT: '/equipment',
-    ORDER: '/order'
+    ORDER: '/order',
+    CATEGORY: '/category',
+    METROPOLISES: '/metropolises'
   });
 
   /**

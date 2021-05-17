@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+import { DatepickerModule } from 'ng2-datepicker';
+
 /**
  * Gestion des modules et composants de Shared
  */
@@ -12,10 +14,9 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     RouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DatepickerModule,
   ],
-  exports: [
-
-  ]
+  exports: [],
 })
-export class SharedModule { }
+export class SharedModule {}

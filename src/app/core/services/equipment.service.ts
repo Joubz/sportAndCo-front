@@ -47,19 +47,43 @@ export class EquipmentService {
   }
 
   /**
-   *  Renvoie la liste des equipements recherchés par l'utilisateur
+   * Renvoie la liste des equipements recherchés par l'utilisateur
    * @returns La liste des équipements trouvés, une erreur sinon
    */
   getListEquipment(): Observable<any> {
-    return this.http.get(this.equipmentEndpoint + '/get-list-equipment').pipe(
+    return this.http.get(this.equipmentEndpoint + '/list-equipment').pipe(
       map((jsonResponse: any) => {
         const equipmentList = [];
         jsonResponse.forEach(element => {
           const equipment: Equipment = Equipment.fromJson(element);
-          equipmentList.push(equipment );
+          equipmentList.push(equipment);
         });
         return equipmentList;
       })
     );
   }
+
+  /**
+   * Recherche les équipements
+   * @param equipmentName Nom de l'équipement
+   * @param startDate Date de début de location
+   * @param endDate Date de fin de location
+   * @param categoryId Identifiant de la catégorie
+   * @param metropolisesId Identifiant de la métropole
+   * @returns La liste des équipements trouvés, une erreur sinon
+   */
+  searchEquipment(equipmentName: string, startDate: string, endDate: string, categoryId: number, metropolisesId: number) {
+    return this.http.get(this.equipmentEndpoint + '/search-equipment' + '/' + equipmentName + '/' +
+    startDate + '/' + endDate + '/' + categoryId + '/' + metropolisesId).pipe(
+      map((jsonResponse: any) => {
+        const equipmentList = [];
+        jsonResponse.forEach(element => {
+          const equipment: Equipment = Equipment.fromJson(element);
+          equipmentList.push(equipment);
+        });
+        return equipmentList;
+      })
+    );
+  }
+
 }

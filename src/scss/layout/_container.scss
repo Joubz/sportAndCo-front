@@ -18,9 +18,7 @@ main {
   ._col3 {
     width: 40%;
   }
-  .element:nth-child(6){
-    align-self: flex-end;
-}
+
 }
 
 ._grid {
@@ -43,7 +41,8 @@ main {
   justify-content: center;
 }
 
-._productOther {  
+
+._productOther {
   width: 20%;
   img {
     width: 75px;

@@ -1,5 +1,7 @@
-<p>home works!</p>
-
-<button class="primary" (click)="goToDetailTest()">Go to equipment details </button>
-<button class="primary" (click)="goToListeEquipments()">Go to equipment list </button>
-
+<app-equipment-search
+  (searchEmitter)="updateList($event)"
+></app-equipment-search>
+<app-list-equipment
+  [listEquipment]="listEquipment$ | async"
+  [period]="period"
+></app-list-equipment>
