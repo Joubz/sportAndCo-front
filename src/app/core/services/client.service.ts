@@ -46,24 +46,23 @@ export class ClientService {
     return this.http.post(this.clientEndpoint + '/create-client', { newClient }, httpOptions);
   }
 
-   /**
+  /**
    * Fonction pour authentifier un utilisateur depuis l'API Sport&Co
-   * @param login Email du client du client
-   * @param password Mot de passe du client
+   * @param loginClient Object client du client
    */
-    loginClient(loginClient: Client): Observable<any> {
-      loginClient.password = Md5.hashStr(loginClient.password).toString();
+  loginClient(loginClient: Client): Observable<any> {
+    loginClient.password = Md5.hashStr(loginClient.password).toString();
 
-      return this.http.post(this.clientEndpoint + '/login', {loginClient}, httpOptions).pipe(
-        map((jsonResponse: any) => {
-            return {
-              client: Client.fromJson({
-                id: jsonResponse.ID,
-                email: jsonResponse.EMAIL 
-              }),
-              token: jsonResponse.authenticationToken
-            };
-          }
-        ));
-    }
+    return this.http.post(this.clientEndpoint + '/login', {loginClient}, httpOptions).pipe(
+      map((jsonResponse: any) => {
+          return {
+            client: Client.fromJson({
+              id: jsonResponse.ID,
+              email: jsonResponse.EMAIL
+            }),
+            token: jsonResponse.authenticationToken
+          };
+        }
+      ));
+  }
 }
