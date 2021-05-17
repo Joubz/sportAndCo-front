@@ -37,52 +37,52 @@ export class ClientRegistrationComponent implements OnInit {
   /**
    * String pour le message d'erreur de errorDetection
    */
-  messageError1: string;
+  messageErrorFirstName: string;
 
   /**
    * String pour le message d'erreur de errorDetection
    */
-  messageError2: string;
+  messageErrorLastName: string;
 
   /**
    * String pour le message d'erreur de errorDetection
    */
-  messageError3: string;
+  messageErrorPassword: string;
 
   /**
    * String pour le message d'erreur de errorDetection
    */
-  messageError4: string;
+  messageErrorEmail: string;
 
   /**
    * String pour le message d'erreur de errorDetection
    */
-  messageError5: string;
-
-  /**
-   * String pour le message d'erreur de errorDetection
-   */
-  messageError6: string;
-
-  /**
-   * String pour le message d'erreur de errorDetection
-   */
-  messageError7: string;
-
-  /**
-   * String pour le message d'erreur de errorDetection
-   */
-  messageError8: string;
-
-  /**
-   * String pour le message d'erreur de errorDetection
-   */
-  messageError9: string;
+  messageErrorPhone: string;
 
   /**
    * String pour le message d'erreur de la date de naissance
    */
-  errorMessageDate: string;
+  errorMessageBirthDate: string;
+
+  /**
+   * String pour le message d'erreur de errorDetection
+   */
+  messageErrorAddress: string;
+
+  /**
+   * String pour le message d'erreur de errorDetection
+   */
+  messageErrorAdditionalAddress: string;
+
+  /**
+   * String pour le message d'erreur de errorDetection
+   */
+  messageErrorPostalCode: string;
+
+  /**
+   * String pour le message d'erreur de errorDetection
+   */
+  messageErrorCity: string;
 
   /**
    * Boolean pour remplissage de la date
@@ -166,10 +166,10 @@ export class ClientRegistrationComponent implements OnInit {
       case 'firstName': {
         if (this.f.firstName.invalid && (this.f.firstName.dirty || this.f.firstName.touched || this.isSubmit)) {
           if (this.f.firstName.errors.required) {
-            this.messageError1 = "Le champ doit être rempli";
+            this.messageErrorFirstName = "Le champ doit être rempli";
             return true;
           } else if (this.f.firstName.errors.maxlength) {
-            this.messageError1 = "Le champ doit être d'une longueur maximale de 100 caractères";
+            this.messageErrorFirstName = "Le champ doit être d'une longueur maximale de 100 caractères";
             return true;
           }
         }
@@ -178,10 +178,10 @@ export class ClientRegistrationComponent implements OnInit {
       case 'lastName': {
         if (this.f.lastName.invalid && (this.f.lastName.dirty || this.f.lastName.touched || this.isSubmit)) {
           if (this.f.lastName.errors.required) {
-            this.messageError2 = "Le champ doit être rempli";
+            this.messageErrorLastName = "Le champ doit être rempli";
             return true;
           } else if (this.f.lastName.errors.maxlength) {
-            this.messageError2 = "Le champ doit être d'une longueur maximale de 100 caractères";
+            this.messageErrorLastName = "Le champ doit être d'une longueur maximale de 100 caractères";
             return true;
           }
         }
@@ -190,10 +190,10 @@ export class ClientRegistrationComponent implements OnInit {
       case 'password': {
         if (this.f.password.invalid && (this.f.password.dirty || this.f.password.touched || this.isSubmit)) {
           if (this.f.password.errors.required) {
-            this.messageError3 = "Le mot de passe doit être rempli";
+            this.messageErrorPassword = "Le mot de passe doit être rempli";
             return true;
           } else if (this.f.password.errors.maxlength) {
-            this.messageError3 = "Le mot de passe doit être d'une longueur maximale de 15 caractères";
+            this.messageErrorPassword = "Le mot de passe doit être d'une longueur maximale de 15 caractères";
             return true;
           }
         }
@@ -202,14 +202,14 @@ export class ClientRegistrationComponent implements OnInit {
       case 'email': {
         if (this.f.email.invalid && (this.f.email.dirty || this.f.email.touched || this.isSubmit)) {
           if (this.f.email.errors.required) {
-            this.messageError4 = "Le champ doit être rempli";
+            this.messageErrorEmail = "Le champ doit être rempli";
             return true;
           } else if (this.f.email.errors.maxlength) {
-            this.messageError4 = "Le champ doit être d'une longueur maximale de 250 caractères";
+            this.messageErrorEmail = "Le champ doit être d'une longueur maximale de 250 caractères";
             return true;
           }
           else if (this.f.email.errors.pattern) {
-            this.messageError4 = "Le mail doit être valide";
+            this.messageErrorEmail = "Le mail doit être valide";
             return true;
           }
         }
@@ -218,13 +218,13 @@ export class ClientRegistrationComponent implements OnInit {
       case 'phone': {
         if (this.f.phone.invalid && (this.f.phone.dirty || this.f.phone.touched || this.isSubmit)) {
           if (this.f.phone.errors.required) {
-            this.messageError5 = "Le champ doit être rempli";
+            this.messageErrorPhone = "Le champ doit être rempli";
             return true;
           } else if (this.f.phone.errors.maxlength) {
-            this.messageError5 = "Le champ doit être d'une longueur maximale de 250 caractères";
+            this.messageErrorPhone = "Le champ doit être d'une longueur maximale de 250 caractères";
             return true;
           }  else if (this.f.phone.errors.pattern) {
-            this.messageError5 = "Le téléphone doit être valide";
+            this.messageErrorPhone = "Le téléphone doit être valide";
             return true;
           }
         }
@@ -233,10 +233,10 @@ export class ClientRegistrationComponent implements OnInit {
       case 'address': {
         if (this.f.address.invalid && (this.f.address.dirty || this.f.address.touched || this.isSubmit)) {
           if (this.f.address.errors.required) {
-            this.messageError6 = "Le champ doit être rempli";
+            this.messageErrorAddress = "Le champ doit être rempli";
             return true;
           } else if (this.f.address.errors.maxlength) {
-            this.messageError6 = "Le champ doit être d'une longueur maximale de 250 caractères";
+            this.messageErrorAddress = "Le champ doit être d'une longueur maximale de 250 caractères";
             return true;
           }
         }
@@ -245,10 +245,10 @@ export class ClientRegistrationComponent implements OnInit {
       case 'additionalAddress': {
         if (this.f.additionalAddress.invalid && (this.f.additionalAddress.dirty || this.f.additionalAddress.touched || this.isSubmit)) {
           if (this.f.additionalAddress.errors.required) {
-            this.messageError7 = "Le champ doit être rempli";
+            this.messageErrorAdditionalAddress = "Le champ doit être rempli";
             return true;
           } else if (this.f.additionalAddress.errors.maxlength) {
-            this.messageError7 = "Le champ doit être d'une longueur maximale de 250 caractères";
+            this.messageErrorAdditionalAddress = "Le champ doit être d'une longueur maximale de 250 caractères";
             return true;
           }
         }
@@ -257,13 +257,13 @@ export class ClientRegistrationComponent implements OnInit {
       case 'postalCode': {
         if (this.f.postalCode.invalid && (this.f.postalCode.dirty || this.f.postalCode.touched || this.isSubmit)) {
           if (this.f.postalCode.errors.required) {
-            this.messageError8 = "Le champ doit être rempli";
+            this.messageErrorPostalCode = "Le champ doit être rempli";
             return true;
           } else if (this.f.postalCode.errors.maxlength) {
-            this.messageError8 = "Le champ doit être d'une longueur maximale de 5 caractères";
+            this.messageErrorPostalCode = "Le champ doit être d'une longueur maximale de 5 caractères";
             return true;
           }  else if (this.f.postalCode.errors.pattern) {
-            this.messageError8 = "Format incorrect";
+            this.messageErrorPostalCode = "Format incorrect";
             return true;
           }
         }
@@ -272,15 +272,26 @@ export class ClientRegistrationComponent implements OnInit {
       case 'city': {
         if (this.f.city.invalid && (this.f.city.dirty || this.f.city.touched || this.isSubmit)) {
           if (this.f.city.errors.required) {
-            this.messageError9 = "Le champ doit être rempli";
+            this.messageErrorCity = "Le champ doit être rempli";
             return true;
           } else if (this.f.city.errors.maxlength) {
-            this.messageError9 = "Le champ doit être d'une longueur maximale de 250 caractères";
+            this.messageErrorCity = "Le champ doit être d'une longueur maximale de 250 caractères";
             return true;
           }
         }
         break;
       }
+    }
+  }
+
+  /**
+   * Détection des erreurs sur le champ date de naissance
+   * @returns La validité du champ concerné
+   */
+  dateErrorDetection(): boolean {
+    if (!this.isBirthDateFilled) {
+      this.errorMessageBirthDate = "La date n'a pas été remplis";
+      return true;
     }
   }
 
