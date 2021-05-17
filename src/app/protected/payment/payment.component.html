@@ -1,0 +1,25 @@
+<p>payment works!</p>
+<div class="equipment-title-card my-5">
+  <h1> Détail paiement du client </h1>
+  <table>
+    <tr>
+      <th>Nom du titulaire</th>
+      <th>Vos cartes de crédit</th>
+      <th>Date d'expiration</th>
+    </tr>
+    <tr *ngFor="let payment of listPayment">
+      <td>
+        {{payment.name}}
+      </td>
+      <td>
+         {{payment.number}}
+      </td>
+      <td>
+        {{payment.expirationDate}}
+      </td>
+    </tr>
+
+
+  </table>
+
+</div>
