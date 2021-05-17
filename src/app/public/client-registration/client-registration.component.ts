@@ -25,7 +25,7 @@ export class ClientRegistrationComponent implements OnInit {
   client: Client;
 
   /**
-   * Formulaire d'ajout d'une anomalie
+   * Formulaire d'ajout d'un client
    */
   clientForm: FormGroup;
 
@@ -150,7 +150,7 @@ export class ClientRegistrationComponent implements OnInit {
   }
 
   /**
-   * Permet de retourner les controls du formulaire de création d'anomalie facilement
+   * Permet de retourner les controls du formulaire de création du client facilement
    */
   get f() {
     return this.clientForm.controls;
