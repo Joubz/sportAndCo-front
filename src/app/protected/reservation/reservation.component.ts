@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {Client} from "../../shared/models/clientRent.model";
 import {Order} from "../../shared/models/order.model";
 import {environment} from "../../../environments/environment";
 
+/**
+ * Composant de la réservation
+ */
 @Component({
   selector: 'app-reservation',
   templateUrl: './reservation.component.html',
@@ -26,26 +28,16 @@ export class ReservationComponent implements OnInit {
    * @param router Service de gestion des routes
    * @param activatedRoute Service angular de gestion de la route actuelle
    */
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
-    console.log("constructor");
-    console.log(this.router.getCurrentNavigation().extras.state.order.id);
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute) {
     this.order = this.router.getCurrentNavigation().extras.state.order;
-    console.log("order");
-    console.log(this.order);
-
   }
 
   /**
-   * Initialise le composant, récupère l'équipement correspondant et la liste des commandes concernés par l'équipement (pour vérifier si l'équipement est disponible)
+   * Initialise le composant
    */
   ngOnInit(): void {
-    // throw new Error('Method not implemented.');
-    // console.log("Method Implementation");
-    console.log("ngOninit");
-    console.log(window.history.state.order.equipment);
-    console.log(history.state.order.bill);
-    console.log("order");
-    console.log(this.order);
   }
 
   /**

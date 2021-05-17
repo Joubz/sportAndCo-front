@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forkJoin, Subscription } from 'rxjs';
@@ -12,7 +12,6 @@ import { DatepickerOptions } from 'ng2-datepicker';
 import locale from 'date-fns/locale/en-US';
 import { Client } from '../../shared/models/clientRent.model';
 import { Location } from '@angular/common';
-import {state} from "@angular/animations";
 import {Bill} from "../../shared/models/bill.model";
 
 /**
@@ -54,11 +53,6 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
    * url de l'application qui sera passé au HTML de l'image pour chargement de l'image sur le visuel
    */
   urlBasic: string = environment.URL_BASE;
-
-  /**
-   * Url de retour pour le clic sur le bouton "Retour au tableau" ou les actions sur l'anomalie
-   */
-  urlBack = this.route.snapshot.queryParamMap.get('from');
 
   /**
    * Booleen permettant de savoir si l'équipement est disponible
@@ -322,22 +316,23 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
     if (this.isAvailable && this.areDatesOk && this.isEquipmentStillAvailable) {
 
       const order: Order = new Order({
-        id: -1,
-        client: this.client,
-        equipment: this.equipment,
-        bill: new Bill({
           id: -1,
-          description: "",
-          billDate: this.formatDate(new Date()),
-          billPrice: (this.quantityWanted * this.equipment.price).toString()
-        }),
-        startDate: this.formatDate(this.startDateSelect),
-        endDate: this.formatDate(this.endDateSelect),
-        rentDate: this.formatDate(new Date()),
-        statusReturned: 0,
-        quantityRented: this.quantityWanted
+          client: this.client,
+          equipment: this.equipment,
+          bill: new Bill({
+            id: -1,
+            description: "",
+            billDate: this.formatDate(new Date()),
+            billPrice: (this.quantityWanted * this.equipment.price).toString()
+          }),
+          startDate: this.formatDate(this.startDateSelect),
+          endDate: this.formatDate(this.endDateSelect),
+          rentDate: this.formatDate(new Date()),
+          statusReturned: 0,
+          quantityRented: this.quantityWanted
         }
       );
+
       this.router.navigateByUrl('/equipment/reservation', { state: {"order": order } });
 
     }
