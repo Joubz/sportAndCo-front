@@ -1,6 +1,8 @@
+import {Client} from "./clientRent.model";
+
 /**
-* Modèle représentant un équipement
-*/
+ * Modèle représentant un équipement
+ */
 export class Payment {
   /**
    * Identifiant de la carte de paiement
@@ -10,12 +12,12 @@ export class Payment {
   /**
    * Nom de la carte de paiement
    */
-  name: string;
+  cardName: string;
 
   /**
    * Numéro de la carte de paiement
    */
-  number: number;
+  cardNumber: string;
 
   /**
    * Date d'expiration de la carte
@@ -25,7 +27,12 @@ export class Payment {
   /**
    * Numéro de la carte de paiement
    */
-  cvv: number;
+  CVV: string;
+
+  /**
+   * Client qui possède la carte de crédit
+   */
+  client: Client;
 
   /**
    * Constructeur de l'objet, tous les paramètres sont obligatoires
@@ -33,29 +40,29 @@ export class Payment {
    */
   constructor(options: {
     id: number,
-    name: string,
-    number: number,
+    cardName: string,
+    cardNumber: string,
     expirationDate: string,
-    cvv: number,
+    CVV: string,
   }) {
     this.id = options.id;
-    this.name = options.name;
-    this.number = options.number;
+    this.cardName = options.cardName;
+    this.cardNumber = options.cardNumber;
     this.expirationDate = options.expirationDate;
-    this.cvv = options.cvv;
+    this.CVV = options.CVV;
   }
   /**
    * Crée un équipement à partir d'un flux JSON
    * @param json Les propriétés de l'équipement contenues dans le flux JSON
-   * @returns { Equipment } L'objet équipement créé
+   * @returns Equipment L'objet équipement créé
    */
   public static fromJson(json: any): Payment {
     return new Payment({
       id: json.CARD_ID,
-      name: json.CARD_NAME,
-      number: json.CARD_NUMBER,
+      cardName: json.CARD_NAME,
+      cardNumber: json.CARD_NUMBER,
       expirationDate: json.EXPIRATION_DATE,
-      cvv: json.CVV
+      CVV: json.CVV
     });
 
   }

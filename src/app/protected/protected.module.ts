@@ -8,6 +8,7 @@ import {DatepickerModule} from "ng2-datepicker";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {SharedModule} from "../shared/shared.module";
 import { PaymentComponent } from './payment/payment.component';
+import {NgMonthPickerModule} from "ng-month-picker";
 
 
 /**
@@ -22,6 +23,7 @@ import { PaymentComponent } from './payment/payment.component';
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
+    NgMonthPickerModule
   ]
 })
 export class ProtectedModule { }
