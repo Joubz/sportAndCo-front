@@ -56,21 +56,18 @@ export class ClientService {
 
     return this.http.post(this.clientEndpoint + '/login', { loginClient }, httpOptions).pipe(
       map((jsonResponse: any) => {
-          return {
-            client: Client.fromJson({
-              id: jsonResponse.ID,
-              email: jsonResponse.EMAIL
-            }),
+        return {
+            client: Client.fromJson(jsonResponse.client),
             token: jsonResponse.authenticationToken
           };
         }
       ));
   }
-  
+
   /**
    * Renvoie la liste des mails des clients
    * @return mailList la liste des mails trouvés, une erreur sinon
-  */  
+   */
   getListMailClient(): Observable<string[]> {
     return this.http.get(this.clientEndpoint + '/list-mail').pipe(
       map((jsonResponse: any) => {

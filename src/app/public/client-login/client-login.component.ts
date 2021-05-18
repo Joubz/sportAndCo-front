@@ -182,7 +182,7 @@ export class ClientLoginComponent implements OnInit, OnDestroy {
       this.clientService.loginClient(loginClient).subscribe(
         result => {
           this.tokenStorageService.saveToken(result.token);
-          this.tokenStorageService.saveClient(result.admin);
+          this.tokenStorageService.saveClient(result.client);
 
           this.router.navigate(['/home']);
         }

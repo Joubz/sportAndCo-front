@@ -94,7 +94,7 @@ export class Client {
    */
   public static fromJson(json: any): Client {
     return new Client({
-      id: json.RENTER_ID,
+      id: json.CLIENT_ID,
       password: json.PASSWORD,
       lastName: json.LAST_NAME,
       firstName: json.FIRST_NAME,

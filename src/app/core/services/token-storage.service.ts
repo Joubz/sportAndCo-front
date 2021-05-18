@@ -28,11 +28,11 @@ export class TokenStorageService {
 
   /**
    * Enregistre le client connecté en localStorage
-   * @param user Le client connecté
+   * @param client Le client connecté
    */
-  public saveClient(user: Client): void {
+  public saveClient(client: Client): void {
     localStorage.removeItem('x-auth-user');
-    localStorage.setItem('x-auth-user', JSON.stringify(user));
+    localStorage.setItem('x-auth-user', JSON.stringify(client));
   }
 
   /**
@@ -42,16 +42,16 @@ export class TokenStorageService {
   public getClient(): Client {
     let client: Client = new Client({
       id: -1,
-        password: '',
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        birthDate: '',
-        address: '',
-        additionalAddress: '',
-        postalCode: '',
-        city: ''
+      password: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      birthDate: '',
+      address: '',
+      additionalAddress: '',
+      postalCode: '',
+      city: ''
     });
 
     const jsonClient = JSON.parse(localStorage.getItem('x-auth-user'));
