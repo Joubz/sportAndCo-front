@@ -53,7 +53,7 @@ export class ClientService {
   loginClient(loginClient: Client): Observable<any> {
     loginClient.password = Md5.hashStr(loginClient.password).toString();
 
-    return this.http.post(this.clientEndpoint + '/login', {loginClient}, httpOptions).pipe(
+    return this.http.post(this.clientEndpoint + '/login', { loginClient }, httpOptions).pipe(
       map((jsonResponse: any) => {
           return {
             client: Client.fromJson({

@@ -14,7 +14,18 @@
             </div>
             <div class="right_nav_item">
                 <a routerLink="/client-login">Connexion</a>
+            </div>           
+        </nav>
+    </div>
+
+    <div *ngIf="isClient" class="nav_showing">
+        <nav>
+            <div class="right_nav_item">
+                <span>Nom Prenom</span>
             </div>
+            <div class="right_nav_item" (click)="disconnectClient()">
+                <a routerLink="/home">Deconnexion</a>
+            </div>           
         </nav>
     </div>
 </div>
