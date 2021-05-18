@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Modal, ModalType } from 'src/app/shared/models/modal.model';
 import { ModalService } from '../services/modal.service';
 import { TokenStorageService } from '../services/token-storage.service';
+import { Client } from 'src/app/shared/models/clientRent.model';
 
 /**
  * Composant du header
@@ -31,6 +32,11 @@ export class HeaderComponent implements OnInit {
   isRenter = false;
 
   /**
+   * Variable pour stocker les infos du client
+   */
+  client: Client;
+
+  /**
    * Constructeur du composant
    * @param router Gestion du routing (natif angular)
    * @param tokenStorageService Service de gestion des tokens
@@ -47,6 +53,9 @@ export class HeaderComponent implements OnInit {
    */
   ngOnInit(): void {
     this.isClient = this.tokenStorageService.getClient().id !== -1;
+    if(this.isClient){
+      this.client = this.tokenStorageService.getClient();
+    }
   }
 
   /**
@@ -54,6 +63,9 @@ export class HeaderComponent implements OnInit {
    */
   ngDoCheck(): void {
     this.isClient = this.tokenStorageService.getClient().id !== -1;
+    if(this.isClient){
+      this.client = this.tokenStorageService.getClient();
+    }
   }
 
   /**

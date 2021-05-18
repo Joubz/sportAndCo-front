@@ -57,7 +57,7 @@ export class TokenStorageService {
     const jsonClient = JSON.parse(localStorage.getItem('x-auth-user'));
 
     if (jsonClient) {
-      client = Client.fromJson(jsonClient);
+     client = Client.fromJsonToken(jsonClient);
     }
 
     return client;
