@@ -1,13 +1,14 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
 import {Md5} from "ts-md5";
-import { map } from 'rxjs/operators';
 
 import { Constants } from '../../../../constants';
 import { environment } from '../../../environments/environment';
 
 import {Client} from "../../shared/models/clientRent.model";
+import {element} from "protractor";
 
 /**
  * Définit le content-type du header
@@ -64,5 +65,22 @@ export class ClientService {
           };
         }
       ));
+  }
+  
+  /**
+   * Renvoie la liste des mails des clients
+   * @return mailList la liste des mails trouvés, une erreur sinon
+  */  
+  getListMailClient(): Observable<string[]> {
+    return this.http.get(this.clientEndpoint + '/list-mail').pipe(
+      map((jsonResponse: any) => {
+        const mailList = [];
+        jsonResponse.forEach(element => {
+          const mail = element.EMAIL;
+          mailList.push(mail);
+        });
+        return mailList;
+      })
+    );
   }
 }

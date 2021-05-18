@@ -8,7 +8,6 @@ import {Router} from "@angular/router";
 import {NotificationsService} from "../../core/services/notification.service";
 import { Notification, NotificationBackground, NotificationIcon } from 'src/app/shared/models/notification.model';
 
-
 /**
  * Composant de la page inscription d'un client
  */
@@ -18,6 +17,10 @@ import { Notification, NotificationBackground, NotificationIcon } from 'src/app/
   styleUrls: ['./client-registration.component.css']
 })
 export class ClientRegistrationComponent implements OnInit {
+  /**
+   * Permet d'attendre que la liste des mails clients déjà existant soit chargée pour l'afficher
+   */
+  listMailLoaded: Promise<boolean>;
 
   /**
    * Données du client à enregister
@@ -28,6 +31,11 @@ export class ClientRegistrationComponent implements OnInit {
    * Formulaire d'ajout d'un client
    */
   clientForm: FormGroup;
+
+  /**
+   * La liste des mails clients déjà existants
+   */
+  mailList: string[];
 
   /**
    * Le formulaire a été soumis
@@ -85,6 +93,11 @@ export class ClientRegistrationComponent implements OnInit {
   messageErrorCity: string;
 
   /**
+   * Booleen pour vérifier que le mail n'est pas déjà utilisé
+   */
+  isMailNotTakenAlready: boolean;
+
+  /**
    * Boolean pour remplissage de la date
    */
   isBirthDateFilled: boolean;
@@ -127,9 +140,14 @@ export class ClientRegistrationComponent implements OnInit {
    * Initialise le composant
    */
   ngOnInit(): void {
-    this.isSubmit = false;
-    this.isBirthDateFilled = false;
-    this.initForm();
+    this.clientService.getListMailClient().subscribe(list => {
+      this.mailList = list;
+      this.isSubmit = false;
+      this.isMailNotTakenAlready = false;
+      this.isBirthDateFilled = false;
+      this.initForm();
+      this.listMailLoaded = Promise.resolve(true);
+    });
   }
 
   /**
@@ -200,8 +218,11 @@ export class ClientRegistrationComponent implements OnInit {
         break;
       }
       case 'email': {
-        if (this.f.email.invalid && (this.f.email.dirty || this.f.email.touched || this.isSubmit)) {
-          if (this.f.email.errors.required) {
+        if (this.f.email.invalid && (this.f.email.dirty || this.f.email.touched || this.isSubmit) || this.isMailNotTakenAlready) {
+          if (this.isMailNotTakenAlready) {
+            this.messageErrorEmail = "Ce mail est déjà pris. Veuillez choisir un autre mail";
+            return true;
+          } else if (this.f.email.errors.required) {
             this.messageErrorEmail = "Le champ doit être rempli";
             return true;
           } else if (this.f.email.errors.maxlength) {
@@ -282,6 +303,18 @@ export class ClientRegistrationComponent implements OnInit {
         break;
       }
     }
+  }
+
+  /**
+   * Fonction qui détecte si un mail est déjà utlisé en base
+   */
+  checkEmail(): void {
+    this.isMailNotTakenAlready = false;
+    this.mailList.forEach(mail => {
+      if (this.f.email.value === mail) {
+        this.isMailNotTakenAlready = true;
+      }
+    });
   }
 
   /**
@@ -395,6 +428,7 @@ export class ClientRegistrationComponent implements OnInit {
       !this.f.lastName.invalid &&
       !this.f.password.invalid &&
       !this.f.email.invalid &&
+      !this.isMailNotTakenAlready &&
       !this.f.phone.invalid &&
       this.isBirthDateFilled &&
       !this.f.address.invalid &&

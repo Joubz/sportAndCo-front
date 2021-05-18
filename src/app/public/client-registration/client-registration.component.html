@@ -1,80 +1,81 @@
+<div *ngIf="listMailLoaded | async">
+  <div class="--center">
 
-<div class="--center">
+    <form [formGroup]="clientForm" class="my-4">
+      <div>
+        <input type="text" formControlName="firstName" [ngClass]="{ 'field-error': errorDetection('firstName') }"
+               placeholder="Prénom" name="firstName" id="firstName" required />
+        <span class="tiny-txt">Nombre de caractères : {{ firstNameChars }} / 100</span>
+        <span *ngIf="errorDetection('firstName')" class="field-error-message tiny-txt">{{messageErrorFirstName}}</span>
+      </div>
 
-  <form [formGroup]="clientForm" class="my-4">
-    <div>
-      <input type="text" formControlName="firstName" [ngClass]="{ 'field-error': errorDetection('firstName') }"
-             placeholder="Prénom" name="firstName" id="firstName" required />
-      <span class="tiny-txt">Nombre de caractères : {{ firstNameChars }} / 100</span>
-      <span *ngIf="errorDetection('firstName')" class="field-error-message tiny-txt">{{messageErrorFirstName}}</span>
+      <div>
+        <input type="text" formControlName="lastName" [ngClass]="{ 'field-error': errorDetection('lastName') }"
+               placeholder="Nom de famille" name="lastName" id="lastName" required />
+        <span class="tiny-txt">Nombre de caractères : {{ lastNameChars }} / 100</span>
+        <span *ngIf="errorDetection('lastName')" class="field-error-message tiny-txt">{{messageErrorLastName}}</span>
+      </div>
+
+      <div>
+        <input type="password" formControlName="password" [ngClass]="{ 'field-error': errorDetection('password') }"
+               placeholder="Mot de passe" name="password" id="password" required />
+        <span class="tiny-txt">Nombre de caractères : {{ passwordChars }} / 15</span>
+        <span *ngIf="errorDetection('password')" class="field-error-message tiny-txt">{{messageErrorPassword}}</span>
+      </div>
+
+      <div>
+        <input type="text" formControlName="email" [ngClass]="{ 'field-error': errorDetection('email') }"
+               placeholder="Email" name="email" id="email" (ngModelChange)="checkEmail()" required />
+        <span class="tiny-txt">Nombre de caractères : {{ emailChars }} / 250</span>
+        <span *ngIf="errorDetection('email')" class="field-error-message tiny-txt">{{messageErrorEmail}}</span>
+      </div>
+
+      <div>
+        <input type="tel" formControlName="phone" [ngClass]="{ 'field-error': errorDetection('phone') }"
+               placeholder="Numéro de téléphone" name="phone" id="phone" required />
+        <span class="tiny-txt">Nombre de caractères : {{ phoneChars }} / 100</span>
+        <span *ngIf="errorDetection('phone')" class="field-error-message tiny-txt">{{messageErrorPhone}}</span>
+      </div>
+    </form>
+
+    <div class="ml-5">
+      <ngx-datepicker [(ngModel)]="birthDate" [options]="birthDatePickerOptions" (ngModelChange)="changeBirthDate()" required></ngx-datepicker>
+      <span *ngIf="dateErrorDetection()" class="field-error-message tiny-txt"> {{ errorMessageBirthDate }} </span>
     </div>
 
-    <div>
-      <input type="text" formControlName="lastName" [ngClass]="{ 'field-error': errorDetection('lastName') }"
-             placeholder="Nom de famille" name="lastName" id="lastName" required />
-      <span class="tiny-txt">Nombre de caractères : {{ lastNameChars }} / 100</span>
-      <span *ngIf="errorDetection('lastName')" class="field-error-message tiny-txt">{{messageErrorLastName}}</span>
-    </div>
+    <form [formGroup]="clientForm" class="my-4">
+      <div>
+        <input type="text" formControlName="address" [ngClass]="{ 'field-error': errorDetection('address') }"
+               placeholder="Adresse" name="address" id="address" required />
+        <span class="tiny-txt">Nombre de caractères : {{ addressChars }} / 250</span>
+        <span *ngIf="errorDetection('address')" class="field-error-message tiny-txt">{{messageErrorAddress}}</span>
+      </div>
 
-    <div>
-      <input type="password" formControlName="password" [ngClass]="{ 'field-error': errorDetection('password') }"
-             placeholder="Mot de passe" name="password" id="password" required />
-      <span class="tiny-txt">Nombre de caractères : {{ passwordChars }} / 15</span>
-      <span *ngIf="errorDetection('password')" class="field-error-message tiny-txt">{{messageErrorPassword}}</span>
-    </div>
+      <div>
+        <input type="text" formControlName="additionalAddress" [ngClass]="{ 'field-error': errorDetection('additionalAddress') }"
+               placeholder="Adresse additionnel" name="additionalAddress" id="additionalAddress" required />
+        <span class="tiny-txt">Nombre de caractères : {{ additionalAddressChars }} / 250</span>
+        <span *ngIf="errorDetection('address')" class="field-error-message tiny-txt">{{messageErrorAdditionalAddress}}</span>
+      </div>
 
-    <div>
-      <input type="text" formControlName="email" [ngClass]="{ 'field-error': errorDetection('email') }"
-             placeholder="Email" name="email" id="email" required />
-      <span class="tiny-txt">Nombre de caractères : {{ emailChars }} / 250</span>
-      <span *ngIf="errorDetection('email')" class="field-error-message tiny-txt">{{messageErrorEmail}}</span>
-    </div>
+      <div>
+        <input type="text"  formControlName="postalCode" [ngClass]="{ 'field-error': errorDetection('postalCode') }"
+               placeholder="Code Postal" name="postalCode" id="postalCode" required  />
+        <span class="tiny-txt">Nombre de caractères : {{ postalCodeChars }} / 5</span>
+        <span *ngIf="errorDetection('postalCode')" class="field-error-message tiny-txt">{{messageErrorPostalCode}}</span>
+      </div>
 
-    <div>
-      <input type="tel" formControlName="phone" [ngClass]="{ 'field-error': errorDetection('phone') }"
-             placeholder="Numéro de téléphone" name="phone" id="phone" required />
-      <span class="tiny-txt">Nombre de caractères : {{ phoneChars }} / 100</span>
-      <span *ngIf="errorDetection('phone')" class="field-error-message tiny-txt">{{messageErrorPhone}}</span>
-    </div>
-  </form>
+      <div>
+        <input type="text" formControlName="city" [ngClass]="{ 'field-error': errorDetection('city') }"
+               placeholder="Ville" name="city" id="city" required />
+        <span class="tiny-txt">Nombre de caractères : {{ cityChars }} / 250</span>
+        <span *ngIf="errorDetection('city')" class="field-error-message tiny-txt">{{messageErrorCity}}</span>
+      </div>
+    </form>
 
-  <div class="ml-5">
-    <ngx-datepicker [(ngModel)]="birthDate" [options]="birthDatePickerOptions" (ngModelChange)="changeBirthDate()" required></ngx-datepicker>
-    <span *ngIf="dateErrorDetection()" class="field-error-message tiny-txt"> {{ errorMessageBirthDate }} </span>
+    <a routerLink="/client-login">Déjà membre ? Se connecter</a>
+
+    <button class="common" (click)="onSubmit()">S'inscrire</button>
+
   </div>
-
-  <form [formGroup]="clientForm" class="my-4">
-    <div>
-      <input type="text" formControlName="address" [ngClass]="{ 'field-error': errorDetection('address') }"
-             placeholder="Adresse" name="address" id="address" required />
-      <span class="tiny-txt">Nombre de caractères : {{ addressChars }} / 250</span>
-      <span *ngIf="errorDetection('address')" class="field-error-message tiny-txt">{{messageErrorAddress}}</span>
-    </div>
-
-    <div>
-      <input type="text" formControlName="additionalAddress" [ngClass]="{ 'field-error': errorDetection('additionalAddress') }"
-             placeholder="Adresse additionnel" name="additionalAddress" id="additionalAddress" required />
-      <span class="tiny-txt">Nombre de caractères : {{ additionalAddressChars }} / 250</span>
-      <span *ngIf="errorDetection('address')" class="field-error-message tiny-txt">{{messageErrorAdditionalAddress}}</span>
-    </div>
-
-    <div>
-      <input type="text"  formControlName="postalCode" [ngClass]="{ 'field-error': errorDetection('postalCode') }"
-             placeholder="Code Postal" name="postalCode" id="postalCode" required  />
-      <span class="tiny-txt">Nombre de caractères : {{ postalCodeChars }} / 5</span>
-      <span *ngIf="errorDetection('postalCode')" class="field-error-message tiny-txt">{{messageErrorPostalCode}}</span>
-    </div>
-
-    <div>
-      <input type="text" formControlName="city" [ngClass]="{ 'field-error': errorDetection('city') }"
-             placeholder="Ville" name="city" id="city" required />
-      <span class="tiny-txt">Nombre de caractères : {{ cityChars }} / 250</span>
-      <span *ngIf="errorDetection('city')" class="field-error-message tiny-txt">{{messageErrorCity}}</span>
-    </div>
-  </form>
-
-  <a routerLink="/client-login">Déjà membre ? Se connecter</a>
-
-  <button class="common" (click)="onSubmit()">S'inscrire</button>
-
 </div>
