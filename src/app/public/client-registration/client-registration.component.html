@@ -33,7 +33,7 @@
       <div>
         <input type="tel" formControlName="phone" [ngClass]="{ 'field-error': errorDetection('phone') }"
                placeholder="Numéro de téléphone" name="phone" id="phone" required />
-        <span class="tiny-txt">Nombre de caractères : {{ phoneChars }} / 100</span>
+        <span class="tiny-txt">Nombre de caractères : {{ phoneChars }} / 10</span>
         <span *ngIf="errorDetection('phone')" class="field-error-message tiny-txt">{{messageErrorPhone}}</span>
       </div>
     </form>

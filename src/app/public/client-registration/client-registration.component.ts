@@ -228,8 +228,7 @@ export class ClientRegistrationComponent implements OnInit {
           } else if (this.f.email.errors.maxlength) {
             this.messageErrorEmail = "Le champ doit être d'une longueur maximale de 250 caractères";
             return true;
-          }
-          else if (this.f.email.errors.pattern) {
+          } else if (this.f.email.errors.pattern) {
             this.messageErrorEmail = "Le mail doit être valide";
             return true;
           }
@@ -244,7 +243,7 @@ export class ClientRegistrationComponent implements OnInit {
           } else if (this.f.phone.errors.maxlength) {
             this.messageErrorPhone = "Le champ doit être d'une longueur maximale de 10 caractères";
             return true;
-          }  else if (this.f.phone.errors.pattern) {
+          } else if (this.f.phone.errors.pattern) {
             this.messageErrorPhone = "Le téléphone doit être valide";
             return true;
           }
@@ -283,7 +282,7 @@ export class ClientRegistrationComponent implements OnInit {
           } else if (this.f.postalCode.errors.maxlength) {
             this.messageErrorPostalCode = "Le champ doit être d'une longueur maximale de 5 caractères";
             return true;
-          }  else if (this.f.postalCode.errors.pattern) {
+          } else if (this.f.postalCode.errors.pattern) {
             this.messageErrorPostalCode = "Format incorrect";
             return true;
           }
