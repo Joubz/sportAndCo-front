@@ -17,23 +17,9 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class PaymentComponent implements OnInit, OnDestroy {
 
   /**
-   * Constructeur du composant
-   * @param paymentService Service de gestion de paiement
-   * @param equipmentService Service de gestion de l'équipment
-   * @param orderService Service de gestion la commande
-   * @param router Service de gestion des routes
-   * @param route Service de gestion des routes
+   * Boolean pour afficher le formulaire d'ajout d'une carte
    */
-  constructor(
-    private paymentService: PaymentService,
-    private equipmentService: EquipmentService,
-    private orderService: OrderService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private formBuilder: FormBuilder
-  ) { }
-
-  @ViewChild('myDiv') myDiv: ElementRef;
+  addCardBoolean: boolean;
 
   // TODO Regerder le décryptage aussi, a mettre dans le service également
 
@@ -90,7 +76,54 @@ export class PaymentComponent implements OnInit, OnDestroy {
   /**
    * Regex pour les numéros
    */
-  numberRegEx = "/^[0-9]{16}$/";
+  numberRegEx = "^[0-9]*$";
+
+  /**
+   * Regex pour les lettres
+   */
+  caracterRegEx = "^[A-Z]*$";
+
+  /**
+   * Boolean de la soumission du formulaire
+   */
+  isCardSubmit: boolean;
+
+  /**
+   * Message d'erreur pour le numéro de la carte
+   */
+  messageErrorCardNumber: string;
+
+  /**
+   * Message d'erreur pour le cvv
+   */
+  messageErrorCVV: string;
+
+  /**
+   * Message d'erreur pour le nom
+   */
+  messageErrorName: string;
+
+  /**
+   * Message de bouton ajouter une carte ou ne pas ajouter une carte
+   */
+  showHideForm: string;
+
+  /**
+   * Constructeur du composant
+   * @param paymentService Service de gestion de paiement
+   * @param equipmentService Service de gestion de l'équipment
+   * @param orderService Service de gestion la commande
+   * @param router Service de gestion des routes
+   * @param route Service de gestion des routes
+   */
+  constructor(
+    private paymentService: PaymentService,
+    private equipmentService: EquipmentService,
+    private orderService: OrderService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder
+  ) { }
 
   ngOnInit(): void {
     this.getPaymentCardSub = this.paymentService.getPaymentCard(1)
@@ -99,8 +132,23 @@ export class PaymentComponent implements OnInit, OnDestroy {
           this.listPayment = paymentList; }
       ) ;
     this.initForm();
+    this.isCardSubmit = false;
+    this.addCardBoolean = false;
+    this.showHideForm = "Ajouter une arte";
   }
 
+
+
+  /**
+   * Permet de retourner les controls du formulaire de facilement
+   */
+  get formControls() {
+    return this.cardForm.controls;
+  }
+
+  /**
+   * Destroy
+   */
   ngOnDestroy(): void {
   }
 
@@ -110,23 +158,87 @@ export class PaymentComponent implements OnInit, OnDestroy {
    */
   selectMethod(payment: Payment): void{
     this.paymentSelectedName = payment.cardName;
-    console.log(this.paymentSelectedName);
   }
 
+  /**
+   * Initialiser le formulaire
+   */
   initForm() {
     this.cardForm = this.formBuilder.group({
       // TODO vérifier qu'ils soient des chiffres et pas des caracteres
-      cardNumber: ['', [Validators.required/*, Validators.pattern(this.numberRegEx)*/,  Validators.minLength(16), Validators.maxLength(16)]],
+      cardNumber: ['', [Validators.required, Validators.pattern(this.numberRegEx),  Validators.minLength(16), Validators.maxLength(16)]],
       name: ['', Validators.required],
       expirationDate: [new Date(), [Validators.required]],
-      cvv: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(3)]]
+      cvv: ['', [Validators.required, Validators.minLength(3), Validators.pattern(this.numberRegEx), Validators.maxLength(3)]]
     });
+  }
+
+  /**
+   * Détection des erreurs
+   */
+  errorDetection(formField: string): boolean {
+    switch (formField) {
+      case 'cardNumber' : {
+        if (this.formControls.cardNumber.invalid && (this.formControls.cardNumber.dirty || this.formControls.cardNumber.touched || this.isCardSubmit)) {
+          if (this.formControls.cardNumber.errors.required) {
+            this.messageErrorCardNumber = "Le champ doit être rempli";
+            return true;
+          } else if (this.formControls.cardNumber.errors.maxlength || this.formControls.cardNumber.errors.minlength) {
+            this.messageErrorCardNumber = "Le champ doit être d'une longueur de 16 caractères.";
+            return true;
+          } else if (this.formControls.cardNumber.errors.pattern) {
+            this.messageErrorCardNumber = "Ce champ peut contenir uniquement des chiffres.";
+            return true;
+          }
+        }
+        break;
+      }
+      case 'cvv' : {
+        if (this.formControls.cvv.invalid && (this.formControls.cvv.dirty || this.formControls.cvv.touched || this.isCardSubmit)) {
+          if (this.formControls.cvv.errors.required) {
+            this.messageErrorCVV = "Le champ doit être rempli";
+            return true;
+          } else if (this.formControls.cvv.errors.maxlength || this.formControls.cvv.errors.minlength) {
+            this.messageErrorCVV = "Le champ doit être d'une longueur de 3 caractères.";
+            return true;
+          } else if (this.formControls.cvv.errors.pattern) {
+            this.messageErrorCVV = "Ce champ peut contenir uniquement des chiffres.";
+            return true;
+          }
+        }
+        break;
+      }
+      case 'name' : {
+        if (this.formControls.name.invalid && (this.formControls.name.dirty || this.formControls.name.touched || this.isCardSubmit)) {
+          if (this.formControls.name.errors.required) {
+            this.messageErrorName = "Le champ doit être rempli";
+            return true;
+          }
+        }
+        break;
+      }
+    }
+  }
+
+  /**
+   * Récupération du nombre de caractères écrits pour le numéro de carte
+   */
+  get cardNumberChars(): number{
+    return this.formControls.cardNumber.value?.length || 0;
+  }
+
+  /**
+   * Récupération du nombre de caractères écrits pour le CVV
+   */
+  get cardCvvChars(): number{
+    return this.formControls.cvv.value?.length || 0;
   }
 
   /**
    * Soumet le formuliaire
    */
   onSubmitForm() {
+    this.isCardSubmit = true;
     if (this.cardForm.valid) {
       const formValue = this.cardForm.value;
       this.payment = new Payment({
@@ -149,13 +261,24 @@ export class PaymentComponent implements OnInit, OnDestroy {
         postalCode: "",
         city: "",
       });
-      console.log(this.payment);
-      console.log(newClient);
       this.payment.client = newClient;
       this.paymentService.addPaymentCard(this.payment).subscribe(result => {
         this.router.navigate(['/home']);
       });
     }
 
+  }
+
+  /**
+   * Changer le boolean pour afficher ou faire disparaître le formulaire d'ajout d'une carte
+   */
+  changeCardBoolean() {
+    if (this.addCardBoolean){
+      this.addCardBoolean = false;
+      this.showHideForm = "Ajouter une carte";
+    } else if (!this.addCardBoolean){
+      this.addCardBoolean = true;
+      this.showHideForm = "Ne pas ajouter une carte";
+    }
   }
 }

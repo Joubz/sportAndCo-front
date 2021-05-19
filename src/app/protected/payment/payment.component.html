@@ -10,43 +10,50 @@
     <th>Numéro de carte</th>
     <th>Date d'expiration</th>
   </tr>
-    <tr *ngFor="let payment of listPayment, index as i" (click)="selectMethod(payment)" [ngClass]="{'highlightRow' : payment.cardName == paymentSelectedName}" >
-      <td>
-        {{payment.cardName}}
-      </td>
-      <td>
-        {{payment.cardNumber}}
-      </td>
-      <td>
-        {{payment.expirationDate}}
-      </td>
-    </tr>
-
-  <div>
-    <form [formGroup]="cardForm" (ngSubmit)="onSubmitForm()">
-
-      <div class="form-group">
-        <label for="cardNumber">Numéro de la carte</label>
-        <input type="text" id="cardNumber" class="form-control" formControlName="cardNumber">
-      </div>
-      <div class="form-group">
-        <label for="name">Nom du propriéraitre</label>
-        <input type="text" id="name" class="form-control" formControlName="name">
-      </div>
-      <div class="form-group">
-        <label for="expirationDate">Date d'expiration</label>
-        <ng-month-picker id="expirationDate" formControlName="expirationDate"></ng-month-picker>
-
-      </div>
-      <div class="form-group">
-        <label for="cvv">Numéro CVV</label>
-        <input type="text" id="cvv" class="form-control" formControlName="cvv">
-      </div>
-      <button type="submit" [disabled]="cardForm.invalid" class="btn btn-primary">Ajouter la carte</button>
-
-    </form>
-
-
-  </div>
+  <tr *ngFor="let payment of listPayment, index as i" (click)="selectMethod(payment)" [ngClass]="{'highlightRow' : payment.cardName == paymentSelectedName}" >
+    <td>
+      {{payment.cardName}}
+    </td>
+    <td>
+      {{payment.cardNumber}}
+    </td>
+    <td>
+      {{payment.expirationDate}}
+    </td>
+  </tr>
 
 </table>
+
+<button (click)="changeCardBoolean()">{{showHideForm}}</button>
+
+<div *ngIf="addCardBoolean">
+  <form [formGroup]="cardForm" (ngSubmit)="onSubmitForm()">
+
+    <div class="form-group">
+      <label for="cardNumber">Numéro de la carte</label>
+      <input type="text" id="cardNumber" [ngClass]="{'field-error' : errorDetection('cardNumber')}" formControlName="cardNumber">
+      <span class="tiny-txt" >Nombre de caractères : {{cardNumberChars}}/16</span>
+      <span *ngIf="errorDetection('cardNumber')" class="field-error-message tiny-txt">{{messageErrorCardNumber}}</span>
+    </div>
+    <div class="form-group">
+      <label for="name">Nom du propriéraitre</label>
+      <input type="text" [ngClass]="{'field-error' : errorDetection('name')}" id="name" formControlName="name">
+      <span *ngIf="errorDetection('name')" class="field-error-message tiny-txt">{{messageErrorName}}</span>
+    </div>
+    <div class="form-group">
+      <label for="expirationDate">Date d'expiration</label>
+      <ng-month-picker id="expirationDate" formControlName="expirationDate"></ng-month-picker>
+
+    </div>
+    <div class="form-group">
+      <label for="cvv">Numéro CVV</label>
+      <input type="text" id="cvv" [ngClass]="{'field-error' : errorDetection('cvv')}" formControlName="cvv">
+      <span class="tiny-txt" >Nombre de caractères : {{cardCvvChars}}/3</span>
+      <span *ngIf="errorDetection('cvv')" class="field-error-message tiny-txt">{{messageErrorCVV}}</span>
+    </div>
+    <button type="submit" [disabled]="cardForm.invalid" class="btn btn-primary">Ajouter la carte</button>
+
+  </form>
+
+
+</div>
