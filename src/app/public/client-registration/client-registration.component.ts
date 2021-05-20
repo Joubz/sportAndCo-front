@@ -8,7 +8,12 @@ import {Router} from "@angular/router";
 import {NotificationsService} from "../../core/services/notification.service";
 import { Notification, NotificationBackground, NotificationIcon } from 'src/app/shared/models/notification.model';
 
-
+/**
+ * Validateur de la correspondance des mots de passe
+ * @param controlName Le champ mot de passe
+ * @param matchingControlName Le champ mot de passe
+ * @return mustMatch qui indique si les mots de passe correspondent où non
+ */
 export function MustMatch(controlName: string, matchingControlName: string) {
   return (formGroup: FormGroup) => {
     const control = formGroup.controls[controlName];
@@ -271,7 +276,7 @@ export class ClientRegistrationComponent implements OnInit {
             this.messageErrorConfirmPassword = "Le mot de passe doit être d'une longueur maximale de 15 caractères";
             return true;
           } else if (this.f.confirmPassword.errors.mustMatch) {
-            this.messageErrorConfirmPassword = "Les mots de passe doivent correspondre";
+            this.messageErrorConfirmPassword = "Les mots de passe doivent correspondres";
             return true;
           }
         }
