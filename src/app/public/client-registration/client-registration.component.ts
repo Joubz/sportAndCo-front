@@ -119,7 +119,8 @@ export class ClientRegistrationComponent implements OnInit {
     locale,
     position: 'bottom',
     calendarClass: 'datepicker-default',
-    scrollBarColor: '#dfe3e9'
+    scrollBarColor: '#dfe3e9',
+    minDate: new Date()
   };
 
   /**
