@@ -1,4 +1,3 @@
-import { ClientService } from './../services/client.service';
 import { Component, DoCheck, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -63,7 +62,7 @@ export class HeaderComponent implements OnInit {
    */
   ngDoCheck(): void {
     this.isClient = this.tokenStorageService.getClient().id !== -1;
-    if(this.isClient){
+    if (this.isClient){
       this.client = this.tokenStorageService.getClient();
     }
   }

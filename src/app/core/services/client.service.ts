@@ -8,7 +8,6 @@ import { Constants } from '../../../../constants';
 import { environment } from '../../../environments/environment';
 
 import {Client} from "../../shared/models/clientRent.model";
-import {element} from "protractor";
 
 /**
  * Définit le content-type du header
