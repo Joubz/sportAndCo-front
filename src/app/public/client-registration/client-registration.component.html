@@ -5,7 +5,7 @@
   <h1>Inscription</h1>
 
 
-  <div class="--left" style="margin-left: 400px;">
+  <div class="--left" style="margin-left: 35%;">
 
     <form [formGroup]="clientForm" class="my-4">
     <div class="_row">
@@ -64,22 +64,24 @@
     </div>
 
     <form [formGroup]="clientForm" class="my-4">
-      <div>
-        <input type="text" style="border-radius: 10px;" formControlName="address" [ngClass]="{ 'field-error': errorDetection('address') }"
-               placeholder="Adresse" name="address" id="address" required />
-               <br>
-        <span class="tiny-txt ml-3">Nombre de caractères : {{ addressChars }} / 250</span>
-        <span *ngIf="errorDetection('address')" class="field-error-message tiny-txt">{{messageErrorAddress}}</span>
-      </div>
+      <div class="_row">
+        <div>
+          <input type="text" style="border-radius: 10px;" formControlName="address" [ngClass]="{ 'field-error': errorDetection('address') }"
+                 placeholder="Adresse" name="address" id="address" required />
+                <br>
+          <span class="tiny-txt ml-3">Nombre de caractères : {{ addressChars }} / 250</span>
+          <span *ngIf="errorDetection('address')" class="field-error-message tiny-txt">{{messageErrorAddress}}</span>
+       </div>
 
-      <div class="my-5">
-        <input type="text" style="border-radius: 10px;" formControlName="additionalAddress" [ngClass]="{ 'field-error': errorDetection('additionalAddress') }"
-               placeholder="Adresse additionnel" name="additionalAddress" id="additionalAddress" required />
-               <br>
-        <span class="tiny-txt ml-3">Nombre de caractères : {{ additionalAddressChars }} / 250</span>
-        <span *ngIf="errorDetection('address')" class="field-error-message tiny-txt">{{messageErrorAdditionalAddress}}</span>
-      </div>
-
+        <div class="my-5 ml-7">
+          <input type="text" style="border-radius: 10px;" formControlName="additionalAddress" [ngClass]="{ 'field-error': errorDetection('additionalAddress') }"
+                 placeholder="Adresse additionnel" name="additionalAddress" id="additionalAddress" required />
+                 <br>
+         <span class="tiny-txt ml-3">Nombre de caractères : {{ additionalAddressChars }} / 250</span>
+          <span *ngIf="errorDetection('address')" class="field-error-message tiny-txt">{{messageErrorAdditionalAddress}}</span>
+       </div>
+     </div>
+     <div class="_row">
       <div class="my-5">
         <input type="text" style="border-radius: 10px;" formControlName="postalCode" [ngClass]="{ 'field-error': errorDetection('postalCode') }"
                placeholder="Code Postal" name="postalCode" id="postalCode" required  />
@@ -88,15 +90,18 @@
         <span *ngIf="errorDetection('postalCode')" class="field-error-message tiny-txt">{{messageErrorPostalCode}}</span>
       </div>
 
-      <div class="my-5">
+      <div class="my-5 ml-7">
         <input type="text" style="border-radius: 10px;" formControlName="city" [ngClass]="{ 'field-error': errorDetection('city') }"
                placeholder="Ville" name="city" id="city" required />
                <br>
         <span class="tiny-txt ml-3">Nombre de caractères : {{ cityChars }} / 250</span>
         <span *ngIf="errorDetection('city')" class="field-error-message tiny-txt">{{messageErrorCity}}</span>
       </div>
-    </form>
+    </div>
+    </form> 
   </div>
+  
+
   <div class="--center">
     <a routerLink="/client-login">Déjà membre ? Se connecter</a>
 
