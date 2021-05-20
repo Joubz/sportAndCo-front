@@ -1,4 +1,10 @@
 <div *ngIf="listMailLoaded | async">
+
+  <div class="_container imgAuth">
+  </div>
+  <h1>Inscription</h1>
+
+
   <div class="--center">
 
     <form [formGroup]="clientForm" class="my-4">
@@ -17,17 +23,17 @@
       </div>
 
       <div>
-        <input type="password" formControlName="password" [ngClass]="{ 'field-error': errorDetection('password') }"
-               placeholder="Mot de passe" name="password" id="password" required />
-        <span class="tiny-txt">Nombre de caractères : {{ passwordChars }} / 15</span>
-        <span *ngIf="errorDetection('password')" class="field-error-message tiny-txt">{{messageErrorPassword}}</span>
-      </div>
-
-      <div>
         <input type="text" formControlName="email" [ngClass]="{ 'field-error': errorDetection('email') }"
                placeholder="Email" name="email" id="email" (ngModelChange)="checkEmail()" required />
         <span class="tiny-txt">Nombre de caractères : {{ emailChars }} / 250</span>
         <span *ngIf="errorDetection('email')" class="field-error-message tiny-txt">{{messageErrorEmail}}</span>
+      </div>
+
+      <div>
+        <input type="password" formControlName="password" [ngClass]="{ 'field-error': errorDetection('password') }"
+               placeholder="Mot de passe" name="password" id="password" required />
+        <span class="tiny-txt">Nombre de caractères : {{ passwordChars }} / 15</span>
+        <span *ngIf="errorDetection('password')" class="field-error-message tiny-txt">{{messageErrorPassword}}</span>
       </div>
 
       <div>
