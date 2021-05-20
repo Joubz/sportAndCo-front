@@ -21,7 +21,7 @@
     <div *ngIf="isClient" class="nav_showing">
         <nav>
             <div class="right_nav_item">
-                <span>{{client.firstName}} {{client.lastName}}</span>
+                <a>{{client.firstName}} {{client.lastName}}</a>
             </div>
             <div class="right_nav_item" (click)="disconnectClient()">
                 <a routerLink="/home">Deconnexion</a>
