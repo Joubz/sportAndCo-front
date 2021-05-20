@@ -50,7 +50,7 @@
       </div>
 
       <div class="my-5">
-        <input type="tel" style="border-radius: 10px;" formControlName="phone" [ngClass]="{ 'field-error': errorDetection('phone') }"
+        <input type="tel" style="border-radius: 10px;" class="input-connexion" formControlName="phone" [ngClass]="{ 'field-error': errorDetection('phone') }"
                placeholder="Numéro de téléphone" name="phone" id="phone" required />
                <br>
         <span class="tiny-txt ml-3">Nombre de caractères : {{ phoneChars }} / 10</span>
@@ -59,13 +59,13 @@
     </form>
 
     <div class="my-5">
-      <ngx-datepicker [(ngModel)]="birthDate" [options]="birthDatePickerOptions" (ngModelChange)="changeBirthDate()" required></ngx-datepicker>
+      <ngx-datepicker  [(ngModel)]="birthDate" [options]="birthDatePickerOptions" (ngModelChange)="changeBirthDate()" required></ngx-datepicker>
       <span *ngIf="dateErrorDetection()" class="field-error-message tiny-txt"> {{ errorMessageBirthDate }} </span>
     </div>
 
     <form [formGroup]="clientForm" class="my-4">
       <div class="_row">
-        <div>
+        <div class="my-5">
           <input type="text" style="border-radius: 10px;" formControlName="address" [ngClass]="{ 'field-error': errorDetection('address') }"
                  placeholder="Adresse" name="address" id="address" required />
                 <br>
@@ -98,9 +98,9 @@
         <span *ngIf="errorDetection('city')" class="field-error-message tiny-txt">{{messageErrorCity}}</span>
       </div>
     </div>
-    </form> 
+    </form>
   </div>
-  
+
 
   <div class="--center">
     <a routerLink="/client-login">Déjà membre ? Se connecter</a>
@@ -108,7 +108,7 @@
    <div class="my-7">
     <button class="connexion" (click)="onSubmit()">S'inscrire</button>
    </div>
-  </div> 
+  </div>
 
-  
+
 </div>

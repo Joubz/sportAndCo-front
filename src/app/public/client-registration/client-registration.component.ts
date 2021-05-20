@@ -146,6 +146,7 @@ export class ClientRegistrationComponent implements OnInit {
     firstCalendarDay: 1,
     locale,
     position: 'bottom',
+    inputClass: 'datepicker-connexion',
     calendarClass: 'datepicker-default',
     scrollBarColor: '#dfe3e9',
     minDate: new Date()
