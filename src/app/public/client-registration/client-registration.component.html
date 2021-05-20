@@ -37,6 +37,13 @@
       </div>
 
       <div>
+        <input type="password" formControlName="confirmPassword" [ngClass]="{ 'field-error': errorDetection('confirmPassword') }"
+               placeholder="Confirmer le mot de passe" name="confirmPassword" id="confirmPassword" required />
+        <span class="tiny-txt">Nombre de caractères : {{ confirmPasswordChars }} / 15</span>
+        <span *ngIf="errorDetection('confirmPassword')" class="field-error-message tiny-txt">{{messageErrorConfirmPassword}}</span>
+      </div>
+
+      <div>
         <input type="tel" formControlName="phone" [ngClass]="{ 'field-error': errorDetection('phone') }"
                placeholder="Numéro de téléphone" name="phone" id="phone" required />
         <span class="tiny-txt">Nombre de caractères : {{ phoneChars }} / 10</span>

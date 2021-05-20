@@ -8,6 +8,24 @@ import {Router} from "@angular/router";
 import {NotificationsService} from "../../core/services/notification.service";
 import { Notification, NotificationBackground, NotificationIcon } from 'src/app/shared/models/notification.model';
 
+
+export function MustMatch(controlName: string, matchingControlName: string) {
+  return (formGroup: FormGroup) => {
+    const control = formGroup.controls[controlName];
+    const matchingControl = formGroup.controls[matchingControlName];
+
+    if (matchingControl.errors && !matchingControl.errors.mustMatch) {
+      return;
+    }
+
+    if (control.value !== matchingControl.value) {
+      matchingControl.setErrors({ mustMatch: true });
+    } else {
+      matchingControl.setErrors(null);
+    }
+  };
+}
+
 /**
  * Composant de la page inscription d'un client
  */
@@ -43,27 +61,32 @@ export class ClientRegistrationComponent implements OnInit {
   isSubmit: boolean;
 
   /**
-   * String pour le message d'erreur de errorDetection
+   * String pour le message d'erreur du prénom
    */
   messageErrorFirstName: string;
 
   /**
-   * String pour le message d'erreur de errorDetection
+   * String pour le message d'erreur du nom de famille
    */
   messageErrorLastName: string;
 
   /**
-   * String pour le message d'erreur de errorDetection
-   */
-  messageErrorPassword: string;
-
-  /**
-   * String pour le message d'erreur de errorDetection
+   * String pour le message d'erreur du mail
    */
   messageErrorEmail: string;
 
   /**
-   * String pour le message d'erreur de errorDetection
+   * String pour le message d'erreur du mot de passe
+   */
+  messageErrorPassword: string;
+
+  /**
+   * String pour le message d'erreur de la confirmation du mot de passe
+   */
+  messageErrorConfirmPassword: string;
+
+  /**
+   * String pour le message d'erreur du téléphone
    */
   messageErrorPhone: string;
 
@@ -73,22 +96,22 @@ export class ClientRegistrationComponent implements OnInit {
   errorMessageBirthDate: string;
 
   /**
-   * String pour le message d'erreur de errorDetection
+   * String pour le message d'erreur de l'adresse
    */
   messageErrorAddress: string;
 
   /**
-   * String pour le message d'erreur de errorDetection
+   * String pour le message d'erreur du complément d'adresse
    */
   messageErrorAdditionalAddress: string;
 
   /**
-   * String pour le message d'erreur de errorDetection
+   * String pour le message d'erreur du code postal
    */
   messageErrorPostalCode: string;
 
   /**
-   * String pour le message d'erreur de errorDetection
+   * String pour le message d'erreur de la ville
    */
   messageErrorCity: string;
 
@@ -158,13 +181,16 @@ export class ClientRegistrationComponent implements OnInit {
     this.clientForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.maxLength(100)]],
       lastName: ['', [Validators.required, Validators.maxLength(100)]],
-      password: ['', [Validators.required, Validators.maxLength(15)]],
       email: ['', [Validators.required, Validators.maxLength(250), Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+      password: ['', [Validators.required, Validators.maxLength(15)]],
+      confirmPassword: ['', [Validators.required, Validators.maxLength(15)]],
       phone: ['', [Validators.required, Validators.maxLength(10), Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]],
       address: ['', [Validators.required, Validators.maxLength(250)]],
       additionalAddress: ['', [Validators.required, Validators.maxLength(250)]],
       postalCode: ['', [Validators.required, Validators.maxLength(5), Validators.pattern("^[0-9]*$")]],
       city: ['', [Validators.required, Validators.maxLength(250)]],
+    }, {
+      validator: MustMatch('password', 'confirmPassword')
     });
   }
 
@@ -206,18 +232,6 @@ export class ClientRegistrationComponent implements OnInit {
         }
         break;
       }
-      case 'password': {
-        if (this.f.password.invalid && (this.f.password.dirty || this.f.password.touched || this.isSubmit)) {
-          if (this.f.password.errors.required) {
-            this.messageErrorPassword = "Le mot de passe doit être rempli";
-            return true;
-          } else if (this.f.password.errors.maxlength) {
-            this.messageErrorPassword = "Le mot de passe doit être d'une longueur maximale de 15 caractères";
-            return true;
-          }
-        }
-        break;
-      }
       case 'email': {
         if (this.f.email.invalid && (this.f.email.dirty || this.f.email.touched || this.isSubmit) || this.isMailNotTakenAlready) {
           if (this.isMailNotTakenAlready) {
@@ -231,6 +245,33 @@ export class ClientRegistrationComponent implements OnInit {
             return true;
           } else if (this.f.email.errors.pattern) {
             this.messageErrorEmail = "Le mail doit être valide";
+            return true;
+          }
+        }
+        break;
+      }
+      case 'password': {
+        if (this.f.password.invalid && (this.f.password.dirty || this.f.password.touched || this.isSubmit)) {
+          if (this.f.password.errors.required) {
+            this.messageErrorPassword = "Le mot de passe doit être rempli";
+            return true;
+          } else if (this.f.password.errors.maxlength) {
+            this.messageErrorPassword = "Le mot de passe doit être d'une longueur maximale de 15 caractères";
+            return true;
+          }
+        }
+        break;
+      }
+      case 'confirmPassword': {
+        if (this.f.confirmPassword.invalid && (this.f.confirmPassword.dirty || this.f.confirmPassword.touched || this.isSubmit)) {
+          if (this.f.confirmPassword.errors.required) {
+            this.messageErrorConfirmPassword = "Le mot de passe doit être rempli";
+            return true;
+          } else if (this.f.confirmPassword.errors.maxlength) {
+            this.messageErrorConfirmPassword = "Le mot de passe doit être d'une longueur maximale de 15 caractères";
+            return true;
+          } else if (this.f.confirmPassword.errors.mustMatch) {
+            this.messageErrorConfirmPassword = "Les mots de passe doivent correspondre";
             return true;
           }
         }
@@ -343,6 +384,13 @@ export class ClientRegistrationComponent implements OnInit {
   }
 
   /**
+   * Récupération du nombre de caractères écrits pour l'email
+   */
+  get emailChars(): number {
+    return this.f.email.value?.length || 0;
+  }
+
+  /**
    * Récupération du nombre de caractères écrits pour le mot de passe
    */
   get passwordChars(): number {
@@ -350,10 +398,10 @@ export class ClientRegistrationComponent implements OnInit {
   }
 
   /**
-   * Récupération du nombre de caractères écrits pour l'email
+   * Récupération du nombre de caractères écrits pour la confirmation du mot de passe
    */
-  get emailChars(): number {
-    return this.f.email.value?.length || 0;
+  get confirmPasswordChars(): number {
+    return this.f.confirmPassword.value?.length || 0;
   }
 
   /**
@@ -427,6 +475,7 @@ export class ClientRegistrationComponent implements OnInit {
       !this.f.firstName.invalid &&
       !this.f.lastName.invalid &&
       !this.f.password.invalid &&
+      !this.f.confirmPassword.invalid &&
       !this.f.email.invalid &&
       !this.isMailNotTakenAlready &&
       !this.f.phone.invalid &&
