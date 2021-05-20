@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Equipment} from "../../shared/models/equipment.model";
 import {Client} from "../../shared/models/clientRent.model";
@@ -6,7 +6,7 @@ import {Payment} from "../../shared/models/payment.model";
 import {EquipmentService} from "../../core/services/equipment.service";
 import {PaymentService} from "../../core/services/payment.service";
 import {OrderService} from "../../core/services/order.service";
-import {Observable, Subscription} from "rxjs";
+import {Subscription} from "rxjs";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
@@ -37,11 +37,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
    * Données bancaire, nécessaire à l'achat, du client qui visite la page et souhaite louer le produit
    */
   payment: Payment;
-
-  /**
-   * Fonction permettant de récupérer les données bancaire du client
-   */
-  private getPaymentCard: Observable<Payment>;
 
   /**
    * Souscription au service de récupération de la carte de paiement
@@ -79,11 +74,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
   numberRegEx = "^[0-9]*$";
 
   /**
-   * Regex pour les lettres
-   */
-  caracterRegEx = "^[A-Z]*$";
-
-  /**
    * Boolean de la soumission du formulaire
    */
   isCardSubmit: boolean;
@@ -102,6 +92,21 @@ export class PaymentComponent implements OnInit, OnDestroy {
    * Message d'erreur pour le nom
    */
   messageErrorName: string;
+
+  /**
+   * Message d'erreur pour le nom
+   */
+  messageExpirationDate: string;
+
+  /**
+   * Booleen qui vérifie la confirmité de la date
+   */
+  isExpirationDateOk: boolean;
+
+  /**
+   * Booleen qui vérifie que la date à été sélectionée au moins une fois
+   */
+  dateIsSelected: boolean;
 
   /**
    * Message de bouton ajouter une carte ou ne pas ajouter une carte
@@ -134,10 +139,10 @@ export class PaymentComponent implements OnInit, OnDestroy {
     this.initForm();
     this.isCardSubmit = false;
     this.addCardBoolean = false;
-    this.showHideForm = "Ajouter une arte";
+    this.isExpirationDateOk =  true;
+    this.dateIsSelected = false;
+    this.showHideForm = "Ajouter une carte";
   }
-
-
 
   /**
    * Permet de retourner les controls du formulaire de facilement
@@ -147,9 +152,10 @@ export class PaymentComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Destroy
+   * Unsubscribe la souscription
    */
   ngOnDestroy(): void {
+    this.getPaymentCardSub.unsubscribe();
   }
 
   /**
@@ -165,10 +171,9 @@ export class PaymentComponent implements OnInit, OnDestroy {
    */
   initForm() {
     this.cardForm = this.formBuilder.group({
-      // TODO vérifier qu'ils soient des chiffres et pas des caracteres
       cardNumber: ['', [Validators.required, Validators.pattern(this.numberRegEx),  Validators.minLength(16), Validators.maxLength(16)]],
       name: ['', Validators.required],
-      expirationDate: [new Date(), [Validators.required]],
+      expirationDate: [new Date()],
       cvv: ['', [Validators.required, Validators.minLength(3), Validators.pattern(this.numberRegEx), Validators.maxLength(3)]]
     });
   }
@@ -193,6 +198,24 @@ export class PaymentComponent implements OnInit, OnDestroy {
         }
         break;
       }
+      case 'name' : {
+        if (this.formControls.name.invalid && (this.formControls.name.dirty || this.formControls.name.touched || this.isCardSubmit)) {
+          if (this.formControls.name.errors.required) {
+            this.messageErrorName = "Le champ doit être rempli";
+            return true;
+          }
+        }
+        break;
+      }
+      case 'expirationDate' : {
+        if (this.formControls.expirationDate.invalid && (this.formControls.expirationDate.dirty || this.formControls.expirationDate.touched || this.isCardSubmit) || !this.isExpirationDateOk) {
+          if (!this.isExpirationDateOk) {
+            this.messageExpirationDate = "La date ne peut être inférieur à la date actuelle";
+            return true;
+          }
+        }
+        break;
+      }
       case 'cvv' : {
         if (this.formControls.cvv.invalid && (this.formControls.cvv.dirty || this.formControls.cvv.touched || this.isCardSubmit)) {
           if (this.formControls.cvv.errors.required) {
@@ -203,15 +226,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
             return true;
           } else if (this.formControls.cvv.errors.pattern) {
             this.messageErrorCVV = "Ce champ peut contenir uniquement des chiffres.";
-            return true;
-          }
-        }
-        break;
-      }
-      case 'name' : {
-        if (this.formControls.name.invalid && (this.formControls.name.dirty || this.formControls.name.touched || this.isCardSubmit)) {
-          if (this.formControls.name.errors.required) {
-            this.messageErrorName = "Le champ doit être rempli";
             return true;
           }
         }
@@ -235,11 +249,44 @@ export class PaymentComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Vérifie que la date est correcte
+   */
+  isExpirationDateCorrect(): void {
+    if (!this.dateIsSelected) {
+      this.dateIsSelected = true;
+    }
+
+    if (!(this.formControls.expirationDate.value < this.formatDate(new Date()))) {
+      this.isExpirationDateOk = true;
+    } else {
+      this.isExpirationDateOk = false;
+    }
+  }
+
+  /**
+   * Fonction qui formate la date en année-mois-jour
+   * @param date Date passée en paramètres
+   */
+  formatDate(date: Date): string {
+    let month = '' + (date.getMonth() + 1);
+    const year = date.getFullYear();
+
+    if (month.length < 2) {
+      month = '0' + month;
+    }
+
+    return [year, month].join('-');
+  }
+
+  /**
    * Soumet le formuliaire
    */
   onSubmitForm() {
     this.isCardSubmit = true;
-    if (this.cardForm.valid) {
+    if (this.cardForm.valid && this.isExpirationDateOk) {
+      if (!this.dateIsSelected) {
+        this.cardForm.controls.expirationDate.setValue(this.formatDate(this.cardForm.controls.expirationDate.value));
+      }
       const formValue = this.cardForm.value;
       this.payment = new Payment({
         id: -1,

@@ -31,26 +31,31 @@
 
     <div class="form-group">
       <label for="cardNumber">Numéro de la carte</label>
-      <input type="text" id="cardNumber" [ngClass]="{'field-error' : errorDetection('cardNumber')}" formControlName="cardNumber">
+      <input type="text" id="cardNumber" [ngClass]="{'field-error' : errorDetection('cardNumber')}" formControlName="cardNumber" required>
       <span class="tiny-txt" >Nombre de caractères : {{cardNumberChars}}/16</span>
       <span *ngIf="errorDetection('cardNumber')" class="field-error-message tiny-txt">{{messageErrorCardNumber}}</span>
     </div>
+
     <div class="form-group">
-      <label for="name">Nom du propriéraitre</label>
-      <input type="text" [ngClass]="{'field-error' : errorDetection('name')}" id="name" formControlName="name">
+      <label for="name">Nom du propriétaire</label>
+      <input type="text" [ngClass]="{'field-error' : errorDetection('name')}" id="name" formControlName="name" required>
       <span *ngIf="errorDetection('name')" class="field-error-message tiny-txt">{{messageErrorName}}</span>
     </div>
+
     <div class="form-group">
       <label for="expirationDate">Date d'expiration</label>
-      <ng-month-picker id="expirationDate" formControlName="expirationDate"></ng-month-picker>
+      <ng-month-picker id="expirationDate" formControlName="expirationDate" (click)="isExpirationDateCorrect()"></ng-month-picker>
+      <span *ngIf="errorDetection('expirationDate')" class="field-error-message tiny-txt">{{messageExpirationDate}}</span>
 
     </div>
+
     <div class="form-group">
       <label for="cvv">Numéro CVV</label>
-      <input type="text" id="cvv" [ngClass]="{'field-error' : errorDetection('cvv')}" formControlName="cvv">
+      <input type="text" id="cvv" [ngClass]="{'field-error' : errorDetection('cvv')}" formControlName="cvv" required>
       <span class="tiny-txt" >Nombre de caractères : {{cardCvvChars}}/3</span>
       <span *ngIf="errorDetection('cvv')" class="field-error-message tiny-txt">{{messageErrorCVV}}</span>
     </div>
+
     <button type="submit" [disabled]="cardForm.invalid" class="btn btn-primary">Ajouter la carte</button>
 
   </form>
