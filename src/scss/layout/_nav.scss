@@ -23,20 +23,6 @@ nav {
         }
     }
 
-    .nav_reservation {
-        justify-content:flex-start;
-        align-items: center;
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-
-    .reservation_nav_item {
-        height: 100%;
-        color: $cyan;
-        position: relative;
-        top: 50%;
-    }
-
     a {
         font-weight: 500; 
         font-size: 18px; 
