@@ -5,8 +5,6 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Payment} from "../../shared/models/payment.model";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
-import {Md5} from "ts-md5";
-import {ReverseMd5} from "reverse-md5";
 import * as CryptoJS from 'crypto-js';
 
 /**
@@ -16,10 +14,17 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
+/**
+ * Composant de payement
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class PaymentService {
+  /**
+   * Point d'entrée de l'API Sport & Co pour la récupération des cartes bancaires
+   */
+  paymentEndpoint = environment.URL_API + this.constants.API_ENDPOINTS.PAYMENT;
 
   /**
    * Import des services nécessaires
@@ -27,15 +32,6 @@ export class PaymentService {
    * @param constants Fichier qui contient les constantes du projet
    */
   constructor(private http: HttpClient, private constants: Constants) {}
-
-  /**
-   * Mot de passe d'encriptage
-   */
-  private MDP_CRYPTAGE = "ProjetTocMdp";
-  /**
-   * Point d'entrée de l'API Sport & Co pour la récupération des cartes bancaires
-   */
-  paymentEndpoint = environment.URL_API + this.constants.API_ENDPOINTS.PAYMENT;
 
   /**
    * Récupère la commande
@@ -48,8 +44,7 @@ export class PaymentService {
       .pipe(map((jsonResponse: any) => {
           const paymentList = [];
           jsonResponse.forEach(element => {
-            const payment: Payment = Payment.fromJson(element);
-            // const payment: Payment = this.decryptPayment(Payment.fromJson(element)); TODO Remplacer la ligne précédente par cette ligne dès que les données seront décryptrées au Back
+            const payment: Payment = this.decryptPayment(Payment.fromJson(element));
             paymentList.push(payment);
           });
           return paymentList;
@@ -64,14 +59,12 @@ export class PaymentService {
    * @returns Un observable contenant la commande récupérée
    */
   addPaymentCard(payment: Payment): Observable<any> {
-    payment.cardName =  CryptoJS.AES.encrypt(payment.cardName.trim(), this.MDP_CRYPTAGE.trim()).toString();
-    payment.cardNumber =  CryptoJS.AES.encrypt(payment.cardNumber.trim(), this.MDP_CRYPTAGE.trim()).toString();
-    payment.expirationDate =  CryptoJS.AES.encrypt(payment.expirationDate.trim(), this.MDP_CRYPTAGE.trim()).toString();
-    payment.CVV =  CryptoJS.AES.encrypt(payment.CVV.trim(), this.MDP_CRYPTAGE.trim()).toString();
-    console.log(payment);
+    payment.cardName =  CryptoJS.AES.encrypt(payment.cardName.trim(), this.constants.CRYPT.MDP_CRYPTAGE.trim()).toString();
+    payment.cardNumber =  CryptoJS.AES.encrypt(payment.cardNumber.trim(), this.constants.CRYPT.MDP_CRYPTAGE.trim()).toString();
+    payment.expirationDate =  CryptoJS.AES.encrypt(payment.expirationDate.trim(), this.constants.CRYPT.MDP_CRYPTAGE.trim()).toString();
+    payment.CVV =  CryptoJS.AES.encrypt(payment.CVV.trim(), this.constants.CRYPT.MDP_CRYPTAGE.trim()).toString();
 
-    return this.http
-      .post(this.paymentEndpoint + '/add-card', {payment}, httpOptions);
+    return this.http.post(this.paymentEndpoint + '/add-card', {payment}, httpOptions);
   }
 
   /**
@@ -83,10 +76,10 @@ export class PaymentService {
     return new Payment(
       {
         id: payment.id,
-        cardName: CryptoJS.AES.decrypt(payment.cardName.trim(), this.MDP_CRYPTAGE.trim()),
-        cardNumber: CryptoJS.AES.decrypt(payment.cardNumber.trim(), this.MDP_CRYPTAGE.trim()),
-        expirationDate: CryptoJS.AES.decrypt(payment.expirationDate.trim(), this.MDP_CRYPTAGE.trim()),
-        CVV: CryptoJS.AES.decrypt(payment.CVV.trim(), this.MDP_CRYPTAGE.trim())
+        cardName: CryptoJS.AES.decrypt(payment.cardName.trim(), this.constants.CRYPT.MDP_CRYPTAGE.trim()).toString(CryptoJS.enc.Utf8) ,
+        cardNumber: CryptoJS.AES.decrypt(payment.cardNumber.trim(), this.constants.CRYPT.MDP_CRYPTAGE.trim()).toString(CryptoJS.enc.Utf8) ,
+        expirationDate: CryptoJS.AES.decrypt(payment.expirationDate.trim(), this.constants.CRYPT.MDP_CRYPTAGE.trim()).toString(CryptoJS.enc.Utf8) ,
+        CVV: CryptoJS.AES.decrypt(payment.CVV.trim(), this.constants.CRYPT.MDP_CRYPTAGE.trim()).toString(CryptoJS.enc.Utf8)
       }
     );
   }
