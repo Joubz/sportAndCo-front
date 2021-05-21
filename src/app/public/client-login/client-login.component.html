@@ -8,49 +8,22 @@
 <div class="--center">
   <form [formGroup]="clientForm" class="my-4">
     <div class="my-5">
-      <input
-        class="input-connexion"
-        type="text"
-        formControlName="email"
-        [ngClass]="{ 'field-error': errorDetection('email') }"
-        placeholder="Email"
-        name="email"
-        id="email"
-        required
-      />
+      <input class="input-connexion" type="text" formControlName="email" [ngClass]="{ 'field-error': errorDetection('email') }"
+             placeholder="Email" name="email" id="email" required/>
       <br>
-      <span class="tiny-txt ml-3"
-        >Nombre de caractères : {{ emailChars }} / 250</span
-      >
-      <span
-        *ngIf="errorDetection('email')"
-        class="field-error-message tiny-txt"
-        >{{ messageError2 }}</span
-      >
+      <span class="tiny-txt ml-3">Nombre de caractères : {{ emailChars }} / 250</span>
+      <span *ngIf="errorDetection('email')" class="field-error-message tiny-txt">{{ messageError2 }}</span>
     </div>
 
     <div class="my-5">
-      <input
-        class="input-connexion"
-        type="password"
-        formControlName="password"
-        [ngClass]="{ 'field-error': errorDetection('password') }"
-        placeholder="Mot de passe"
-        name="password"
-        id="password"
-        required
-      />
+      <input class="input-connexion" type="password" formControlName="password" [ngClass]="{ 'field-error': errorDetection('password') }"
+             placeholder="Mot de passe" name="password" id="password" required/>
       <br>
-      <span class="tiny-txt ml-3">Nombre de caractères : {{ passwordChars }} / 15</span
-      >
-      <span
-        *ngIf="errorDetection('password')"
-        class="field-error-message tiny-txt"
-        >{{ messageError1 }}</span
-      >
+      <span class="tiny-txt ml-3">Nombre de caractères : {{ passwordChars }} / 15</span>
+      <span *ngIf="errorDetection('password')" class="field-error-message tiny-txt">{{ messageError1 }}</span>
     </div>
   </form>
-  
+
   <div class="my-5">
     <a routerLink="/client-registration">Pas de compte ? Inscrivez-vous</a>
   </div>
