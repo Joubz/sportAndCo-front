@@ -1,0 +1,112 @@
+    <div class="_container imgAuth">
+    </div>
+    <div class="mb-7">
+      <h1>Inscription</h1>
+    </div>
+  
+    <div class="--left" style="margin-left: 35%;">
+  
+      <form [formGroup]="renterForm" class="my-4">
+      <div class="_row">
+        <div class="my-5">
+          <input type="text" style="border-radius: 10px;" formControlName="firstName" [ngClass]="{ 'field-error': errorDetection('firstName') }"
+                 placeholder="Prénom" name="firstName" id="firstName" required />
+                 <br>
+          <span class="tiny-txt ml-3">Nombre de caractères : {{ firstNameChars }} / 100</span>
+          <span *ngIf="errorDetection('firstName')" class="field-error-message tiny-txt">{{messageErrorFirstName}}</span>
+        </div>
+  
+        <div class="my-5 ml-7">
+          <input type="text" style="border-radius: 10px;" formControlName="lastName" [ngClass]="{ 'field-error': errorDetection('lastName') }"
+                 placeholder="Nom de famille" name="lastName" id="lastName" required />
+                 <br>
+          <span class="tiny-txt ml-3">Nombre de caractères : {{ lastNameChars }} / 100</span>
+          <span *ngIf="errorDetection('lastName')" class="field-error-message tiny-txt">{{messageErrorLastName}}</span>
+        </div>
+      </div>
+        <div class="my-5">
+          <input type="text" class="input-connexion" formControlName="email" [ngClass]="{ 'field-error': errorDetection('email') }"
+                 placeholder="Email" name="email" id="email" (ngModelChange)="checkEmail()" required />
+                 <br>
+          <span class="tiny-txt ml-3">Nombre de caractères : {{ emailChars }} / 250</span>
+          <span *ngIf="errorDetection('email')" class="field-error-message tiny-txt">{{messageErrorEmail}}</span>
+        </div>
+  
+        <div class="my-5">
+          <input type="password" class="input-connexion" formControlName="password" [ngClass]="{ 'field-error': errorDetection('password') }"
+                 placeholder="Mot de passe" name="password" id="password" required />
+                 <br>
+          <span class="tiny-txt ml-3">Nombre de caractères : {{ passwordChars }} / 15</span>
+          <span *ngIf="errorDetection('password')" class="field-error-message tiny-txt">{{messageErrorPassword}}</span>
+        </div>
+  
+        <div class="my-5">
+          <input type="password" class="input-connexion" formControlName="confirmPassword" [ngClass]="{ 'field-error': errorDetection('confirmPassword') }"
+                 placeholder="Confirmer le mot de passe" name="confirmPassword" id="confirmPassword" required />
+                 <br>
+          <span class="tiny-txt ml-3">Nombre de caractères : {{ confirmPasswordChars }} / 15</span>
+          <span *ngIf="errorDetection('confirmPassword')" class="field-error-message tiny-txt">{{messageErrorConfirmPassword}}</span>
+        </div>
+  
+        <div class="my-5">
+          <input type="tel" style="border-radius: 10px;" class="input-connexion" formControlName="phone" [ngClass]="{ 'field-error': errorDetection('phone') }"
+                 placeholder="Numéro de téléphone" name="phone" id="phone" required />
+                 <br>
+          <span class="tiny-txt ml-3">Nombre de caractères : {{ phoneChars }} / 10</span>
+          <span *ngIf="errorDetection('phone')" class="field-error-message tiny-txt">{{messageErrorPhone}}</span>
+        </div>
+      </form>
+  
+      <div class="my-5">
+        <ngx-datepicker  [(ngModel)]="birthDate" [options]="birthDatePickerOptions" (ngModelChange)="changeBirthDate()" required></ngx-datepicker>
+        <span *ngIf="dateErrorDetection()" class="field-error-message tiny-txt"> {{ errorMessageBirthDate }} </span>
+      </div>
+  
+      <form [formGroup]="renterForm" class="my-4">
+        <div class="_row">
+          <div class="my-5">
+            <input type="text" style="border-radius: 10px;" formControlName="address" [ngClass]="{ 'field-error': errorDetection('address') }"
+                   placeholder="Adresse" name="address" id="address" required />
+                  <br>
+            <span class="tiny-txt ml-3">Nombre de caractères : {{ addressChars }} / 250</span>
+            <span *ngIf="errorDetection('address')" class="field-error-message tiny-txt">{{messageErrorAddress}}</span>
+         </div>
+  
+          <div class="my-5 ml-7">
+            <input type="text" style="border-radius: 10px;" formControlName="additionalAddress" [ngClass]="{ 'field-error': errorDetection('additionalAddress') }"
+                   placeholder="Adresse additionnel" name="additionalAddress" id="additionalAddress" required />
+                   <br>
+           <span class="tiny-txt ml-3">Nombre de caractères : {{ additionalAddressChars }} / 250</span>
+            <span *ngIf="errorDetection('address')" class="field-error-message tiny-txt">{{messageErrorAdditionalAddress}}</span>
+         </div>
+       </div>
+       <div class="_row">
+        <div class="my-5">
+          <input type="text" style="border-radius: 10px;" formControlName="postalCode" [ngClass]="{ 'field-error': errorDetection('postalCode') }"
+                 placeholder="Code Postal" name="postalCode" id="postalCode" required  />
+                 <br>
+          <span class="tiny-txt ml-3">Nombre de caractères : {{ postalCodeChars }} / 5</span>
+          <span *ngIf="errorDetection('postalCode')" class="field-error-message tiny-txt">{{messageErrorPostalCode}}</span>
+        </div>
+  
+        <div class="my-5 ml-7">
+          <input type="text" style="border-radius: 10px;" formControlName="city" [ngClass]="{ 'field-error': errorDetection('city') }"
+                 placeholder="Ville" name="city" id="city" required />
+                 <br>
+          <span class="tiny-txt ml-3">Nombre de caractères : {{ cityChars }} / 250</span>
+          <span *ngIf="errorDetection('city')" class="field-error-message tiny-txt">{{messageErrorCity}}</span>
+        </div>
+      </div>
+      </form>
+    </div>
+  
+    <div class="--center">
+      <a routerLink="/renter-login">Déjà membre ? Se connecter</a>
+  
+     <div class="my-7">
+      <button class="connexion" (click)="onSubmit()">S'inscrire</button>
+     </div>
+    </div>
+  
+
+  

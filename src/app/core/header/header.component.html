@@ -10,11 +10,14 @@
     <div *ngIf="!isAdmin && !isClient && !isRenter" class="nav_showing">
         <nav>
             <div class="right_nav_item">
+                <a routerLink="/renter-registration">Devenez loueur</a>
+            </div> 
+            <div class="right_nav_item">
                 <a routerLink="/client-registration">Inscription</a>
             </div>
             <div class="right_nav_item">
                 <a routerLink="/client-login">Connexion</a>
-            </div>           
+            </div>  
         </nav>
     </div>
 

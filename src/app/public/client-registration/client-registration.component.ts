@@ -378,6 +378,13 @@ export class ClientRegistrationComponent implements OnInit {
   /**
    * Récupération du nombre de caractères écrits pour le prénom
    */
+   get companyNameChars(): number {
+    return this.f.companyName.value?.length || 0;
+  }
+
+  /**
+   * Récupération du nombre de caractères écrits pour le prénom
+   */
   get firstNameChars(): number {
     return this.f.firstName.value?.length || 0;
   }
@@ -507,7 +514,7 @@ export class ClientRegistrationComponent implements OnInit {
 
       this.clientService.createClient(newClient).subscribe(result => {
         const notification = new Notification({
-          message: 'Votre compte à bien été créer. Un email de confirmation va vous être envoyé.',
+          message: 'Votre compte a bien été créer. Un email de confirmation va vous être envoyé.',
           background: NotificationBackground.GREEN,
           icon: NotificationIcon.CHECK
         });
