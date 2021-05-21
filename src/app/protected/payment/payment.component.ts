@@ -21,8 +21,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
    */
   addCardBoolean: boolean;
 
-  // TODO Regerder le décryptage aussi, a mettre dans le service également
-
   /**
    * Equipement qui est récupéré du component parent
    */
@@ -114,6 +112,11 @@ export class PaymentComponent implements OnInit, OnDestroy {
   showHideForm: string;
 
   /**
+   * Booléan liste vide ou pas
+   */
+  listeVide: boolean;
+
+  /**
    * Constructeur du composant
    * @param paymentService Service de gestion de paiement
    * @param equipmentService Service de gestion de l'équipment
@@ -134,7 +137,11 @@ export class PaymentComponent implements OnInit, OnDestroy {
     this.getPaymentCardSub = this.paymentService.getPaymentCard(1)
       .subscribe(
         paymentList => {
-          this.listPayment = paymentList; }
+          this.listPayment = paymentList;
+          if (this.listPayment.length === 0) {
+            this.listeVide = true;
+          }
+        }
       ) ;
     this.initForm();
     this.isCardSubmit = false;
@@ -256,11 +263,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
       this.dateIsSelected = true;
     }
 
-    if (!(this.formControls.expirationDate.value < this.formatDate(new Date()))) {
-      this.isExpirationDateOk = true;
-    } else {
-      this.isExpirationDateOk = false;
-    }
+    this.isExpirationDateOk = !(this.formControls.expirationDate.value < this.formatDate(new Date()));
   }
 
   /**

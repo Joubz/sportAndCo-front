@@ -1,11 +1,10 @@
-<p>payment works!</p>
 <div class="equipment-title-card my-5">
   <h1> Détail paiement du client </h1>
 </div>
 
-<table>
-  <caption>Vos cartes de crédit et de débit</caption>
-  <tr selected>
+<table *ngIf="!listeVide; else noCard " >
+<caption>Vos cartes de crédit et de débit</caption>
+  <tr>
     <th>Nom du titulaire</th>
     <th>Numéro de carte</th>
     <th>Date d'expiration</th>
@@ -23,6 +22,12 @@
   </tr>
 
 </table>
+
+<ng-template #noCard>
+  <div class="my-7 p-6 --center">
+    <h1>Vous n'avez pas encore enregitré de carte.</h1>
+  </div>
+</ng-template>
 
 <button (click)="changeCardBoolean()">{{showHideForm}}</button>
 
