@@ -324,4 +324,12 @@ export class PaymentComponent implements OnInit, OnDestroy {
       this.showHideForm = "Ne pas ajouter une carte";
     }
   }
+  /**
+   * Enregistre la commande et le paiement associée à celle-ci
+   */
+  paymentOrder(){
+    this.paymentService.addPaymentOrder(this.order).subscribe(result => {
+      this.router.navigate(['/home']);
+    });
+  }
 }
