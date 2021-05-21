@@ -8,6 +8,7 @@ import {PaymentService} from "../../core/services/payment.service";
 import {OrderService} from "../../core/services/order.service";
 import {Subscription} from "rxjs";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Order} from "../../shared/models/order.model";
 
 @Component({
   selector: 'app-payment',
@@ -20,16 +21,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
    * Boolean pour afficher le formulaire d'ajout d'une carte
    */
   addCardBoolean: boolean;
-
-  /**
-   * Equipement qui est récupéré du component parent
-   */
-  equipment: Equipment;
-
-  /**
-   * Données du client qui visite la page et souhaite louer le produit
-   */
-  client: Client;
 
   /**
    * Données bancaire, nécessaire à l'achat, du client qui visite la page et souhaite louer le produit
@@ -45,11 +36,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
    * Liste des Données bancaire du client
    */
   listPayment: Payment[];
-
-  /**
-   * Liste des Données bancaire du client
-   */
-  table: HTMLTableRowElement;
 
   /**
    * La méthode de paiement sélectionné
@@ -117,6 +103,11 @@ export class PaymentComponent implements OnInit, OnDestroy {
   listeVide: boolean;
 
   /**
+   * Commande du client
+   */
+  private order: Order;
+
+  /**
    * Constructeur du composant
    * @param paymentService Service de gestion de paiement
    * @param equipmentService Service de gestion de l'équipment
@@ -131,7 +122,9 @@ export class PaymentComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder
-  ) { }
+  ) {
+    this.order = this.router.getCurrentNavigation().extras.state.order;
+  }
 
   ngOnInit(): void {
     this.getPaymentCardSub = this.paymentService.getPaymentCard(1)
