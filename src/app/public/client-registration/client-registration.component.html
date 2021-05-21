@@ -6,7 +6,6 @@
     <h1>Inscription</h1>
   </div>
 
-
   <div class="--left" style="margin-left: 35%;">
 
     <form [formGroup]="clientForm" class="my-4">
@@ -28,7 +27,7 @@
       </div>
     </div>
       <div class="my-5">
-        <input type="text" class="input-connexion"formControlName="email" [ngClass]="{ 'field-error': errorDetection('email') }"
+        <input type="text" class="input-connexion" formControlName="email" [ngClass]="{ 'field-error': errorDetection('email') }"
                placeholder="Email" name="email" id="email" (ngModelChange)="checkEmail()" required />
                <br>
         <span class="tiny-txt ml-3">Nombre de caractères : {{ emailChars }} / 250</span>
@@ -102,7 +101,6 @@
     </div>
     </form>
   </div>
-
 
   <div class="--center">
     <a routerLink="/client-login">Déjà membre ? Se connecter</a>
