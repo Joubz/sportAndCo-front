@@ -11,7 +11,9 @@ import { ListEquipmentComponent } from './list-equipment/list-equipment.componen
 import { EquipmentSearchComponent } from './equipment-search/equipment-search.component';
 import { ClientRegistrationComponent } from './client-registration/client-registration.component';
 import { ClientLoginComponent } from './client-login/client-login.component';
+import { RenterRegistrationComponent } from '../public/renter-registration/renter-registration.component';
 import { DatepickerModule } from 'ng2-datepicker';
+import { RenterLoginComponent } from './renter-login/renter-login.component';
 
 /**
  * Gestion des modules et composants de Public
@@ -24,7 +26,9 @@ import { DatepickerModule } from 'ng2-datepicker';
     ListEquipmentComponent,
     EquipmentSearchComponent,
     ClientRegistrationComponent,
-    ClientLoginComponent
+    ClientLoginComponent,
+    RenterRegistrationComponent,
+    RenterLoginComponent
   ],
   imports: [
     CommonModule,
