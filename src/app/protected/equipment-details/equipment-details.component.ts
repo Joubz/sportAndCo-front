@@ -334,7 +334,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
           bill: new Bill({
             id: -1,
             description: "",
-            billDate: "",
+            billDate: this.formatDate(new Date()),
             billPrice: this.quantityWanted * this.equipment.price
           }),
           startDate: this.formatDate(this.startDateSelect),

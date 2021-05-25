@@ -20,6 +20,7 @@
     "@angular/platform-browser": "~11.2.12",
     "@angular/platform-browser-dynamic": "~11.2.12",
     "@angular/router": "~11.2.12",
+    "bcrypt": "^5.0.1",
     "core-util-is": "^1.0.2",
     "crypto-js": "^3.1.9-1",
     "dayjs": "^1.10.4",

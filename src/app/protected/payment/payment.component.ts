@@ -309,7 +309,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
       });
       this.payment.client = newClient;
       this.paymentService.addPaymentCard(this.payment).subscribe(result => {
-        this.router.navigate(['/home']);
       });
     }
 
@@ -331,7 +330,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
    * Enregistre la commande et le paiement associée à celle-ci
    */
   Payer(){
-    console.log(this.order);
+    this.order.bill.description = this.order.client.address + " " + this.order.client.additionalAddress + " " + this.order.client.postalCode + " " + this.order.client.city;
     this.orderService.addPaymentOrder(this.order).subscribe(result => {
       this.router.navigate(['/equipment/confirmation']);
     });
