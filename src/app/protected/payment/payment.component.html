@@ -3,7 +3,7 @@
 </div>
 
 <table *ngIf="!listIsEmpty; else noCard " >
-<caption>Vos cartes de crédit et de débit</caption>
+  <caption>Vos cartes de crédit et de débit</caption>
   <tr>
     <th>Nom du titulaire</th>
     <th>Numéro de carte</th>
@@ -25,7 +25,7 @@
 
 <ng-template #noCard>
   <div class="my-7 p-6 --center">
-    <h1>Vous n'avez pas encore enregitré de carte.</h1>
+    <h2>Vous n'avez pas encore enregistré de carte de paiement.</h2>
   </div>
 </ng-template>
 
@@ -48,7 +48,7 @@
     </div>
 
     <div class="form-group">
-      <label for="expirationDate">Date d'expiration</label>
+      <label>Date d'expiration</label>
       <ng-month-picker id="expirationDate" formControlName="expirationDate" (click)="isExpirationDateCorrect()"></ng-month-picker>
       <span *ngIf="errorDetection('expirationDate')" class="field-error-message tiny-txt">{{messageExpirationDate}}</span>
 
@@ -61,17 +61,17 @@
       <span *ngIf="errorDetection('cvv')" class="field-error-message tiny-txt">{{messageErrorCVV}}</span>
     </div>
 
-    <button type="submit" [disabled]="cardForm.invalid" class="btn btn-primary">Ajouter la carte</button>
+    <button type="submit"  class="btn btn-primary">Ajouter la carte</button>
 
   </form>
 
 </div>
-
+<span class="field-error-message tiny-txt">{{errorMessagePayment}}</span>
 <div>
   <a (click)="goToReservation()">
     <button class="common">Revenir en arrière</button>
   </a>
-  <a (click)="Payer()">
+  <a (click)="payEquipment()">
     <button class="common">Payer</button>
   </a>
 </div>

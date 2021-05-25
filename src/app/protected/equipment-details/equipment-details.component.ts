@@ -165,7 +165,7 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private location: Location,
-    private tokenStorageService: TokenStorageService,
+    private tokenStorageService: TokenStorageService
   ) {}
 
   /**
@@ -345,14 +345,11 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
     if (this.isAvailable && this.areDatesOk && this.isEquipmentStillAvailable) {
 
       if (!this.isClientConnected) {
-      //  this.router.navigate('/client-login',  { queryParams: { from: 'equipment-list' });
-
         this.router.navigate(
           ['/client-login'],
           { queryParams: { from: 'equipment-detail' +  this.route.snapshot.paramMap.get('id') + '/' +
               this.startDateSelectString + '/' + this.endDateSelectString } }
         );
-
       } else {
         const order: Order = new Order({
             id: -1,

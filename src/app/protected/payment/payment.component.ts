@@ -9,6 +9,7 @@ import {OrderService} from "../../core/services/order.service";
 import {Subscription} from "rxjs";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Order} from "../../shared/models/order.model";
+import {TokenStorageService} from "../../core/services/token-storage.service";
 
 @Component({
   selector: 'app-payment',
@@ -38,9 +39,29 @@ export class PaymentComponent implements OnInit, OnDestroy {
   listPayment: Payment[];
 
   /**
+   * Données du client qui visite la page et souhaite louer le produit
+   */
+  client: Client;
+
+  /**
+   * Booleen indiquand si le client est connecté ou non
+   */
+  isClientConnected: boolean;
+
+  /**
    * La méthode de paiement sélectionné
    */
   paymentSelectedName = "";
+
+  /**
+   * Indique si une carte est sélectionnée
+   */
+  isPaymentSelected: boolean;
+
+  /**
+   * Message d'erreur du payment
+   */
+  errorMessagePayment: string;
 
   /**
    * Boolean pour décider si on affiche le formulaire ou pas
@@ -105,7 +126,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
   /**
    * Commande du client
    */
-   order: Order;
+  order: Order;
 
   /**
    * Constructeur du composant
@@ -114,6 +135,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
    * @param orderService Service de gestion la commande
    * @param router Service de gestion des routes
    * @param route Service de gestion des routes
+   * @param tokenStorageService Service de gestion des tokens
    */
   constructor(
     private paymentService: PaymentService,
@@ -121,7 +143,8 @@ export class PaymentComponent implements OnInit, OnDestroy {
     private orderService: OrderService,
     private router: Router,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private tokenStorageService: TokenStorageService
   ) {
     this.order = this.router.getCurrentNavigation().extras.state.order;
   }
@@ -130,7 +153,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
    * Initialise le composant
    */
   ngOnInit(): void {
-    this.getPaymentCardSub = this.paymentService.getPaymentCard(1)
+    this.getPaymentCardSub = this.paymentService.getPaymentCard(this.order.client.id)
       .subscribe(
         paymentList => {
           this.listPayment = paymentList;
@@ -140,6 +163,11 @@ export class PaymentComponent implements OnInit, OnDestroy {
         }
       ) ;
     this.initForm();
+    this.isClientConnected = this.tokenStorageService.getClient().id !== -1;
+    if (this.isClientConnected){
+      this.client = this.tokenStorageService.getClient();
+    }
+    this.isPaymentSelected = false;
     this.isCardSubmit = false;
     this.addCardBoolean = false;
     this.isExpirationDateOk =  true;
@@ -167,6 +195,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
    */
   selectMethod(payment: Payment): void{
     this.paymentSelectedName = payment.cardName;
+    this.isPaymentSelected = true;
   }
 
   /**
@@ -294,20 +323,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
         expirationDate: formValue.expirationDate,
         CVV: formValue.cvv
       });
-      const newClient = new Client({
-        id: 1,
-        password: "",
-        lastName: "",
-        firstName: "",
-        email: "",
-        phone: "",
-        birthDate: "",
-        address: "",
-        additionalAddress: "",
-        postalCode: "",
-        city: "",
-      });
-      this.payment.client = newClient;
+      this.payment.client = this.client;
       this.paymentService.addPaymentCard(this.payment).subscribe(result => {
       });
     }
@@ -329,11 +345,21 @@ export class PaymentComponent implements OnInit, OnDestroy {
   /**
    * Enregistre la commande et le paiement associée à celle-ci
    */
-  Payer(){
-    this.order.bill.description = this.order.client.address + " " + this.order.client.additionalAddress + " " + this.order.client.postalCode + " " + this.order.client.city;
-    this.orderService.addPaymentOrder(this.order).subscribe(result => {
-      this.router.navigate(['/equipment/confirmation']);
-    });
+  payEquipment(){
+    if (!this.isPaymentSelected) {
+      this.errorMessagePayment = "Erreur : Veuillez sélectionné un moyen de paiement.";
+    } else {
+      this.errorMessagePayment = "";
+      if (!this.isClientConnected) {
+        this.router.navigate(['/client-login']);
+      } else {
+
+        this.order.bill.description = this.order.client.address + " " + this.order.client.additionalAddress + " " + this.order.client.postalCode + " " + this.order.client.city;
+        this.orderService.addPaymentOrder(this.order).subscribe(result => {
+          this.router.navigate(['/equipment/confirmation']);
+        });
+      }
+    }
   }
 
   /**
