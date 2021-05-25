@@ -55,9 +55,9 @@ export class RenterService {
    * @param newExemple l'exemple modifiée
    * @returns code 200
    */
-  acceptRenter(renterId: number): Observable<any> {
+  acceptRenter(renterId: number, renter: Renter): Observable<any> {
     return this.http.put(
-      this.renterEndpoint + '/accept-renter/' + renterId, httpOptions);
+      this.renterEndpoint + '/accept-renter/' + renterId, {renter} , httpOptions);
   }
 
   /**
@@ -65,7 +65,8 @@ export class RenterService {
    * @param renterId id de l'exemple
    * @returns reqûete http delete pour exemple
    */
-  deleteRenter(renterId: number): Observable<any>{
-    return this.http.delete(this.renterEndpoint + '/' + renterId);
+  deleteRenter(renterId: number, renter: Renter): Observable<any>{
+    return this.http.delete(this.renterEndpoint + '/' + renterId + '/' + renter.firstName + '/'
+      + renter.lastName + '/' + renter.email + '/' + renter.companyName);
   }
 }

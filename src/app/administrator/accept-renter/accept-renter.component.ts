@@ -55,9 +55,10 @@ export class AcceptRenterComponent implements OnInit, OnDestroy {
 
   /**
    * Fonction permettant d'accepter un loueur
-   * @param renterId identifiant du loueur à accepter
+   * @param renter Loueur à accepter
+   * @param index Index dans la liste
    */
-  acceptRenter(renterId: number, index: number): void {
+  acceptRenter(renter: Renter, index: number): void {
     const confirmationModal = new Modal({
       title: 'Confirmation',
       text: 'Êtes-vous sûr de vouloir accepter ce loueur ?',
@@ -65,7 +66,7 @@ export class AcceptRenterComponent implements OnInit, OnDestroy {
     });
 
     confirmationModal.confirm = () => {
-      this.renterService.acceptRenter(renterId).subscribe(result => {
+      this.renterService.acceptRenter(renter.id, renter).subscribe(result => {
         const successModal = new Modal({
           title: 'Succès',
           text: 'Vous avez bien accepté ce loueur',
@@ -83,9 +84,10 @@ export class AcceptRenterComponent implements OnInit, OnDestroy {
 
   /**
    * Fonction permettant de supprimer un loueur
-   * @param renterId identifiant du loueur à supprimer
+   * @param renterId loueur à supprimer
+   * @param index Index dans la liste
    */
-  deleteRenter(renterId: number, index: number): void {
+  deleteRenter(renter: Renter, index: number): void {
     const confirmationModal = new Modal({
       title: 'Confirmation',
       text: 'Êtes-vous sûr de vouloir supprimer ce loueur ?',
@@ -93,14 +95,14 @@ export class AcceptRenterComponent implements OnInit, OnDestroy {
     });
 
     confirmationModal.confirm = () => {
-      this.renterService.deleteRenter(renterId).subscribe(result => {
+      this.renterService.deleteRenter(renter.id, renter).subscribe(result => {
         const successModal = new Modal({
           title: 'Succès',
           text: 'Vous avez bien supprimé ce loueur',
           type: ModalType.INFORMATION,
           redirect: 'home',
           close: () => {
-             this.renterList.splice(index, 1);
+            this.renterList.splice(index, 1);
           },
         });
         this.modalService.genericModal(successModal);
