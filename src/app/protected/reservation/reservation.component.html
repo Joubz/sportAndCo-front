@@ -1,57 +1,120 @@
-<div>
-  <h1>Récapitulatif de la commande</h1>
-  <div id="tableau">
-    <div>
-      <img class=" row imgProductOther" [src]="urlBasic.concat(order.equipment.imageLink1)" *ngIf="order.equipment.imageLink1" />
-      <img class=" row imgProductOther" [src]="urlBasic.concat(order.equipment.imageLink2)" *ngIf="order.equipment.imageLink2" />
-      <img class=" row imgProductOther" [src]="urlBasic.concat(order.equipment.imageLink3)" *ngIf="order.equipment.imageLink3" />
+<div class="_container mb-5">
+  <nav class="flex-justify-center py-5">
+    <span class="reservation_nav_item">
+        <h2>Connexion</h2>
+    </span>
+    <span class="reservation_nav_item">
+        <i class="fas fa-angle-right fa-3x"></i>
+    </span>
+    <span class="reservation_nav_item">
+        <h2>Récapitulatif de mon panier</h2>
+    </span>
+    <span class="reservation_nav_item">
+        <i class="fas fa-angle-right fa-3x"></i>
+    </span>
+    <span class="reservation_nav_item">
+        <h2>Paiement</h2>
+    </span>
+  </nav>
+
+  <div>
+    <label for="name"></label>
+  <h2 id="name">{{order.equipment.name}}</h2>
+  </div>  
+
+  <article>
+    <div class="_row title-nav mb-3">
+        <span class="_col3 pl-2">Produit  /  Prix  /  Quantité</span>
+    </div>
+    <article class="_reservation_item _row">
+        <div class="imgReservation pl-2">
+            <img src="../../../assets/ski.jpg">
+            <!-- <img [src]="urlBasic.concat(order.equipment.imageLink1)" *ngIf="order.equipment.imageLink1"> -->
+        </div>
+        <div class="res-product-info-container">
+            <span class="_col4" >
+              {{order.equipment.description}}
+            </span>
+            <span>
+              Prix : {{order.equipment.price}}
+            </span>
+            <span>
+              Quantité : {{order.quantityRented}}
+            </span>
+        </div>
+
+    </article>
+
+    <div class="res-product-info-container py-5 ml-11">
+        <div>
+            <span class="medium-txt px-1">Dates : </span>
+            <span class="date-info mx-1">{{order.startDate}}</span>
+            <span class="medium-txt px-1"> Au </span>
+            <span class="date-info mx-1">{{order.endDate}}</span>
+        </div>
+        <h2>Total de la commande : {{order.bill.billPrice}} €</h2>
     </div>
 
-    <div>
-      <label for="name">Nom de l'équipment</label>
-      <h2 id="name">{{order.equipment.name}}</h2><br>
+    <div class="flex-justify-content-self-center ">
+        <button class="common" (click)="goToEquipmentDetails()">Annuler</button>   
+        <button class="common" (click)="goToPayment()">Valider</button>
+    </div>
+  </article>
+</div>
 
-      <label for="description"> Description</label>
-      <p id="description">{{order.equipment.description}}</p>
-    </div>
-    <br>
 
-    <div>
-      <label for="price">Prix unitaire journalier</label>
-      <p id="price">{{order.equipment.price}}</p>
-    </div>
-    <br>
+  <!--  HLMT De domi-->
+<!-- <div id="tableau">
+  <div>
+    <img class=" row imgProductOther" [src]="urlBasic.concat(order.equipment.imageLink1)" *ngIf="order.equipment.imageLink1" />
+    <img class=" row imgProductOther" [src]="urlBasic.concat(order.equipment.imageLink2)" *ngIf="order.equipment.imageLink2" />
+    <img class=" row imgProductOther" [src]="urlBasic.concat(order.equipment.imageLink3)" *ngIf="order.equipment.imageLink3" />
+  </div>
 
-    <div>
-      <label for="startDate">Date de début de location</label>
-      <p id="startDate">{{order.startDate}}</p>
-    </div>
+  <div>
+    <label for="name">Nom de l'équipment</label>
+    <h2 id="name">{{order.equipment.name}}</h2><br>
 
-    <div>
-      <label for="EndDate">Date de fin de location</label>
-      <p id="endDate">{{order.endDate}}</p>
-    </div>
-
-    <div>
-      <label for="quantity">Quantité</label>
-      <p id="quantity">{{order.quantityRented}}</p>
-    </div>
-    <br>
-    <div>
-      <label for="totalPrice">Prix total</label>
-      <p id="totalPrice">{{order.bill.billPrice}}</p>
-    </div>
+    <label for="description"> Description</label>
+    <p id="description">{{order.equipment.description}}</p>
   </div>
   <br>
 
   <div>
-    <a (click)="goToEquipmentDetails()">
-      <button class="common">Annuler</button>
-    </a>
-    <a (click)="goToPayment()">
-      <button class="common">Valider</button>
-    </a>
+    <label for="price">Prix unitaire journalier</label>
+    <p id="price">{{order.equipment.price}}</p>
+  </div>
+  <br>
+
+  <div>
+    <label for="startDate">Date de début de location</label>
+    <p id="startDate">{{order.startDate}}</p>
   </div>
 
+  <div>
+    <label for="EndDate">Date de fin de location</label>
+    <p id="endDate">{{order.endDate}}</p>
+  </div>
 
+  <div>
+    <label for="quantity">Quantité</label>
+    <p id="quantity">{{order.quantityRented}}</p>
+  </div>
+  <br>
+  <div>
+    <label for="totalPrice">Prix total</label>
+    <p id="totalPrice">{{order.bill.billPrice}}</p>
+  </div>
 </div>
+<br>
+
+<div>
+  <a (click)="goToEquipmentDetails()">
+    <button class="common">Annuler</button>
+  </a>
+  <a (click)="goToPayment()">
+    <button class="common">Valider</button>
+  </a>
+</div> -->
+
+
