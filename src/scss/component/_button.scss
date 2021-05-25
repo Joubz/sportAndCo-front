@@ -111,11 +111,11 @@ button {
   margin: 0 auto;
   &:hover {
     color: $white;
-    background-color: $red;
+    background-color: $green;
   }
   &:focus {
     color: $white;
-    background-color: $red;
+    background-color: $green;
   }
 }
 
