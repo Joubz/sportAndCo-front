@@ -325,6 +325,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
       });
       this.payment.client = this.client;
       this.paymentService.addPaymentCard(this.payment).subscribe(result => {
+
       });
     }
 
