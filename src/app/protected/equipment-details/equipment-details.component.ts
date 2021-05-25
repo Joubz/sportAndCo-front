@@ -317,13 +317,25 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
 
       const order: Order = new Order({
           id: -1,
-          client: this.client,
+          client: new Client({
+            id: 1,
+            password: "",
+            lastName: "",
+            firstName: "",
+            email: "",
+            phone: "",
+            birthDate: "",
+            address: "",
+            additionalAddress: "",
+            postalCode: "",
+            city: "",
+          }),
           equipment: this.equipment,
           bill: new Bill({
             id: -1,
             description: "",
-            billDate: this.formatDate(new Date()),
-            billPrice: (this.quantityWanted * this.equipment.price).toString()
+            billDate: "",
+            billPrice: this.quantityWanted * this.equipment.price
           }),
           startDate: this.formatDate(this.startDateSelect),
           endDate: this.formatDate(this.endDateSelect),

@@ -9,11 +9,12 @@ import { SharedModule } from '../shared/shared.module';
 import { PaymentComponent } from './payment/payment.component';
 import {NgMonthPickerModule} from "ng-month-picker";
 import {ReservationComponent} from "./reservation/reservation.component";
+import { ConfirmationComponent } from './confirmation/confirmation.component';
 /**
  * Gestion des modules et composants de Protected
  */
 @NgModule({
-  declarations: [EquipmentDetailsComponent, PaymentComponent, ReservationComponent],
+  declarations: [EquipmentDetailsComponent, PaymentComponent, ReservationComponent, ConfirmationComponent],
   imports: [
     CommonModule,
     ProtectedRoutingModule,

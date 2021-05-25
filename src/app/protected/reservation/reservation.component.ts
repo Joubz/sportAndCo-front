@@ -59,7 +59,6 @@ export class ReservationComponent implements OnInit {
    * Redirige vers la page de paiement
    */
   goToPayment() {
-    // TODO Mettre le bon URL
     this.router.navigateByUrl('/equipment/payment', { state: {"order": this.order } });
   }
 }

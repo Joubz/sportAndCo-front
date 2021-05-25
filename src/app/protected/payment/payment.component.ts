@@ -126,6 +126,9 @@ export class PaymentComponent implements OnInit, OnDestroy {
     this.order = this.router.getCurrentNavigation().extras.state.order;
   }
 
+  /**
+   * Initialise le composant
+   */
   ngOnInit(): void {
     this.getPaymentCardSub = this.paymentService.getPaymentCard(1)
       .subscribe(
@@ -277,7 +280,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
   /**
    * Soumet le formuliaire
    */
-  onSubmitForm() {
+  onSubmitFormAddPayment() {
     this.isCardSubmit = true;
     if (this.cardForm.valid && this.isExpirationDateOk) {
       if (!this.dateIsSelected) {
@@ -327,9 +330,18 @@ export class PaymentComponent implements OnInit, OnDestroy {
   /**
    * Enregistre la commande et le paiement associée à celle-ci
    */
-  paymentOrder(){
-    this.paymentService.addPaymentOrder(this.order).subscribe(result => {
-      this.router.navigate(['/home']);
+  Payer(){
+    console.log(this.order);
+    this.orderService.addPaymentOrder(this.order).subscribe(result => {
+      this.router.navigate(['/equipment/confirmation']);
     });
   }
+
+  /**
+   * Redirige vers la réservation
+   */
+  goToReservation(): void {
+    this.router.navigateByUrl('/equipment/reservation', { state: {"order": this.order } });
+  }
+
 }

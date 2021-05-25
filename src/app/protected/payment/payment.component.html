@@ -32,7 +32,7 @@
 <button (click)="changeCardBoolean()">{{showHideForm}}</button>
 
 <div *ngIf="addCardBoolean">
-  <form [formGroup]="cardForm" (ngSubmit)="onSubmitForm()">
+  <form [formGroup]="cardForm" (ngSubmit)="onSubmitFormAddPayment()">
 
     <div class="form-group">
       <label for="cardNumber">Numéro de la carte</label>
@@ -65,5 +65,13 @@
 
   </form>
 
+</div>
 
+<div>
+  <a (click)="goToReservation()">
+    <button class="common">Revenir en arrière</button>
+  </a>
+  <a (click)="Payer()">
+    <button class="common">Payer</button>
+  </a>
 </div>
