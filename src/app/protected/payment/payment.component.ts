@@ -105,7 +105,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
   /**
    * Commande du client
    */
-  private order: Order;
+   order: Order;
 
   /**
    * Constructeur du composant
