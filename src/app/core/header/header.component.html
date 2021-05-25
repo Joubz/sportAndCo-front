@@ -24,7 +24,7 @@
         <a>{{client.firstName}} {{client.lastName}}</a>
       </div>
       <div class="right_nav_item" (click)="disconnect()">
-        <a routerLink="/home">Deconnexion</a>
+        <a routerLink="/home">Déconnexion</a>
       </div>
     </nav>
   </div>
@@ -32,10 +32,16 @@
   <div *ngIf="isAdmin" class="nav_showing">
     <nav>
       <div class="right_nav_item">
+        <a routerLink="/admin/accept-renter"> Loueur à accepter </a>
+      </div>
+      <div class="right_nav_item">
+        <a > Liste des loueurs </a>
+      </div>
+      <div class="right_nav_item">
         <a> {{admin.username}} </a>
       </div>
       <div class="right_nav_item" (click)="disconnect()">
-        <a routerLink="/home">Deconnexion</a>
+        <a routerLink="/home">Déconnexion</a>
       </div>
     </nav>
   </div>
