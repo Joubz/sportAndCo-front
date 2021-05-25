@@ -5,6 +5,7 @@ import { Modal, ModalType } from 'src/app/shared/models/modal.model';
 import { ModalService } from '../services/modal.service';
 import { TokenStorageService } from '../services/token-storage.service';
 import { Client } from 'src/app/shared/models/clientRent.model';
+import {Administrator} from "../../shared/models/administratror.model";
 
 /**
  * Composant du header
@@ -36,6 +37,11 @@ export class HeaderComponent implements OnInit {
   client: Client;
 
   /**
+   * Variable pour stocker les infos de l'admin
+   */
+  admin: Administrator;
+
+  /**
    * Constructeur du composant
    * @param router Gestion du routing (natif angular)
    * @param tokenStorageService Service de gestion des tokens
@@ -52,8 +58,12 @@ export class HeaderComponent implements OnInit {
    */
   ngOnInit(): void {
     this.isClient = this.tokenStorageService.getClient().id !== -1;
-    if(this.isClient){
+    this.isAdmin = this.tokenStorageService.getAdmin().id !== -1;
+    if (this.isClient) {
       this.client = this.tokenStorageService.getClient();
+    }
+    if (this.isAdmin) {
+      this.admin = this.tokenStorageService.getAdmin();
     }
   }
 
@@ -62,15 +72,19 @@ export class HeaderComponent implements OnInit {
    */
   ngDoCheck(): void {
     this.isClient = this.tokenStorageService.getClient().id !== -1;
-    if (this.isClient){
+    this.isAdmin = this.tokenStorageService.getAdmin().id !== -1;
+    if (this.isClient) {
       this.client = this.tokenStorageService.getClient();
+    }
+    if (this.isAdmin) {
+      this.admin = this.tokenStorageService.getAdmin();
     }
   }
 
   /**
-   * Fonction de déconnexion du client, avec pop-in de confirmation
+   * Fonction de déconnexion, avec pop-in de confirmation
    */
-  disconnectClient(): void {
+  disconnect(): void {
     const confirmationModal = new Modal({
       title: 'Confirmation',
       text: 'Êtes-vous sûr de vouloir vous déconnectez ?',
@@ -93,4 +107,6 @@ export class HeaderComponent implements OnInit {
     };
     this.modalService.confirmationModal(confirmationModal);
   }
+
+
 }

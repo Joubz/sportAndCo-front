@@ -17,7 +17,8 @@ export class Constants {
     ORDER: '/order',
     CATEGORY: '/category',
     METROPOLISES: '/metropolises',
-    CLIENT: '/client'
+    CLIENT: '/client',
+    ADMIN: '/admin'
   });
 
   /**

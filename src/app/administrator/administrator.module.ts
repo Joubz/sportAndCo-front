@@ -2,13 +2,15 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { AdministratorRoutingModule } from './administrator-routing.module';
-import { RandomAdminComponentComponent } from "./random-admin-component/random-admin-component.component";
+import { AcceptRenterComponent } from './accept-renter/accept-renter.component';
 
 /**
  * Gestion des modules et composants de Administrator
  */
 @NgModule({
-  declarations: [RandomAdminComponentComponent],
+  declarations: [
+    AcceptRenterComponent
+  ],
   imports: [
     CommonModule,
     AdministratorRoutingModule

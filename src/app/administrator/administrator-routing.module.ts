@@ -1,19 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { RandomAdminComponentComponent } from "./random-admin-component/random-admin-component.component";
+import { AcceptRenterComponent } from './accept-renter/accept-renter.component';
 
 const routes: Routes = [
   {
     path: 'admin',
-    redirectTo: 'admin/anomalies-list'
-  },
-  {
-    path: 'admin',
     children: [
       {
-        path: 'exemple',
-        component: RandomAdminComponentComponent
+        path: 'accept-renter',
+        component: AcceptRenterComponent
       }
     ]
   }
