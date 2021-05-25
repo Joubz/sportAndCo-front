@@ -163,7 +163,7 @@ export class LoginAdminComponent implements OnInit, OnDestroy {
           this.tokenStorageService.saveToken(result.token);
           this.tokenStorageService.saveAdmin(result.admin);
 
-          this.router.navigate(['/home']);
+          this.router.navigate(['/admin/accept-renter']);
         }
       );
     }
