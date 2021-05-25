@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {LoggedInAdminGuard} from "../core/guards/logged-in-admin.guard";
 
 import { AcceptRenterComponent } from './accept-renter/accept-renter.component';
-
+import { RenterListComponent } from './renter-list/renter-list.component';
 
 const routes: Routes = [
   {
@@ -13,6 +13,10 @@ const routes: Routes = [
       {
         path: 'accept-renter',
         component: AcceptRenterComponent
+      },
+      {
+        path: 'renter-list',
+        component: RenterListComponent
       }
     ]
   }

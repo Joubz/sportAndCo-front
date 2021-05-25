@@ -32,8 +32,26 @@ export class RenterService {
   constructor(private http: HttpClient, private constants: Constants) {}
 
   /**
+   * Récupère la liste des loueurs
+   * @returns liste des loueurs
+   */
+  getRenterList(): Observable<Renter[]> {
+    return this.http.get(
+      this.renterEndpoint + '/list').pipe(
+      map((jsonResponse: any) => {
+          const renterList = [];
+          jsonResponse.forEach(element => {
+            const renter: Renter = Renter.fromJson(element);
+            renterList.push(renter);
+          });
+          return renterList;
+        }
+      ));
+  }
+
+  /**
    * Récupère la liste des loueurs non acceptés
-   * @returns liste des exemples
+   * @returns liste des loueurs
    */
   getNotAcceptList(): Observable<Renter[]> {
     return this.http.get(
@@ -51,8 +69,8 @@ export class RenterService {
 
   /**
    * Accepte un loueur
-   * @param renterId id de l'exemple
-   * @param newExemple l'exemple modifiée
+   * @param renterId id du loueur
+   * @param newExemple le loueur modifiée
    * @returns code 200
    */
   acceptRenter(renterId: number, renter: Renter): Observable<any> {
@@ -62,8 +80,8 @@ export class RenterService {
 
   /**
    * Fonction de suppression d'un loueur
-   * @param renterId id de l'exemple
-   * @returns reqûete http delete pour exemple
+   * @param renterId id du loueur
+   * @returns reqûete http delete pour loueur
    */
   deleteRenter(renterId: number, renter: Renter): Observable<any>{
     return this.http.delete(this.renterEndpoint + '/' + renterId + '/' + renter.firstName + '/'
