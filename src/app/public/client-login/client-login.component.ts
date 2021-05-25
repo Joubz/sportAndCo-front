@@ -51,6 +51,7 @@ export class ClientLoginComponent implements OnInit, OnDestroy {
    * @param fb Constructeur de formulaire natif angular
    * @param router Gestion du routing (natif angular)
    * @param notificationsService Service de gestion des popin de notification
+   * @param tokenStorageService Service de gestion des tokens
    */
   constructor(
     private clientService: ClientService,

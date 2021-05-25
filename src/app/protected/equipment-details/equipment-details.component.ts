@@ -13,6 +13,7 @@ import locale from 'date-fns/locale/en-US';
 import { Client } from '../../shared/models/clientRent.model';
 import { Location } from '@angular/common';
 import {Bill} from "../../shared/models/bill.model";
+import {TokenStorageService} from "../../core/services/token-storage.service";
 
 /**
  * Composant de la page détail d'un équipement
@@ -37,7 +38,11 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
    * Données du client qui visite la page et souhaite louer le produit
    */
   client: Client;
-  // TODO Récupérer le client
+
+  /**
+   * Booleen indiquand si le client est connecté ou non
+   */
+  isClientConnected: boolean;
 
   /**
    * Liste des commandes concernés par l'équipement
@@ -152,13 +157,15 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
    * @param orderService Service de gestion des commandes
    * @param router Service de gestion des routes
    * @param route Service angular de gestion de la route actuelle
+   * @param tokenStorageService Service de gestion des tokens
    */
   constructor(
     private equipmentService: EquipmentService,
     private orderService: OrderService,
     private router: Router,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private tokenStorageService: TokenStorageService,
   ) {}
 
   /**
@@ -197,7 +204,10 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
 
       this.isEquipmentAvailable();
 
-      // TODO Récupérer le client
+      this.isClientConnected = this.tokenStorageService.getClient().id !== -1;
+      if (this.isClientConnected){
+        this.client = this.tokenStorageService.getClient();
+      }
 
       this.equipmentLoaded = Promise.resolve(true);
     });
@@ -310,47 +320,6 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Fonction lançant la demande de location
-   */
-  rentEquipment() {
-    if (this.isAvailable && this.areDatesOk && this.isEquipmentStillAvailable) {
-
-      const order: Order = new Order({
-          id: -1,
-          client: new Client({
-            id: 1,
-            password: "",
-            lastName: "",
-            firstName: "",
-            email: "",
-            phone: "",
-            birthDate: "",
-            address: "",
-            additionalAddress: "",
-            postalCode: "",
-            city: "",
-          }),
-          equipment: this.equipment,
-          bill: new Bill({
-            id: -1,
-            description: "",
-            billDate: this.formatDate(new Date()),
-            billPrice: this.quantityWanted * this.equipment.price
-          }),
-          startDate: this.formatDate(this.startDateSelect),
-          endDate: this.formatDate(this.endDateSelect),
-          rentDate: this.formatDate(new Date()),
-          statusReturned: 0,
-          quantityRented: this.quantityWanted
-        }
-      );
-
-      this.router.navigateByUrl('/equipment/reservation', { state: {"order": order } });
-
-    }
-  }
-
-  /**
    * Fonction qui formate la date en année-mois-jour
    * @param date Date passée en paramètres
    */
@@ -368,4 +337,45 @@ export class EquipmentDetailsComponent implements OnInit, OnDestroy {
 
     return [year, month, day].join('-');
   }
+
+  /**
+   * Fonction lançant la demande de location
+   */
+  rentEquipment() {
+    if (this.isAvailable && this.areDatesOk && this.isEquipmentStillAvailable) {
+
+      if (!this.isClientConnected) {
+      //  this.router.navigate('/client-login',  { queryParams: { from: 'equipment-list' });
+
+        this.router.navigate(
+          ['/client-login'],
+          { queryParams: { from: 'equipment-detail' +  this.route.snapshot.paramMap.get('id') + '/' +
+              this.startDateSelectString + '/' + this.endDateSelectString } }
+        );
+
+      } else {
+        const order: Order = new Order({
+            id: -1,
+            client: this.client,
+            equipment: this.equipment,
+            bill: new Bill({
+              id: -1,
+              description: "",
+              billDate: this.formatDate(new Date()),
+              billPrice: this.quantityWanted * this.equipment.price
+            }),
+            startDate: this.formatDate(this.startDateSelect),
+            endDate: this.formatDate(this.endDateSelect),
+            rentDate: this.formatDate(new Date()),
+            statusReturned: 0,
+            quantityRented: this.quantityWanted
+          }
+        );
+
+        this.router.navigateByUrl('/equipment/reservation', { state: {"order": order } });
+      }
+
+    }
+  }
+
 }
