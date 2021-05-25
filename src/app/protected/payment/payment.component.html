@@ -2,7 +2,7 @@
   <h1> Détail paiement du client </h1>
 </div>
 
-<table *ngIf="!listeVide; else noCard " >
+<table *ngIf="!listIsEmpty; else noCard " >
 <caption>Vos cartes de crédit et de débit</caption>
   <tr>
     <th>Nom du titulaire</th>

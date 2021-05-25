@@ -100,7 +100,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
   /**
    * Booléan liste vide ou pas
    */
-  listeVide: boolean;
+  listIsEmpty: boolean;
 
   /**
    * Commande du client
@@ -135,7 +135,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
         paymentList => {
           this.listPayment = paymentList;
           if (this.listPayment.length === 0) {
-            this.listeVide = true;
+            this.listIsEmpty = true;
           }
         }
       ) ;
