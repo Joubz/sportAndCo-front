@@ -6,7 +6,7 @@ import {Payment} from "../../shared/models/payment.model";
 import {EquipmentService} from "../../core/services/equipment.service";
 import {PaymentService} from "../../core/services/payment.service";
 import {OrderService} from "../../core/services/order.service";
-import {Subscription} from "rxjs";
+import {forkJoin, Subscription} from "rxjs";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Order} from "../../shared/models/order.model";
 import {TokenStorageService} from "../../core/services/token-storage.service";
@@ -160,8 +160,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
           if (this.listPayment.length === 0) {
             this.listIsEmpty = true;
           }
-        }
-      ) ;
+        });
     this.initForm();
     this.isClientConnected = this.tokenStorageService.getClient().id !== -1;
     if (this.isClientConnected){
@@ -324,11 +323,12 @@ export class PaymentComponent implements OnInit, OnDestroy {
         CVV: formValue.cvv
       });
       this.payment.client = this.client;
-      this.paymentService.addPaymentCard(this.payment).subscribe(result => {
 
-      });
+      forkJoin([ this.paymentService.addPaymentCard(this.payment), this.paymentService.getPaymentCard(this.order.client.id)])
+        .subscribe(([result, listPayement]) => {
+          this.listPayment = listPayement;
+        });
     }
-
   }
 
   /**
@@ -343,6 +343,18 @@ export class PaymentComponent implements OnInit, OnDestroy {
       this.showHideForm = "Ne pas ajouter une carte";
     }
   }
+
+  /**
+   * Récupère les classes à appliquer aux boutons en fonction du statut de disponibilité
+   * @param buttonName Nom du bouton affiché
+   * @returns Les classes CSS à appliquer
+   */
+  getButtonClass(buttonName: string): string {
+    if (buttonName === 'pay') {
+      return !this.isPaymentSelected ? 'disabled' : 'common';
+    }
+  }
+
   /**
    * Enregistre la commande et le paiement associée à celle-ci
    */

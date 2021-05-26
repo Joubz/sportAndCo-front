@@ -1,77 +1,96 @@
-<div class="equipment-title-card my-5">
-  <h1> Détail paiement du client </h1>
-</div>
+<div class="_container mb-5">
+  <nav class="flex-justify-center py-5">
+    <span class="reservation_nav_item">
+        <h2>Récapitulatif de mon panier</h2>
+    </span>
+    <span class="reservation_nav_item">
+        <i class="fas fa-angle-right fa-3x"></i>
+    </span>
+    <span class="reservation_nav_item">
+        <h2> Paiement</h2>
+    </span>
+    <span class="reservation_nav_item">
+        <i class="fas fa-angle-right fa-3x"></i>
+    </span>
+    <span class="reservation_nav_item">
+        <h2>Confirmation</h2>
+    </span>
+  </nav>
 
-<table *ngIf="!listIsEmpty; else noCard " >
-  <caption>Vos cartes de crédit et de débit</caption>
-  <tr>
-    <th>Nom du titulaire</th>
-    <th>Numéro de carte</th>
-    <th>Date d'expiration</th>
-  </tr>
-  <tr *ngFor="let payment of listPayment, index as i" (click)="selectMethod(payment)" [ngClass]="{'highlightRow' : payment.cardName == paymentSelectedName}" >
-    <td>
-      {{payment.cardName}}
-    </td>
-    <td>
-      {{payment.cardNumber}}
-    </td>
-    <td>
-      {{payment.expirationDate}}
-    </td>
-  </tr>
+  <div class="--center">
+    <table *ngIf="!listIsEmpty; else noCard " class="--center">
+      <caption>Vos cartes de crédit et de débit</caption>
+      <tr>
+        <th>Nom du titulaire</th>
+        <th>Numéro de carte</th>
+        <th>Date d'expiration</th>
+      </tr>
+      <tr *ngFor="let payment of listPayment, index as i" (click)="selectMethod(payment)" [ngClass]="{'highlightRow' : payment.cardName == paymentSelectedName}" >
+        <td>
+          {{payment.cardName}}
+        </td>
+        <td>
+          {{payment.cardNumber}}
+        </td>
+        <td>
+          {{payment.expirationDate}}
+        </td>
+      </tr>
 
-</table>
+    </table>
 
-<ng-template #noCard>
-  <div class="my-7 p-6 --center">
-    <h2>Vous n'avez pas encore enregistré de carte de paiement.</h2>
+    <ng-template #noCard>
+      <div class="my-7 p-6 --center">
+        <h2>Vous n'avez pas encore enregistré de carte de paiement.</h2>
+      </div>
+    </ng-template>
+
+    <button class="common" (click)="changeCardBoolean()">{{showHideForm}}</button>
+
+    <div *ngIf="addCardBoolean" class="--left" style="margin-left: 35%;">
+      <form [formGroup]="cardForm" (ngSubmit)="onSubmitFormAddPayment()" class="my-4">
+        <div class="_row">
+          <div class="my-5">
+            <input type="text" id="cardNumber" [ngClass]="{'field-error' : errorDetection('cardNumber')}" style="border-radius: 10px;"
+                   formControlName="cardNumber" placeholder="Numéro de la carte" required>
+            <br>
+            <span class="tiny-txt ml-3" >Nombre de caractères : {{cardNumberChars}}/16</span>
+            <span *ngIf="errorDetection('cardNumber')" class="field-error-message tiny-txt">{{messageErrorCardNumber}}</span>
+          </div>
+
+          <div class="my-5 ml-7">
+            <input type="text" [ngClass]="{'field-error' : errorDetection('name')}" id="name" formControlName="name" style="border-radius: 10px;" placeholder="Nom du propriétaire" required>
+            <br>
+            <span *ngIf="errorDetection('name')" class="field-error-message tiny-txt">{{messageErrorName}}</span>
+          </div>
+        </div>
+
+        <div class="_row">
+          <div class="my-5">
+            <label>Date d'expiration</label>
+            <br>
+            <ng-month-picker id="expirationDate" formControlName="expirationDate" (click)="isExpirationDateCorrect()" style="border-radius: 10px;"></ng-month-picker>
+            <span *ngIf="errorDetection('expirationDate')" class="field-error-message tiny-txt">{{messageExpirationDate}}</span>
+          </div>
+
+          <div class="my-5 ml-7">
+            <input  type="text" id="cvv" [ngClass]="{'field-error' : errorDetection('cvv')}" formControlName="cvv" placeholder="Numéro CVV" style="border-radius: 10px;" required>
+            <br>
+            <span class="tiny-txt ml-3" >Nombre de caractères : {{cardCvvChars}}/3</span>
+            <span *ngIf="errorDetection('cvv')" class="field-error-message tiny-txt">{{messageErrorCVV}}</span>
+          </div>
+        </div>
+
+        <button type="submit" class="common" >Ajouter la carte</button>
+
+      </form>
+
+    </div>
+    <span class="field-error-message tiny-txt">{{errorMessagePayment}}</span>
+
+    <div class="flex-justify-content-self-center ">
+      <button class="common" (click)="goToReservation()">Revenir en arrière</button>
+      <button class="common" (click)="payEquipment()">Payer</button>
+    </div>
   </div>
-</ng-template>
-
-<button (click)="changeCardBoolean()">{{showHideForm}}</button>
-
-<div *ngIf="addCardBoolean">
-  <form [formGroup]="cardForm" (ngSubmit)="onSubmitFormAddPayment()">
-
-    <div class="form-group">
-      <label for="cardNumber">Numéro de la carte</label>
-      <input type="text" id="cardNumber" [ngClass]="{'field-error' : errorDetection('cardNumber')}" formControlName="cardNumber" required>
-      <span class="tiny-txt" >Nombre de caractères : {{cardNumberChars}}/16</span>
-      <span *ngIf="errorDetection('cardNumber')" class="field-error-message tiny-txt">{{messageErrorCardNumber}}</span>
-    </div>
-
-    <div class="form-group">
-      <label for="name">Nom du propriétaire</label>
-      <input type="text" [ngClass]="{'field-error' : errorDetection('name')}" id="name" formControlName="name" required>
-      <span *ngIf="errorDetection('name')" class="field-error-message tiny-txt">{{messageErrorName}}</span>
-    </div>
-
-    <div class="form-group">
-      <label>Date d'expiration</label>
-      <ng-month-picker id="expirationDate" formControlName="expirationDate" (click)="isExpirationDateCorrect()"></ng-month-picker>
-      <span *ngIf="errorDetection('expirationDate')" class="field-error-message tiny-txt">{{messageExpirationDate}}</span>
-
-    </div>
-
-    <div class="form-group">
-      <label for="cvv">Numéro CVV</label>
-      <input type="text" id="cvv" [ngClass]="{'field-error' : errorDetection('cvv')}" formControlName="cvv" required>
-      <span class="tiny-txt" >Nombre de caractères : {{cardCvvChars}}/3</span>
-      <span *ngIf="errorDetection('cvv')" class="field-error-message tiny-txt">{{messageErrorCVV}}</span>
-    </div>
-
-    <button type="submit"  class="btn btn-primary">Ajouter la carte</button>
-
-  </form>
-
-</div>
-<span class="field-error-message tiny-txt">{{errorMessagePayment}}</span>
-<div>
-  <a (click)="goToReservation()">
-    <button class="common">Revenir en arrière</button>
-  </a>
-  <a (click)="payEquipment()">
-    <button class="common">Payer</button>
-  </a>
 </div>

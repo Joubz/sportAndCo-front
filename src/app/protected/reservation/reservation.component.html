@@ -20,7 +20,7 @@
   <div>
     <label for="name"></label>
   <h2 id="name">{{order.equipment.name}}</h2>
-  </div>  
+  </div>
 
   <article>
     <div class="_row title-nav mb-3">
@@ -28,8 +28,7 @@
     </div>
     <article class="_reservation_item _row">
         <div class="imgReservation pl-2">
-            <img src="../../../assets/ski.jpg">
-            <!-- <img [src]="urlBasic.concat(order.equipment.imageLink1)" *ngIf="order.equipment.imageLink1"> -->
+               <img [src]="urlBasic.concat(order.equipment.imageLink1)" *ngIf="order.equipment.imageLink1">
         </div>
         <div class="res-product-info-container">
             <span class="_col4" >
@@ -56,65 +55,8 @@
     </div>
 
     <div class="flex-justify-content-self-center ">
-        <button class="common" (click)="goToEquipmentDetails()">Annuler</button>   
+        <button class="common" (click)="goToEquipmentDetails()">Annuler</button>
         <button class="common" (click)="goToPayment()">Valider</button>
     </div>
   </article>
 </div>
-
-
-  <!--  HLMT De domi-->
-<!-- <div id="tableau">
-  <div>
-    <img class=" row imgProductOther" [src]="urlBasic.concat(order.equipment.imageLink1)" *ngIf="order.equipment.imageLink1" />
-    <img class=" row imgProductOther" [src]="urlBasic.concat(order.equipment.imageLink2)" *ngIf="order.equipment.imageLink2" />
-    <img class=" row imgProductOther" [src]="urlBasic.concat(order.equipment.imageLink3)" *ngIf="order.equipment.imageLink3" />
-  </div>
-
-  <div>
-    <label for="name">Nom de l'équipment</label>
-    <h2 id="name">{{order.equipment.name}}</h2><br>
-
-    <label for="description"> Description</label>
-    <p id="description">{{order.equipment.description}}</p>
-  </div>
-  <br>
-
-  <div>
-    <label for="price">Prix unitaire journalier</label>
-    <p id="price">{{order.equipment.price}}</p>
-  </div>
-  <br>
-
-  <div>
-    <label for="startDate">Date de début de location</label>
-    <p id="startDate">{{order.startDate}}</p>
-  </div>
-
-  <div>
-    <label for="EndDate">Date de fin de location</label>
-    <p id="endDate">{{order.endDate}}</p>
-  </div>
-
-  <div>
-    <label for="quantity">Quantité</label>
-    <p id="quantity">{{order.quantityRented}}</p>
-  </div>
-  <br>
-  <div>
-    <label for="totalPrice">Prix total</label>
-    <p id="totalPrice">{{order.bill.billPrice}}</p>
-  </div>
-</div>
-<br>
-
-<div>
-  <a (click)="goToEquipmentDetails()">
-    <button class="common">Annuler</button>
-  </a>
-  <a (click)="goToPayment()">
-    <button class="common">Valider</button>
-  </a>
-</div> -->
-
-

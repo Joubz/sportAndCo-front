@@ -5,7 +5,7 @@ import {
   Output,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { forkJoin, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { Category } from '../../shared/models/category.model';
 import { CategoryService } from '../../core/services/category.service';
@@ -26,11 +26,6 @@ import { Search } from '../../shared/models/search.model';
 })
 export class EquipmentSearchComponent implements OnInit {
   @Output() searchEmitter: EventEmitter<Search> = new EventEmitter<Search>();
-
-  /**
-   * Permet d'attendre que les catégories & les métropoles soient chargées pour afficher la barre de recherch
-   */
-  categoryAndMetropolisesLoaded: Promise<boolean>;
 
   /**
    * Liste des catégories

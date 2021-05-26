@@ -39,6 +39,7 @@ export class PaymentService {
    * @returns Un observable contenant la commande récupérée
    */
   getPaymentCard(clientId: number): Observable<Payment[]> {
+    console.log("get");
     return this.http
       .get(this.paymentEndpoint + '/' + clientId)
       .pipe(map((jsonResponse: any) => {
@@ -59,6 +60,7 @@ export class PaymentService {
    * @returns Un observable contenant la commande récupérée
    */
   addPaymentCard(payment: Payment): Observable<any> {
+    console.log("add");
     payment.cardName =  CryptoJS.AES.encrypt(payment.cardName.trim(), this.constants.CRYPT.MDP_CRYPTAGE.trim()).toString();
     payment.cardNumber =  CryptoJS.AES.encrypt(payment.cardNumber.trim(), this.constants.CRYPT.MDP_CRYPTAGE.trim()).toString();
     payment.expirationDate =  CryptoJS.AES.encrypt(payment.expirationDate.trim(), this.constants.CRYPT.MDP_CRYPTAGE.trim()).toString();
