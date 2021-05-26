@@ -10,6 +10,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { ListEquipmentComponent } from './list-equipment/list-equipment.component';
 import { EquipmentSearchComponent } from './equipment-search/equipment-search.component';
 import { DatepickerModule } from 'ng2-datepicker';
+import { LoginRenterComponent } from './login-renter/login-renter.component';
 
 /**
  * Gestion des modules et composants de Public
@@ -21,6 +22,7 @@ import { DatepickerModule } from 'ng2-datepicker';
     NotFoundComponent,
     ListEquipmentComponent,
     EquipmentSearchComponent,
+    LoginRenterComponent,
   ],
   imports: [
     CommonModule,
