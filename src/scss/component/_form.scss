@@ -1,11 +1,11 @@
 input,
 select,
 .input-connexion {
-    border: 1px solid $grey;
-    background-color: $white;
-    text-align: center;
-    width: 200px;
-    height: 50px;
+  border: 1px solid $grey;
+  background-color: $white;
+  text-align: center;
+  width: 200px;
+  height: 50px;
 }
 
 .input-connexion {
@@ -15,7 +15,7 @@ select,
 
 form {
 
-  }
+}
 
 .required {
   position: relative;
@@ -49,4 +49,3 @@ form {
   display: block;
   color: $red;
 }
-

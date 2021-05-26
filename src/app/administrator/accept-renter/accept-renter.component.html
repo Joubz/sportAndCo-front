@@ -1,0 +1,27 @@
+<div *ngIf="acceptRenterLoaded | async">
+  <h1>Loueur à accepter</h1>
+  <div class=" --center" *ngIf="renterList?.length > 0; else noRenter">
+
+    <div *ngFor="let renter of renterList; index as i">
+      <div class="card --center">
+        <div class="--center">
+          <h2>{{ renter.companyName }}</h2>
+          <span>{{ renter.firstName }} {{ renter.lastName }}</span>
+          <br>
+          <span>{{ renter.email }} - {{ renter.phone }}</span>
+        </div>
+        <button class="add" (click)="acceptRenter(renter, i)" > Accepter</button>
+        <button class="delete" (click)="deleteRenter(renter, i)" > Supprimer</button>
+      </div>
+      <br>
+    </div>
+
+  </div>
+
+  <ng-template #noRenter>
+    <div class="my-7 p-6 --center">
+      <p class="font-size-rem">Aucun nouveaux loueurs</p>
+    </div>
+  </ng-template>
+
+</div>

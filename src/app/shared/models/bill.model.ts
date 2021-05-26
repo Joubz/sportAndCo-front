@@ -20,7 +20,7 @@ export class Bill {
   /**
    * Prix total de la facture
    */
-  billPrice: string;
+  billPrice: number;
 
   /**
    * Constructeur de l'objet, tous les paramètres sont obligatoires
@@ -30,7 +30,7 @@ export class Bill {
     id: number,
     description: string,
     billDate: string,
-    billPrice: string
+    billPrice: number
   }) {
     this.id = options.id;
     this.description = options.description;

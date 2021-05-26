@@ -17,14 +17,16 @@ export class Constants {
     ORDER: '/order',
     CATEGORY: '/category',
     METROPOLISES: '/metropolises',
-    CLIENT: '/client'
+    PAYMENT : '/payment',
+    CLIENT: '/client',
+    ADMIN: '/admin',
+    RENTER: '/renter'
   });
 
   /**
-   * exemple
+   * Cryptage
    */
-  public EXEMPLE = Object.freeze({
-    exemple1: 'exemple 1',
-    exemple2: 'exemple 2'
+  public CRYPT = Object.freeze({
+    MDP_CRYPTAGE: "ProjetTocMdp"
   });
 }
