@@ -10,6 +10,7 @@ import {NotificationsService} from "../../core/services/notification.service";
 import { Notification, NotificationBackground, NotificationIcon } from 'src/app/shared/models/notification.model';
 import { Observable } from 'rxjs';
 import { Metropolises } from 'src/app/shared/models/metropolises.model';
+import { identifierModuleUrl } from '@angular/compiler';
 
 /**
  * Validateur de la correspondance des mots de passe
@@ -41,11 +42,6 @@ export function MustMatch(controlName: string, matchingControlName: string) {
   styleUrls: ['./renter-registration.component.css']
 })
 export class RenterRegistrationComponent implements OnInit {
-
-  /**
-   * La valeur de select par défaut
-   */
-    defaultSelectOption: string;
 
    /**
    * Permet d'attendre que la liste des mails clients déjà existant soit chargée pour l'afficher
@@ -175,6 +171,7 @@ export class RenterRegistrationComponent implements OnInit {
     * @param fb Constructeur de formulaire natif angular
     * @param router Gestion du routing (natif angular)
     * @param notificationsService Service de gestion des popin de notification
+    * @param metropolisesService Service de gestion des métropoles
     */
    constructor(
      private renterService: RenterService,
@@ -188,14 +185,15 @@ export class RenterRegistrationComponent implements OnInit {
     * Initialise le composant
     */
    ngOnInit(): void {
-    this.defaultSelectOption = 'Lieu';
      this.renterService.getListMailRenter().subscribe(list => {
        this.mailList = list;
        this.isSubmit = false;
        this.isMailNotTakenAlready = false;
        this.isBirthDateFilled = false;
-       this.listMetropolises$ = this.metropolisesService.getListMetropolises();
        this.initForm();
+       this.listMailLoaded = Promise.resolve(true);
+       this.listMetropolises$ = this.metropolisesService.getListMetropolises();
+       console.log("METROPOLES"+this.listMetropolises$);
      });
    }
  
@@ -215,7 +213,7 @@ export class RenterRegistrationComponent implements OnInit {
        additionalAddress: ['', [Validators.required, Validators.maxLength(250)]],
        postalCode: ['', [Validators.required, Validators.maxLength(5), Validators.pattern("^[0-9]*$")]],
        city: ['', [Validators.required, Validators.maxLength(250)]],
-       metropolises: ['', [Validators.required, Validators.maxLength(250)]],
+       metropolises: ['', [Validators.required]],
      }, {
        validator: MustMatch('password', 'confirmPassword')
      });
@@ -310,7 +308,7 @@ export class RenterRegistrationComponent implements OnInit {
              this.messageErrorConfirmPassword = "Le mot de passe doit être d'une longueur maximale de 15 caractères";
              return true;
            } else if (this.f.confirmPassword.errors.mustMatch) {
-             this.messageErrorConfirmPassword = "Les mots de passe doivent correspondres";
+             this.messageErrorConfirmPassword = "Les mots de passe doivent correspondre";
              return true;
            }
          }
@@ -516,7 +514,8 @@ export class RenterRegistrationComponent implements OnInit {
     */
    onSubmit(): void {
      this.isSubmit = true;
- 
+     console.log("Metropolises");
+     console.log(this.f.metropolisesSelect.value);
      if (
        !this.f.companyName.invalid &&
        !this.f.firstName.invalid &&
@@ -542,14 +541,11 @@ export class RenterRegistrationComponent implements OnInit {
          phone: this.f.phone.value,
          birthDate: this.formatDate(this.birthDate),
          address: this.f.address.value,
-         additionalAddress: this.f.additionalAddress.value,
+         additionalAddress: this.f.additionalAddress.value,   
          postalCode: this.f.postalCode.value,
          city: this.f.city.value,
          imageLink: this.f.imageLink.value,
-         metropolises: new Metropolises({
-           id: this.f.metropolisesSelect.value,
-           name: this.f.metropolisesSelect.value
-         }),
+         metropolises: this.f.metropolisesSelect.value,
          isAccepted: 0
        });
  

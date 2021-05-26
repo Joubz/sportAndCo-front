@@ -23,15 +23,15 @@ import { Renter } from './../../shared/models/renter.model';
 export class RenterService {
 
   /**
-   * Point d'entrée de l'API EcoCampus pour la gestion des votes
+   * Point d'entrée de l'API Sport&Co pour la gestion des loueurs
    */
   renterEndpoint = environment.URL_API + this.constants.API_ENDPOINTS.RENTER;
 
   constructor(private http: HttpClient, private constants: Constants) { }
 
   /**
-   * Ajoute un client depuis l'API Sport&Co
-   * @param newClient l'objet client
+   * Ajoute un loueur depuis l'API Sport&Co
+   * @param newRenter l'objet renter
    * @return Code_200 Le retour HTTP
    */
    createRenter(newRenter: Renter): Observable<any> {
@@ -40,7 +40,7 @@ export class RenterService {
   }
 
     /**
-   * Renvoie la liste des mails des clients
+   * Renvoie la liste des mails des loueurs
    * @return mailList la liste des mails trouvés, une erreur sinon
    */
      getListMailRenter(): Observable<string[]> {

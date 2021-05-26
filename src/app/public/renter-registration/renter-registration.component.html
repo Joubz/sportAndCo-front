@@ -1,4 +1,4 @@
-
+<div *ngIf="listMailLoaded | async">
 
   <div class="_container imgAuth">
   </div>
@@ -115,9 +115,7 @@
           name="metropolisesSelect"
           formControlName="metropolisesSelect"
           id="metropolisesSelect"
-          [(ngModel)]="defaultSelectOption"
         >
-          <option value="Lieu">Lieu</option>
           <option
             *ngFor="let metropolises of listMetropolises$ | async"
             [ngValue]="metropolises.id"
@@ -136,6 +134,6 @@
     <button class="connexion" (click)="onSubmit()">S'inscrire</button>
    </div>
   </div>
-
+</div>
 
 
