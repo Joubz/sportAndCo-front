@@ -1,18 +1,17 @@
 <div class="_container imgAuth"></div>
 
 <div class="mb-7">
-  <h1>Connexion</h1>
+  <h1>Connexion Administrateur</h1>
 </div>
 
-
 <div class="--center">
-  <form [formGroup]="clientForm" class="my-4">
+  <form [formGroup]="adminForm" class="my-4">
     <div class="my-5">
-      <input class="input-connexion" type="text" formControlName="email" [ngClass]="{ 'field-error': errorDetection('email') }"
-             placeholder="Email" name="email" id="email" required/>
+      <input class="input-connexion" type="text" formControlName="login" [ngClass]="{ 'field-error': errorDetection('login') }"
+             placeholder="Nom d'utilisateur administrateur" name="login" id="login" required/>
       <br>
-      <span class="tiny-txt ml-3">Nombre de caractères : {{ emailChars }} / 250</span>
-      <span *ngIf="errorDetection('email')" class="field-error-message tiny-txt --center">{{ messageErrorMail }}</span>
+      <span class="tiny-txt ml-3">Nombre de caractères : {{ loginChars }} / 250</span>
+      <span *ngIf="errorDetection('login')" class="field-error-message tiny-txt --center">{{ messageErrorLogin }}</span>
     </div>
 
     <div class="my-5">
@@ -23,10 +22,6 @@
       <span *ngIf="errorDetection('password')" class="field-error-message tiny-txt --center" >{{ messageErrorPassword }}</span>
     </div>
   </form>
-
-  <div class="my-5">
-    <a routerLink="/client-registration">Pas de compte ? Inscrivez-vous</a>
-  </div>
 
   <div class="my-7">
     <button class="connexion" (click)="onSubmit()">Se connecter</button>

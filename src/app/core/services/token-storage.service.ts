@@ -1,5 +1,6 @@
 import { Client } from './../../shared/models/clientRent.model';
 import { Injectable } from '@angular/core';
+import {Administrator} from "../../shared/models/administratror.model";
 
 /**
  * Service de gestion des tokens
@@ -36,6 +37,15 @@ export class TokenStorageService {
   }
 
   /**
+   * Enregistre l'admin connecté en localStorage
+   * @param admin L'administrateur connecté
+   */
+  public saveAdmin(admin: Administrator): void {
+    localStorage.removeItem('x-auth-admin');
+    localStorage.setItem('x-auth-admin', JSON.stringify(admin));
+  }
+
+  /**
    * Récupère le client connecté depuis le localStorage
    * @returns Le client connecté
    */
@@ -57,10 +67,30 @@ export class TokenStorageService {
     const jsonClient = JSON.parse(localStorage.getItem('x-auth-user'));
 
     if (jsonClient) {
-     client = Client.fromJsonToken(jsonClient);
+      client = Client.fromJsonToken(jsonClient);
     }
 
     return client;
+  }
+
+  /**
+   * Récupère l'administrateur connecté depuis le localStorage
+   * @returns L'administrateur connecté
+   */
+  public getAdmin(): Administrator {
+    let admin: Administrator = new Administrator({
+      id: -1,
+      username: '',
+      password: ''
+    });
+
+    const jsonAdmin = JSON.parse(localStorage.getItem('x-auth-admin'));
+
+    if (jsonAdmin) {
+      admin = Administrator.fromJson(jsonAdmin);
+    }
+
+    return admin;
   }
 
   /**

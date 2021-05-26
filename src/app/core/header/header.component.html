@@ -1,31 +1,43 @@
 <div class="_row">
-    <div class="menu _col">
-        <i class="fas fa-bars fa-3x"></i>
-    </div>
+  <div class="menu _col">
+    <i class="fas fa-bars fa-3x"></i>
+  </div>
 
-    <div class="logo _col2">
-        <a routerLink="/"><img class="logo" src="../../../assets/logo_fond_blanc.png"></a>
-    </div>
+  <div class="logo _col2">
+    <a routerLink="/"><img class="logo" src="../../../assets/logo_fond_blanc.png"></a>
+  </div>
 
-    <div *ngIf="!isAdmin && !isClient && !isRenter" class="nav_showing">
-        <nav>
-            <div class="right_nav_item">
-                <a routerLink="/client-registration">Inscription</a>
-            </div>
-            <div class="right_nav_item">
-                <a routerLink="/client-login">Connexion</a>
-            </div>           
-        </nav>
-    </div>
+  <div *ngIf="!isAdmin && !isClient && !isRenter" class="nav_showing">
+    <nav>
+      <div class="right_nav_item">
+        <a routerLink="/client-registration">Inscription</a>
+      </div>
+      <div class="right_nav_item">
+        <a routerLink="/client-login">Connexion</a>
+      </div>
+    </nav>
+  </div>
 
-    <div *ngIf="isClient" class="nav_showing">
-        <nav>
-            <div class="right_nav_item">
-                <a>{{client.firstName}} {{client.lastName}}</a>
-            </div>
-            <div class="right_nav_item" (click)="disconnectClient()">
-                <a routerLink="/home">Deconnexion</a>
-            </div>           
-        </nav>
-    </div>
+  <div *ngIf="isClient " class="nav_showing">
+    <nav>
+      <div class="right_nav_item">
+        <a>{{client.firstName}} {{client.lastName}}</a>
+      </div>
+      <div class="right_nav_item" (click)="disconnect()">
+        <a routerLink="/home">Deconnexion</a>
+      </div>
+    </nav>
+  </div>
+
+  <div *ngIf="isAdmin" class="nav_showing">
+    <nav>
+      <div class="right_nav_item">
+        <a> {{admin.username}} </a>
+      </div>
+      <div class="right_nav_item" (click)="disconnect()">
+        <a routerLink="/home">Deconnexion</a>
+      </div>
+    </nav>
+  </div>
+
 </div>

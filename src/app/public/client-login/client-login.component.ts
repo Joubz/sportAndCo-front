@@ -3,7 +3,6 @@ import { Client } from '../../shared/models/clientRent.model';
 import { ClientService } from '../../core/services/client.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NotificationsService } from '../../core/services/notification.service';
 import { TokenStorageService } from 'src/app/core/services/token-storage.service';
 
 /**
@@ -33,12 +32,12 @@ export class ClientLoginComponent implements OnInit, OnDestroy {
   /**
    * String pour le message d'erreur de errorDetection
    */
-  messageError1: string;
+  messageErrorPassword: string;
 
   /**
    * String pour le message d'erreur de errorDetection
    */
-  messageError2: string;
+  messageErrorMail: string;
 
   /**
    * Le formulaire a été soumis
@@ -50,14 +49,12 @@ export class ClientLoginComponent implements OnInit, OnDestroy {
    * @param clientService Service de gestion client
    * @param fb Constructeur de formulaire natif angular
    * @param router Gestion du routing (natif angular)
-   * @param notificationsService Service de gestion des popin de notification
    * @param tokenStorageService Service de gestion des tokens
    */
   constructor(
     private clientService: ClientService,
     private fb: FormBuilder,
     private router: Router,
-    private notificationsService: NotificationsService,
     private tokenStorageService: TokenStorageService
   ) {}
 
@@ -112,10 +109,10 @@ export class ClientLoginComponent implements OnInit, OnDestroy {
           (this.f.password.dirty || this.f.password.touched || this.isLogin)
         ) {
           if (this.f.password.errors.required) {
-            this.messageError1 = 'Le mot de passe doit être rempli';
+            this.messageErrorPassword = 'Le mot de passe doit être rempli';
             return true;
           } else if (this.f.password.errors.maxlength) {
-            this.messageError1 =
+            this.messageErrorPassword =
               "Le mot de passe doit être d'une longueur maximale de 15 caractères";
             return true;
           }
@@ -128,14 +125,14 @@ export class ClientLoginComponent implements OnInit, OnDestroy {
           (this.f.email.dirty || this.f.email.touched || this.isLogin)
         ) {
           if (this.f.email.errors.required) {
-            this.messageError2 = 'Le champ doit être rempli';
+            this.messageErrorMail = 'Le champ doit être rempli';
             return true;
           } else if (this.f.email.errors.maxlength) {
-            this.messageError2 =
+            this.messageErrorMail =
               "Le champ doit être d'une longueur maximale de 250 caractères";
             return true;
           } else if (this.f.email.errors.pattern) {
-            this.messageError2 = 'Le mail doit être valide';
+            this.messageErrorMail = 'Le mail doit être valide';
             return true;
           }
         }
