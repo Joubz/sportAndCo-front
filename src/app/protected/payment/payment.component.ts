@@ -324,10 +324,13 @@ export class PaymentComponent implements OnInit, OnDestroy {
       });
       this.payment.client = this.client;
 
-      forkJoin([ this.paymentService.addPaymentCard(this.payment), this.paymentService.getPaymentCard(this.order.client.id)])
-        .subscribe(([result, listPayement]) => {
-          this.listPayment = listPayement;
-        });
+      this.paymentService.addPaymentCard(this.payment).subscribe( res => {
+          this.paymentService.getPaymentCard(this.order.client.id).subscribe(listPayement => {
+            this.listPayment = listPayement;
+            this.cardForm.reset();
+            this.addCardBoolean = false;
+          });
+      });
     }
   }
 
