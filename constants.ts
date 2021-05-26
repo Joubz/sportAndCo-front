@@ -16,7 +16,8 @@ export class Constants {
     EQUIPMENT: '/equipment',
     ORDER: '/order',
     CATEGORY: '/category',
-    METROPOLISES: '/metropolises'
+    METROPOLISES: '/metropolises',
+    CLIENT: '/client'
   });
 
   /**

@@ -8,6 +8,7 @@ import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { ModalComponent } from './modal/modal.component';
 import {httpErrorInterceptorProviders} from "./interceptors/http-error.interceptor";
+import { NotificationsComponent } from './notification/notification.component';
 
 /**
  * Gestion des modules et composants de Core
@@ -16,7 +17,8 @@ import {httpErrorInterceptorProviders} from "./interceptors/http-error.intercept
   declarations: [
     HeaderComponent,
     FooterComponent,
-    ModalComponent
+    ModalComponent,
+    NotificationsComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +29,9 @@ import {httpErrorInterceptorProviders} from "./interceptors/http-error.intercept
   exports: [
     HeaderComponent,
     FooterComponent,
-    ModalComponent],
+    ModalComponent,
+    NotificationsComponent
+  ],
   providers: [httpErrorInterceptorProviders]
 })
 export class CoreModule {
