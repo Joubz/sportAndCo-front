@@ -20,7 +20,6 @@ h2 {
   font-size: $h2-font-size-base;
   text-transform: uppercase;
   color: $black;
-  padding-top: 30px;
   padding-left: 15px;
   padding-right: 15px;
   text-align: center;
@@ -60,4 +59,8 @@ p {
 
 .tiny-txt {
   font-size: 13px;
+}
+
+.medium-txt {
+  font-size: 20px;
 }
