@@ -85,4 +85,24 @@ export class OrderService {
     );
   }
 
+  /**
+   * Récupère les commandes selon le client
+   * @param clientId Identifiant du client
+   * @returns Un observable contenant les commandes récupérées
+   */
+  getOrderByClient(clientId: number): Observable<Order[]> {
+    return this.http.get(
+      this.orderEndpoint + '/order-by-client/' + clientId).pipe(
+      map((jsonResponse: any) => {
+          const orderList = [];
+          jsonResponse.forEach(element => {
+            const order: Order = Order.fromJson(element);
+            orderList.push(order);
+          });
+          return orderList;
+        }
+      )
+    );
+  }
+
 }
