@@ -405,7 +405,7 @@ export class RenterRegistrationComponent implements OnInit, OnDestroy {
           if (this.f.metropolisesSelect.errors.required) {
             this.messageErrorMetropolises = "Le champ doit être rempli";
             return true;
-          } 
+          }
         }
         break;
       }
@@ -585,7 +585,7 @@ export class RenterRegistrationComponent implements OnInit, OnDestroy {
 
         this.notificationsService.genericNotification(notification);
 
-        this.router.navigate(['/renter-login']);
+        this.router.navigate(['/login-renter']);
       });
     }
 

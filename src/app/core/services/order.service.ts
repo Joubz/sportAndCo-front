@@ -7,6 +7,7 @@ import { Constants } from './../../../../constants';
 import { environment } from './../../../environments/environment';
 
 import {Order} from "../../shared/models/order.model";
+import {Payment} from "../../shared/models/payment.model";
 
 /**
  * Définit le content-type du header
@@ -73,6 +74,35 @@ export class OrderService {
   getOrderByEquipmentForAvailability(equipmentId: number): Observable<Order[]> {
     return this.http.get(
       this.orderEndpoint + '/order-by-equipment-available/' + equipmentId).pipe(
+      map((jsonResponse: any) => {
+          const orderList = [];
+          jsonResponse.forEach(element => {
+            const order: Order = Order.fromJson(element);
+            orderList.push(order);
+          });
+          return orderList;
+        }
+      )
+    );
+  }
+
+  /**
+   * Insère une commande
+   * @param order Les données liées à la commande
+   * @returns Un observable
+   */
+  addPaymentOrder(order: Order): Observable<any> {
+    return this.http.post(this.orderEndpoint + '/add-order', {order}, httpOptions);
+  }
+
+  /**
+   * Récupère les commandes selon le client
+   * @param clientId Identifiant du client
+   * @returns Un observable contenant les commandes récupérées
+   */
+  getOrderByClient(clientId: number): Observable<Order[]> {
+    return this.http.get(
+      this.orderEndpoint + '/order-by-client/' + clientId).pipe(
       map((jsonResponse: any) => {
           const orderList = [];
           jsonResponse.forEach(element => {

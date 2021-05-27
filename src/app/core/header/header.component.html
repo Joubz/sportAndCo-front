@@ -1,34 +1,73 @@
 <div class="_row">
-    <div class="menu _col">
-        <i class="fas fa-bars fa-3x"></i>
-    </div>
+  <div class="menu _col">
+    <i class="fas fa-bars fa-3x"></i>
+  </div>
 
-    <div class="logo _col2">
-        <a routerLink="/"><img class="logo" src="../../../assets/logo_fond_blanc.png"></a>
-    </div>
+  <div class="logo _col2">
+    <a routerLink="/"><img class="logo" src="../../../assets/logo_fond_blanc.png"></a>
+  </div>
 
     <div *ngIf="!isAdmin && !isClient && !isRenter" class="nav_showing">
         <nav>
             <div class="right_nav_item">
                 <a routerLink="/renter-registration">Devenez loueur</a>
-            </div> 
+            </div>
             <div class="right_nav_item">
                 <a routerLink="/client-registration">Inscription</a>
             </div>
             <div class="right_nav_item">
                 <a routerLink="/client-login">Connexion</a>
-            </div>  
+            </div>
         </nav>
     </div>
 
-    <div *ngIf="isClient" class="nav_showing">
-        <nav>
-            <div class="right_nav_item">
-                <a>{{client.firstName}} {{client.lastName}}</a>
-            </div>
-            <div class="right_nav_item" (click)="disconnectClient()">
-                <a routerLink="/home">Deconnexion</a>
-            </div>           
-        </nav>
-    </div>
+
+  <div *ngIf="isClient" class="nav_showing">
+    <nav>
+      <div class="right_nav_item">
+        <a routerLink="/list-client-order"> Listes des commandes</a>
+      </div>
+      <div class="right_nav_item">
+        <a>{{client.firstName}} {{client.lastName}}</a>
+      </div>
+      <div class="right_nav_item" (click)="disconnect()">
+        <a routerLink="/home">Déconnexion</a>
+      </div>
+    </nav>
+  </div>
+
+  <div *ngIf="isRenter" class="nav_showing">
+    <nav>
+      <div class="right_nav_item">
+        <a routerLink="/home"> Ajouter un produit</a>
+      </div>
+      <div class="right_nav_item">
+        <a routerLink="/home"> Listes des produits</a>
+      </div>
+      <div class="right_nav_item">
+        <a>{{renter.companyName}}</a>
+      </div>
+      <div class="right_nav_item" (click)="disconnect()">
+        <a routerLink="/home">Déconnexion</a>
+      </div>
+    </nav>
+  </div>
+
+  <div *ngIf="isAdmin" class="nav_showing">
+    <nav>
+      <div class="right_nav_item">
+        <a routerLink="/admin/accept-renter"> Loueur à accepter </a>
+      </div>
+      <div class="right_nav_item">
+        <a routerLink="/admin/renter-list"> Liste des loueurs </a>
+      </div>
+      <div class="right_nav_item">
+        <a> {{admin.username}} </a>
+      </div>
+      <div class="right_nav_item" (click)="disconnect()">
+        <a routerLink="/home">Déconnexion</a>
+      </div>
+    </nav>
+  </div>
+
 </div>

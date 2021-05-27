@@ -1,40 +1,79 @@
 
-header {
+nav {
     height: 80px; 
+    display : flex; 
+    flex-flow: nowrap;
+    
+    visibility: visible;
+    align-items: center;
+    height: 100%; 
 
-    nav {
-        display : flex; 
-        flex-flow: nowrap;
-        justify-content: space-around;
-        visibility: visible;
-        align-items: center;
-        height: 100%; 
+    
 
-        .right_nav_item{
-            height: 100%;
-            width: auto;
-            &:hover{
-                color: $cyan; 
-                background-color: $light-grey;
-            }
-            &:focus{
-                color: $cyan; 
-                background-color: $light-grey;
-            }
+    .right_nav_item{
+        height: 100%;
+        width: auto;
+        &:hover{
+            color: $cyan; 
+            background-color: $light-grey;
         }
+        &:focus{
+            color: $cyan; 
+            background-color: $light-grey;
+        }
+    }
 
-        a {
-            font-weight: 500; 
-            font-size: 18px; 
-            position: relative;
-            margin : 25px; 
-            display: inline-block;
-            &:hover {
-                color: $cyan; 
-            }
-            &:focus {
-                color: $cyan; 
-            }
+    a {
+        font-weight: 500; 
+        font-size: 18px; 
+        position: relative;
+        margin : 25px; 
+        display: inline-block;
+        &:hover {
+            color: $cyan; 
+        }
+        &:focus {
+            color: $cyan; 
+        }
+    }
+}
+
+
+nav {
+    height: 80px; 
+    display : flex; 
+    flex-flow: nowrap;
+    
+    visibility: visible;
+    align-items: center;
+    height: 100%; 
+
+    
+
+    .right_nav_item{
+        height: 100%;
+        width: auto;
+        &:hover{
+            color: $cyan; 
+            background-color: $light-grey;
+        }
+        &:focus{
+            color: $cyan; 
+            background-color: $light-grey;
+        }
+    }
+
+    a {
+        font-weight: 500; 
+        font-size: 18px; 
+        position: relative;
+        margin : 25px; 
+        display: inline-block;
+        &:hover {
+            color: $cyan; 
+        }
+        &:focus {
+            color: $cyan; 
         }
     }
 }

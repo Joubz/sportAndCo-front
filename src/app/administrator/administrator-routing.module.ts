@@ -1,19 +1,22 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import {LoggedInAdminGuard} from "../core/guards/logged-in-admin.guard";
 
-import { RandomAdminComponentComponent } from "./random-admin-component/random-admin-component.component";
+import { AcceptRenterComponent } from './accept-renter/accept-renter.component';
+import { RenterListComponent } from './renter-list/renter-list.component';
 
 const routes: Routes = [
   {
     path: 'admin',
-    redirectTo: 'admin/anomalies-list'
-  },
-  {
-    path: 'admin',
+    canActivate: [LoggedInAdminGuard],
     children: [
       {
-        path: 'exemple',
-        component: RandomAdminComponentComponent
+        path: 'accept-renter',
+        component: AcceptRenterComponent
+      },
+      {
+        path: 'renter-list',
+        component: RenterListComponent
       }
     ]
   }
@@ -24,6 +27,3 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AdministratorRoutingModule { }
-
-// canActivate: [LoggedInAdminGuard],
-// TODO pour quand la connexion admin sera réalisé

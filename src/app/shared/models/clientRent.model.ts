@@ -111,7 +111,7 @@ export class Client {
   /**
    * Crée un loueur à partir d'un flux JSON depuis le token de connexion
    * @param json Les propriétés du client contenues dans le flux JSON
-   * @returns { Client } L'objet client créé
+   * @returns Client L'objet client créé
    */
   public static fromJsonToken(json: any): Client {
     return new Client({

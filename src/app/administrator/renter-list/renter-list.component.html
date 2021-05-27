@@ -1,0 +1,35 @@
+<div *ngIf="renterListLoaded | async">
+  <h1>Liste des loueurs</h1>
+  <div class=" --center" *ngIf="renterList?.length > 0; else noRenter">
+
+    <div *ngFor="let renter of renterList; index as i">
+      <div class="card --center">
+        <div class="--center">
+          <h2>{{ renter.companyName }}</h2>
+          <img
+            alt="img"
+            [src]="urlBasic.concat(renter.imageLink)"
+            *ngIf="renter.imageLink"
+            style="width: 100%"
+          />
+          <span>{{ renter.firstName }} {{ renter.lastName }}</span>
+          <br>
+          <span>{{ renter.email }} - {{ renter.phone }} - {{ renter.birthDate }}</span>
+          <br>
+          <span>{{ renter.address }} - {{ renter.additionalAddress }}</span>
+          <br>
+          <span>{{ renter.postalCode }} - {{ renter.city }}</span>
+        </div>
+      </div>
+      <br>
+    </div>
+
+  </div>
+
+  <ng-template #noRenter>
+    <div class="my-7 p-6 --center">
+      <p class="font-size-rem">Aucun loueurs</p>
+    </div>
+  </ng-template>
+
+</div>

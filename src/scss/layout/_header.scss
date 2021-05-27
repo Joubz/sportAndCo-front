@@ -6,6 +6,10 @@ header {
     position: relative; 
     margin: 0 auto; 
 
+    ._row {
+        align-items: flex-start; 
+    }
+
     .logo {
         width: auto; 
         height : 80px; 
@@ -19,22 +23,27 @@ header {
         text-align: center;
         margin : 20px;
     }
+  
 
+  .menu {
+    text-align: center;
+    margin : 20px;
+  }
+
+  .nav_showing {
+    display: block;
+    visibility: visible;
+    height: 80px;
+    margin-right: 2.5%;
+
+  }
+
+  @media screen and (max-width: 600px) {
     .nav_showing {
-        display: block;
-        visibility: visible;
-        height: 80px; 
-        margin-right: 2.5%;
+      display: none;
+      visibility: hidden;
 
-        }
-
-    @media screen and (max-width: 600px) {
-    .nav_showing {
-        display: none;
-        visibility: hidden;
-
-        }
     }
-
+  }
 
 }

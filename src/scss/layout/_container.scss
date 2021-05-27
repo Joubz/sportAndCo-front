@@ -9,14 +9,18 @@ main {
 ._row {
   display: flex;
   flex-wrap: nowrap;
+  align-items: center;
   ._col {
     width: 5%;
   }
   ._col2 {
-    width: 40%;
+    width: 20%;
   }
   ._col3 {
-    width: 40%;
+    width: 60%;
+  }
+  ._col4{
+    width: 30%;
   }
 
 }
@@ -36,9 +40,18 @@ main {
   align-items: center;
 }
 
-.flex-justify-content-center{
+.flex-justify-center{
   display: flex;
   justify-content: center;
+}
+.flex-justify-content-left {
+  display: flex;
+  justify-content: left;
+}
+
+.flex-justify-sparound{
+  display: flex;
+  justify-content: space-around;
 }
 
 
@@ -59,4 +72,12 @@ main {
   display: flex;
   justify-content: center;
   justify-self: center;
+}
+
+.res-product-info-container {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  width: 80%;
+
 }

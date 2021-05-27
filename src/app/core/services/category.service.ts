@@ -46,4 +46,15 @@ export class CategoryService {
     );
   }
 
+  /**
+   * Récupère la catégorie de l'équipement
+   * @param equipmentId Identifiant de l'équipement
+   * @returns Un observable contenant la catégorie récupérée
+   */
+  getCategoryByEquipment(equipmentId: number): Observable<Category> {
+    return this.http
+      .get(this.categoryEndpoint + '/get-by-equipment/' + equipmentId)
+      .pipe(map((jsonResponse: any) => Category.fromJson(jsonResponse[0])));
+  }
+
 }

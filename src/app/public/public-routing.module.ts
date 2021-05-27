@@ -4,10 +4,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
+import {LoginRenterComponent} from './login-renter/login-renter.component';
 import {ClientRegistrationComponent} from "./client-registration/client-registration.component";
 import {ClientLoginComponent} from "./client-login/client-login.component";
-import { RenterRegistrationComponent } from './renter-registration/renter-registration.component';
-import { RenterLoginComponent } from './renter-login/renter-login.component';
+import { LoginAdminComponent } from './login-admin/login-admin.component';
+import {RenterRegistrationComponent} from "./renter-registration/renter-registration.component";
 
 const routes: Routes = [
   {
@@ -28,20 +29,24 @@ const routes: Routes = [
     component: LegalNoticeComponent
   },
   {
-    path: 'client-registration',
-    component: ClientRegistrationComponent
+    path: 'login-renter',
+    component: LoginRenterComponent
   },
   {
-    path: 'client-login',
-    component: ClientLoginComponent
+    path: 'client-registration',
+    component: ClientRegistrationComponent
   },
   {
     path: 'renter-registration',
     component: RenterRegistrationComponent
   },
   {
-    path: 'renter-login',
-    component: RenterLoginComponent
+    path: 'client-login',
+    component: ClientLoginComponent
+  },
+  {
+    path: 'login-admin',
+    component: LoginAdminComponent
   }
 ];
 
