@@ -327,6 +327,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
       this.paymentService.addPaymentCard(this.payment).subscribe( res => {
           this.paymentService.getPaymentCard(this.order.client.id).subscribe(listPayement => {
             this.listPayment = listPayement;
+            this.listIsEmpty = false;
             this.cardForm.reset();
             this.addCardBoolean = false;
           });
@@ -344,17 +345,6 @@ export class PaymentComponent implements OnInit, OnDestroy {
     } else if (!this.addCardBoolean){
       this.addCardBoolean = true;
       this.showHideForm = "Ne pas ajouter une carte";
-    }
-  }
-
-  /**
-   * Récupère les classes à appliquer aux boutons en fonction du statut de disponibilité
-   * @param buttonName Nom du bouton affiché
-   * @returns Les classes CSS à appliquer
-   */
-  getButtonClass(buttonName: string): string {
-    if (buttonName === 'pay') {
-      return !this.isPaymentSelected ? 'disabled' : 'common';
     }
   }
 
