@@ -9,6 +9,8 @@ import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ListEquipmentComponent } from './list-equipment/list-equipment.component';
 import { EquipmentSearchComponent } from './equipment-search/equipment-search.component';
+import { ClientRegistrationComponent } from './client-registration/client-registration.component';
+import { ClientLoginComponent } from './client-login/client-login.component';
 import { DatepickerModule } from 'ng2-datepicker';
 import { LoginRenterComponent } from './login-renter/login-renter.component';
 
@@ -23,6 +25,8 @@ import { LoginRenterComponent } from './login-renter/login-renter.component';
     ListEquipmentComponent,
     EquipmentSearchComponent,
     LoginRenterComponent,
+    ClientRegistrationComponent,
+    ClientLoginComponent
   ],
   imports: [
     CommonModule,

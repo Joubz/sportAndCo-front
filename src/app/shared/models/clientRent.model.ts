@@ -94,7 +94,7 @@ export class Client {
    */
   public static fromJson(json: any): Client {
     return new Client({
-      id: json.RENTER_ID,
+      id: json.CLIENT_ID,
       password: json.PASSWORD,
       lastName: json.LAST_NAME,
       firstName: json.FIRST_NAME,
@@ -106,6 +106,28 @@ export class Client {
       postalCode: json.POSTAL_CODE,
       city: json.CITY,
     });
+  }
+
+  /**
+   * Crée un loueur à partir d'un flux JSON depuis le token de connexion
+   * @param json Les propriétés du client contenues dans le flux JSON
+   * @returns { Client } L'objet client créé
+   */
+  public static fromJsonToken(json: any): Client {
+    return new Client({
+      id: json.id,
+      password: json.password,
+      lastName: json.lastName,
+      firstName: json.firstName,
+      email: json.email,
+      phone: json.phone,
+      birthDate: json.birthDate,
+      address: json.address,
+      additionalAddress: json.additionalAddress,
+      postalCode: json.postalCode,
+      city: json.city
+    });
+
   }
 
 }
