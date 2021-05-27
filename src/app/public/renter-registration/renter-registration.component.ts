@@ -135,6 +135,11 @@ export class RenterRegistrationComponent implements OnInit, OnDestroy {
   messageErrorCity: string;
 
   /**
+   * String pour le message d'erreur de la métropole
+   */
+   messageErrorMetropolises: string;
+
+  /**
    * Booleen pour vérifier que le mail n'est pas déjà utilisé
    */
   isMailNotTakenAlready: boolean;
@@ -395,6 +400,15 @@ export class RenterRegistrationComponent implements OnInit, OnDestroy {
         }
         break;
       }
+      case 'metropolisesSelect': {
+        if (this.f.metropolisesSelect.invalid && (this.f.metropolisesSelect.dirty || this.f.metropolisesSelect.touched || this.isSubmit)) {
+          if (this.f.metropolisesSelect.errors.required) {
+            this.messageErrorMetropolises = "Le champ doit être rempli";
+            return true;
+          } 
+        }
+        break;
+      }
     }
   }
 
@@ -529,8 +543,6 @@ export class RenterRegistrationComponent implements OnInit, OnDestroy {
    */
   onSubmit(): void {
     this.isSubmit = true;
-    console.log("Metropolises");
-    console.log(this.f.metropolisesSelect.value);
     if (
       !this.f.companyName.invalid &&
       !this.f.firstName.invalid &&

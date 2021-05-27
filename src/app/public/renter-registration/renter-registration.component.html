@@ -109,6 +109,8 @@
       </div>
 
       <div class="my-5">
+        <label>Lieu</label>
+        <br>
         <select
           name="metropolisesSelect"
           formControlName="metropolisesSelect"
@@ -121,6 +123,7 @@
             {{ metropolises.name }}
           </option>
         </select>
+        <span *ngIf="errorDetection('metropolisesSelect')" class="field-error-message tiny-txt">{{messageErrorMetropolises}}</span>
       </div>
     </form>
   </div>
