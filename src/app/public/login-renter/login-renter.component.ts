@@ -114,7 +114,7 @@ export class LoginRenterComponent implements OnInit, OnDestroy {
 
       this.loginRenterService.authLoginRenter(newRenter).subscribe(
         result => {
-          console.log("ok login renter"); 
+          console.log("ok login renter", result);
 
           this.router.navigate(['/home']);
         }

@@ -3,15 +3,22 @@ select {
     border: 1px solid $light-grey; 
     background-color: $white; 
     text-align: center;
-    width: 200px;
+    width: 80%;
     height: 50px;
+}
+
+.input-connexion {
+  width: 500px;
+  border-radius: 10px;
 }
 
 form {
 
-  .form-field {
+.form-field {
+
+  width: 500px;
     
-  }
+}
 
 }
 

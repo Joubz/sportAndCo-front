@@ -6,6 +6,10 @@ header {
     position: relative; 
     margin: 0 auto; 
 
+    ._row {
+        align-items: flex-start; 
+    }
+
     .logo {
         width: auto; 
         height : 80px; 
