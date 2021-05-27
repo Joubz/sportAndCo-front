@@ -1,15 +1,21 @@
+<div class="_container imgAuth"></div>
+
+<div class="mb-7">
+  <h1>Connexion Loueur</h1>
+</div>
+
 <div class="flex-justify-center">
   <div class="_row ">
       <form [formGroup]="loginRenterForm" class="my-4">
-          <div class="form-field required mb-4 mx-auto input-icone">
+          <div class="form-field my-5">
             <input class="input-connexion" type="text" formControlName="username" [ngClass]="{'field-error': errorDetection('username') }"
-              class="mt-7 secondary" placeholder="Identifiant" name="username" id="username" required />
+               placeholder="Identifiant" name="username" id="username" required />
             <i class="fa fa-id-card fa-lg fa-fw pl-3" aria-hidden="true"></i>
             <span *ngIf="errorDetection('username')" class="field-error-message tiny-txt">Le champ doit être rempli.</span>
           </div>
-          <div class="form-field required mb-2 mx-auto input-icone">
-            <input type="password" formControlName="password" [ngClass]="{'field-error': errorDetection('password') }"
-              class="secondary" placeholder="Mot de passe" name="password" id="password" required />
+          <div class="form-field mb-2 mx-auto">
+            <input class="input-connexion" type="password" formControlName="password" [ngClass]="{'field-error': errorDetection('password') }"
+              placeholder="Mot de passe" name="password" id="password" required />
             <i class="fa fa-lock fa-lg fa-fw pl-3" aria-hidden="true"></i>
             <span *ngIf="errorDetection('password')" class="field-error-message tiny-txt">Le champ doit être
               rempli.</span>
