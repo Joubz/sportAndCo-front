@@ -21,6 +21,9 @@
   <div *ngIf="isClient " class="nav_showing">
     <nav>
       <div class="right_nav_item">
+        <a routerLink="/list-client-order"> Listes des commandes</a>
+      </div>
+      <div class="right_nav_item">
         <a>{{client.firstName}} {{client.lastName}}</a>
       </div>
       <div class="right_nav_item" (click)="disconnect()">

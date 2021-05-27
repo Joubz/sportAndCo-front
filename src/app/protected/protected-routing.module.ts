@@ -36,6 +36,7 @@ const routes: Routes = [
   {
     path: 'list-client-order',
     component: ListClientOrderComponent,
+    canActivate: [LoggedInClientGuard]
   },
 ];
 

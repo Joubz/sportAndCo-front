@@ -5,30 +5,25 @@ import {Client} from "../../shared/models/clientRent.model";
 import {TokenStorageService} from "../../core/services/token-storage.service";
 import {Order} from "../../shared/models/order.model";
 import {environment} from "../../../environments/environment";
-import {RenterService} from "../../core/services/renter.service";
-import {CategoryService} from "../../core/services/category.service";
 
+/**
+ * Composant de la liste des commandes des clients
+ */
 @Component({
   selector: 'app-list-client-order',
   templateUrl: './list-client-order.component.html',
   styleUrls: ['./list-client-order.component.css']
 })
 export class ListClientOrderComponent implements OnInit, OnDestroy{
+  /**
+   * Permet d'attendre que les commandes soient chargées pour les afficher
+   */
+  isOrderLoaded: Promise<boolean>;
 
   /**
    * Subscription au service de récupération des commandes
    */
   orderSub: Subscription;
-
-  /**
-   * Subscription au service de récupération du loueur
-   */
-  renterSub: Subscription;
-
-  /**
-   * Subscription au service de récupération de la catégorie
-   */
-  categorySub: Subscription;
 
   /**
    * Client actuellement connecté
@@ -41,22 +36,23 @@ export class ListClientOrderComponent implements OnInit, OnDestroy{
   orderList: Order[];
 
   /**
-   * Permet d'attendre que les commandes soient chargées pour les afficher
-   */
-  isOrderLoaded: Promise<boolean>;
-
-  /**
    * url de l'application qui sera passé au HTML de l'image pour chargement de l'image sur le visuel
    */
   urlBasic: string = environment.URL_BASE;
 
+  /**
+   * Constructeur du composant
+   * @param orderService Service de gestion des commandes
+   * @param tokenStorageService Service de gestion des tokens
+   */
   constructor(
     private tokenStorageService: TokenStorageService,
-    private orderService: OrderService,
-    private renterService: RenterService,
-    private categoryService: CategoryService
+    private orderService: OrderService
   ) { }
 
+  /**
+   * Initialise le composant, récupère la liste des commandes du client
+   */
   ngOnInit(): void {
     this.client = this.tokenStorageService.getClient();
     this.orderSub = this.orderService.getOrderByClient(this.client.id).subscribe(orderList => {
@@ -71,10 +67,11 @@ export class ListClientOrderComponent implements OnInit, OnDestroy{
       });
       this.isOrderLoaded = Promise.resolve(true);
     });
-
-
   }
 
+  /**
+   * Unsubscribe
+   */
   ngOnDestroy(): void {
     this.orderSub?.unsubscribe();
   }
