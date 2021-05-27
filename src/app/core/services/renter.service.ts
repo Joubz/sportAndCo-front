@@ -87,4 +87,16 @@ export class RenterService {
     return this.http.delete(this.renterEndpoint + '/' + renterId + '/' + renter.firstName + '/'
       + renter.lastName + '/' + renter.email + '/' + renter.companyName);
   }
+
+  /**
+   * Récupère le loueur associé à l'équipement
+   * @param equipmentId Identifiant de l'équipement
+   * @returns Un observable contenant le loueur récupéré
+   */
+  getRenterByEquipment(equipmentId: number): Observable<Renter> {
+    return this.http
+      .get(this.renterEndpoint + '/get-by-equipment/' + equipmentId)
+      .pipe(map((jsonResponse: any) => Renter.fromJson(jsonResponse[0])));
+  }
+
 }

@@ -1,1 +1,83 @@
-<p>list-client-order works!</p>
+<div *ngIf="isOrderLoaded | async">
+  <div *ngIf="orderList ; else noOrder ">
+    <div class="equipment-title-card my-5">
+      <h1> La liste des commandes </h1>
+    </div>
+
+    <div class="mx-5" *ngFor="let order of orderList; index as i">
+
+      <h2> {{ order.equipment.name }} </h2><br><br>
+
+      <div class="section-flex">
+
+        <div class="column ">
+          <img class=" row imgProductOther" [src]="urlBasic.concat(order.equipment.imageLink1)" *ngIf="order.equipment.imageLink1" />
+          <img class=" row imgProductOther" [src]="urlBasic.concat(order.equipment.imageLink2)" *ngIf="order.equipment.imageLink1" />
+          <img class="row imgProductOther" [src]="urlBasic.concat(order.equipment.imageLink3)" *ngIf="order.equipment.imageLink1" />
+        </div>
+        <div class="column">
+          <img class="imgProduct" [src]="urlBasic.concat(order.equipment.imageLink1)" *ngIf="order.equipment.imageLink1" />
+        </div>
+        <div class="column pr-7 font-size-rem">
+          <h3>Loueur :  </h3>
+          <span> {{ order.equipment.renter.companyName }} </span>
+
+          <h3>Catégories : </h3>
+          <span> {{ order.equipment.category.name }} </span>
+
+          <h3>Description : </h3>
+          <span> {{ order.equipment.description }} </span>
+        </div>
+      </div>
+
+      <div class=" my-7 grid-only">
+        <div class="my-5 flex-align-center flex-justify-center" >
+
+          <div class="ml-5 flex-justify-content-left" >
+            <h2 >Date de début de location: {{order.startDate}}</h2>
+            <h2>Date de fin de location: {{order.endDate}}</h2>
+          </div>
+        </div>
+
+        <div class="flex-justify-center">
+          <div class="">
+            <label-2 class="font-size-rem" >Prix : </label-2>
+            <span class="font-size-rem"> {{ order.equipment.price }} € / Jour</span>
+          </div>
+
+          <div class="flex-align-center ml-5" >
+            <label-2 class="font-size-rem">Quantité : </label-2>
+            <h2>{{order.quantityRented}}</h2>
+          </div>
+
+          <div class="ml-5">
+            <label-2 class="font-size-rem">Prix Total : </label-2>
+            <span class="font-size-rem"> {{ order.bill.billPrice }} </span>
+            <span>{{order.equipment.renter.companyName}}</span>
+          </div>
+
+        </div>
+        <br>
+
+      </div>
+
+    </div>
+  </div>
+
+  <ng-template #noOrder>
+    <div class="my-7 p-6 --center">
+      Cet équipement n'existe pas.
+
+
+      <button class="common"> Retour </button>
+    </div>
+  </ng-template>
+
+    <!--<div class="section-flex">
+            <button class="common" (click)="goBack()"l> Retour </button>
+
+            <button>
+              Faire qch???
+            </button>
+         </div>-->
+</div>
