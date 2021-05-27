@@ -124,7 +124,7 @@ export class Renter {
   /**
    * Crée un loueur à partir d'un flux JSON
    * @param json Les propriétés du loueur contenues dans le flux JSON
-   * @returns { Renter } L'objet loueur créé
+   * @returns Renter L'objet loueur créé
    */
   public static fromJson(json: any): Renter {
     return new Renter({

@@ -68,14 +68,6 @@ export class ListClientOrderComponent implements OnInit, OnDestroy{
         if (order.equipment.imageLink3 == null) {
           order.equipment.imageLink3 = "/images/inconnu.png";
         }
-        this.renterSub = this.renterService.getRenterByEquipment(order.equipment.id).subscribe(renter => {
-          order.equipment.renter = renter;
-        });
-
-        this.categorySub = this.categoryService.getCategoryByEquipment(order.equipment.id).subscribe(category => {
-          order.equipment.category = category;
-        });
-        console.log(order.equipment);
       });
       this.isOrderLoaded = Promise.resolve(true);
     });

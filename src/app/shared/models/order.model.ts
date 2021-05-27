@@ -87,7 +87,7 @@ export class Order {
   /**
    * Crée une commande à partir d'un flux JSON
    * @param json Les propriétés de la commande contenues dans le flux JSON
-   * @returns { Order } L'objet commande créé
+   * @returns Order L'objet commande créé
    */
   public static fromJson(json: any): Order {
     return new Order({
@@ -95,12 +95,12 @@ export class Order {
       client: Client.fromJson({CLIENT_ID: json.CLIENT_ID, LAST_NAME: json.CLIENT_LAST_NAME, FIRST_NAME: json.CLIENT_FIRST_NAME, EMAIL: json.CLIENT_EMAIL,
         PHONE: json.CLIENT_PHONE, BIRTH_DATE: json.CLIENT_BIRTH_DATE, ADDRESS: json.CLIENT_ADDRESS,
         ADDITIONAL_ADDRESS: json.CLIENT_ADDITIONAL_ADDRESS, POSTAL_CODE: json.CLIENT_POSTAL_CODE, CITY: json.CLIENT_CITY }),
-      equipment: Equipment.fromJson({
+      equipment: Equipment.fromJsonInOrder({
         EQUIPMENT_ID: json.EQUIPMENT_ID,
-        renter: Renter.fromJson({RENTER_ID: json.RENTER_ID, metropolises: Metropolises.fromJson({METROPOLISES_ID: json.METROPOLISES_ID, METROPOLISES_NAME: json.METROPOLISES_NAME}), COMPANY_NAME: json.COMPANY_NAME,
-          LAST_NAME: json.RENTER_LAST_NAME, FIRST_NAME: json.RENTER_FIRST_NAME, EMAIL: json.RENTER_EMAIL, PHONE: json.RENTER_PHONE, BIRTH_DATE: json.RENTER_BIRTH_DATE, ADDRESS: json.RENTER_ADDRESS,
-          ADDITIONAL_ADDRESS: json.RENTER_ADDITIONAL_ADDRESS, POSTAL_CODE: json.RENTER_POSTAL_CODE, city: json.RENTER_CITY, IMAGE_LINK: json.IMAGE_LINK}),
-        category: Category.fromJson({CATEGORY_ID: json.CATEGORY_ID, CATEGORY_NAME: json.RENTER_IMAGE_LINK}),
+        renter: {RENTER_ID: json.RENTER_ID, COMPANY_NAME: json.COMPANY_NAME, LAST_NAME: json.RENTER_LAST_NAME, FIRST_NAME: json.RENTER_FIRST_NAME, EMAIL: json.RENTER_EMAIL,
+          PHONE: json.RENTER_PHONE, BIRTH_DATE: json.RENTER_BIRTH_DATE, ADDRESS: json.RENTER_ADDRESS, ADDITIONAL_ADDRESS: json.RENTER_ADDITIONAL_ADDRESS,
+          POSTAL_CODE: json.RENTER_POSTAL_CODE, CITY: json.RENTER_CITY, IMAGE_LINK: json.IMAGE_LINK},
+        category: {CATEGORY_ID: json.CATEGORY_ID, CATEGORY_NAME: json.CATEGORY_NAME},
         EQUIPMENT_NAME: json.EQUIPMENT_NAME,
         DESCRIPTION: json.EQUIPMENT_DESCRIPTION,
         START_DATE: json.EQUIPMENT_START_DATE,
