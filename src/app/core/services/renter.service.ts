@@ -8,6 +8,7 @@ import { Constants } from '../../../../constants';
 import { environment } from '../../../environments/environment';
 
 import { Renter } from './../../shared/models/renter.model';
+import {Client} from "../../shared/models/clientRent.model";
 
 
 /**
@@ -61,10 +62,7 @@ export class RenterService {
     return this.http.post(this.renterEndpoint + '/login', body).pipe(
       map((jsonResponse: any) => {
           return {
-            renter: Renter.fromJson({
-              id: jsonResponse.ID,
-              email: jsonResponse.EMAIL
-            }),
+            renter: Renter.fromJson(jsonResponse.renter),
             token: jsonResponse.renterAuthentificationToken
           };
         }
