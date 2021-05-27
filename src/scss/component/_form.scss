@@ -21,9 +21,10 @@ select {
 
 form {
   
-  .form-field {
+.form-field {
+  justify-content: center;
       
-  }
+}
 
 }
 
@@ -103,4 +104,3 @@ color: $red;
   display: block;
   color: $red;
 }
-

@@ -7,6 +7,7 @@ import { Constants } from './../../../../constants';
 import { environment } from './../../../environments/environment';
 
 import {Order} from "../../shared/models/order.model";
+import {Payment} from "../../shared/models/payment.model";
 
 /**
  * Définit le content-type du header
@@ -83,6 +84,15 @@ export class OrderService {
         }
       )
     );
+  }
+
+  /**
+   * Insère une commande
+   * @param order Les données liées à la commande
+   * @returns Un observable
+   */
+  addPaymentOrder(order: Order): Observable<any> {
+    return this.http.post(this.orderEndpoint + '/add-order', {order}, httpOptions);
   }
 
 }

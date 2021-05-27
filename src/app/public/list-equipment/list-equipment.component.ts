@@ -9,7 +9,6 @@ import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { Equipment } from '../../shared/models/equipment.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Search } from 'src/app/shared/models/search.model';
 import { Period } from 'src/app/shared/models/period.model';
 
 /**

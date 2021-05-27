@@ -13,6 +13,7 @@ import { ClientRegistrationComponent } from './client-registration/client-regist
 import { ClientLoginComponent } from './client-login/client-login.component';
 import { DatepickerModule } from 'ng2-datepicker';
 import { LoginRenterComponent } from './login-renter/login-renter.component';
+import { LoginAdminComponent } from './login-admin/login-admin.component';
 
 /**
  * Gestion des modules et composants de Public
@@ -26,7 +27,8 @@ import { LoginRenterComponent } from './login-renter/login-renter.component';
     EquipmentSearchComponent,
     LoginRenterComponent,
     ClientRegistrationComponent,
-    ClientLoginComponent
+    ClientLoginComponent,
+    LoginAdminComponent
   ],
   imports: [
     CommonModule,

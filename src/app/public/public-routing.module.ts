@@ -7,6 +7,7 @@ import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
 import {LoginRenterComponent} from './login-renter/login-renter.component';
 import {ClientRegistrationComponent} from "./client-registration/client-registration.component";
 import {ClientLoginComponent} from "./client-login/client-login.component";
+import { LoginAdminComponent } from './login-admin/login-admin.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,10 @@ const routes: Routes = [
   {
     path: 'client-login',
     component: ClientLoginComponent
+  },
+  {
+    path: 'login-admin',
+    component: LoginAdminComponent
   }
 ];
 

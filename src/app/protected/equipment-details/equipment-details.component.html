@@ -31,7 +31,7 @@
       </div>
 
       <div class=" my-7 grid-only"  *ngIf="isEquipmentStillAvailable">
-        <div class="my-5 flex-align-center flex-justify-content-center" >
+        <div class="my-5 flex-align-center flex-justify-center" >
           <div class="flex-align-center" >
             <label-2 class="font-size-rem">Quantité : </label-2>
             <button class="button-quantity m-0" (click)="diminishQuantity()" [disabled]="quantityWanted === 1" l> <i class="fa fa-minus"></i> </button>
@@ -45,7 +45,7 @@
           </div>
         </div>
 
-        <div class="flex-justify-content-center">
+        <div class="flex-justify-center">
           <div class="">
             <label-2 class="font-size-rem" >Prix : </label-2>
             <span class="font-size-rem"> {{ equipment.price }} € / Jour</span>
@@ -58,8 +58,8 @@
         </div>
         <br>
 
-        <p *ngIf="isAvailable" class="--green flex-justify-content-center my-5 font-size-rem"> Disponible </p>
-        <p *ngIf="!isAvailable" class="--red flex-justify-content-center my-5 font-size-rem">Non Disponible </p>
+        <p *ngIf="isAvailable" class="--green flex-justify-center my-5 font-size-rem"> Disponible </p>
+        <p *ngIf="!isAvailable" class="--red flex-justify-center my-5 font-size-rem">Non Disponible </p>
 
         <h1>Avis clients</h1>
         <div class="avis-width flex-justify-content-self-center " >
