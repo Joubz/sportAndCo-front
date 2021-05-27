@@ -7,18 +7,18 @@
 
 <div class="--center">
   <form [formGroup]="clientForm" class="my-4">
-    <div class="my-5">
+    <div class="form-field my-5">
       <input class="input-connexion" type="text" formControlName="email" [ngClass]="{ 'field-error': errorDetection('email') }"
              placeholder="Email" name="email" id="email" required/>
-      <br>
+      <i class="fa fa-id-card fa-lg fa-fw pl-3 pr-3" aria-hidden="true"></i>
       <span class="tiny-txt ml-3">Nombre de caractères : {{ emailChars }} / 250</span>
       <span *ngIf="errorDetection('email')" class="field-error-message tiny-txt --center">{{ messageErrorMail }}</span>
     </div>
 
-    <div class="my-5">
+    <div class="form-field my-5">
       <input class="input-connexion" type="password" formControlName="password" [ngClass]="{ 'field-error': errorDetection('password') }"
              placeholder="Mot de passe" name="password" id="password" required/>
-      <br>
+      <i class="fa fa-lock fa-lg fa-fw pl-3 pr-3" aria-hidden="true"></i>
       <span class="tiny-txt ml-3">Nombre de caractères : {{ passwordChars }} / 15</span>
       <span *ngIf="errorDetection('password')" class="field-error-message tiny-txt --center" >{{ messageErrorPassword }}</span>
     </div>

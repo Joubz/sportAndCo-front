@@ -1,20 +1,75 @@
-input,
-select,
+input{
+  height: 50px;
+  
+  .input-connexion{
+    border: 1px solid $light-grey;
+    background-color: $white;
+    text-align: center;
+    width: 400px;
+    border-radius: 10px;
+  }
+
+}
+select {
+    border: 1px solid $light-grey; 
+    background-color: $white; 
+    text-align: center;
+    height: 50px;
+    width: 200px;
+   
+}
+
+form {
+  
+.form-field {
+  justify-content: center;
+      
+}
+
+}
+
 .input-connexion {
   border: 1px solid $grey;
   background-color: $white;
   text-align: center;
-  width: 200px;
-  height: 50px;
-}
-
-.input-connexion {
   width: 500px;
+  height: 50px;
   border-radius: 10px;
 }
 
-form {
+.required {
+position: relative;
+width: 300px;
+}
 
+.required::before {
+color: $red;
+content: "*";
+right: -10px;
+top: -8px;
+position: absolute;
+}
+
+.field-error {
+border: 1px solid $red;
+color: $red;
+
+
+option {
+  color: $brown;
+}
+}
+
+.field-error::placeholder {
+color: $red;
+}
+
+.field-error-message {
+margin-top: 3px;
+text-align: left;
+width: 200px;
+display: block;
+color: $red;
 }
 
 .required {

@@ -12,6 +12,7 @@ import { EquipmentSearchComponent } from './equipment-search/equipment-search.co
 import { ClientRegistrationComponent } from './client-registration/client-registration.component';
 import { ClientLoginComponent } from './client-login/client-login.component';
 import { DatepickerModule } from 'ng2-datepicker';
+import { LoginRenterComponent } from './login-renter/login-renter.component';
 import { LoginAdminComponent } from './login-admin/login-admin.component';
 
 /**
@@ -24,6 +25,7 @@ import { LoginAdminComponent } from './login-admin/login-admin.component';
     NotFoundComponent,
     ListEquipmentComponent,
     EquipmentSearchComponent,
+    LoginRenterComponent,
     ClientRegistrationComponent,
     ClientLoginComponent,
     LoginAdminComponent

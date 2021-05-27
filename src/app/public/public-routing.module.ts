@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
+import {LoginRenterComponent} from './login-renter/login-renter.component';
 import {ClientRegistrationComponent} from "./client-registration/client-registration.component";
 import {ClientLoginComponent} from "./client-login/client-login.component";
 import { LoginAdminComponent } from './login-admin/login-admin.component';
@@ -25,6 +26,10 @@ const routes: Routes = [
   {
     path: 'legal-notice',
     component: LegalNoticeComponent
+  },
+  {
+    path: 'login-loueur',
+    component: LoginRenterComponent
   },
   {
     path: 'client-registration',
