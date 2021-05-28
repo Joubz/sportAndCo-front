@@ -9,6 +9,7 @@ import { environment } from '../../../environments/environment';
 
 import { Renter } from './../../shared/models/renter.model';
 import {Client} from "../../shared/models/clientRent.model";
+import { Equipment } from 'src/app/shared/models/equipment.model';
 
 
 /**
@@ -152,6 +153,24 @@ export class RenterService {
     return this.http
       .get(this.renterEndpoint + '/get-by-equipment/' + equipmentId)
       .pipe(map((jsonResponse: any) => Renter.fromJson(jsonResponse[0])));
+  }
+
+  /**
+   * 
+   * @param renterId Récupére la liste des équipement pour un loueur
+   * @returns 
+   */
+  getEquipmentByRenter(renterId: number): Observable<Equipment[]> {
+    return this.http.get(this.renterEndpoint + '/list-equipment-renter' + '/' + renterId ).pipe(
+      map((jsonResponse: any) => {
+        const equipmentList = [];
+        jsonResponse.forEach(element => {
+          const equipment: Equipment = Equipment.fromJson(element);
+          equipmentList.push(equipment);
+        });
+        return equipmentList;
+      })
+    );
   }
 
 }

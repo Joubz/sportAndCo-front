@@ -1,0 +1,46 @@
+<div *ngIf="listEquipmentLoaded | async">
+    <div class="container my-7">
+        <div class="flex-justify-content-self-center">
+            <h2 class="--center">Liste des produits mis en location</h2>
+        </div>
+        <div *ngFor="let equipment of listEquipment">
+            <!-- <div class="--center mb-4">
+                <h3>{{ equipment.name }}</h3>
+                <span>{{ equipment.description }}</span>
+                <span>{{ equipment.price }}</span>
+                <img [src]="urlBasic.concat(equipment.imageLink1)"/>
+            </div> -->
+
+            <div class="pt-7">
+                <label for="name"></label>
+              <h3 id="name" class="--center">{{ equipment.name }}</h3>
+              </div>
+            
+              <article>
+                <div class="_row title-nav mb-3">
+                    <span class="_col3 pl-2">Produit  /  Prix  /  Quantité</span>
+                </div>
+                <article class="_reservation_item _row">
+                    <div class="imgReservation pl-2">
+                           <img [src]="urlBasic.concat(equipment.imageLink1)" *ngIf="equipment.imageLink1">
+                    </div>
+                    <div class="res-product-info-container">
+                        <span class="_col4" >
+                            {{ equipment.description }}
+                        </span>
+                        <span>
+                          Prix : {{ equipment.price }}
+                        </span>
+                        <span>
+                          Quantité : {{ equipment.totalQuantity}}
+                        </span>
+                    </div>
+            
+                    </article>
+                </article>
+                
+
+        </div>
+
+    </div>
+</div>
