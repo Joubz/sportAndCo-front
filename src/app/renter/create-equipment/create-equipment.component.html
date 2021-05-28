@@ -27,6 +27,19 @@
         <span class="tiny-txt ml-3">Nombre de caractères : {{ priceChars }} / 100</span>
         <span *ngIf="errorDetection('price')" class="field-error-message tiny-txt">{{messageErrorPrice}}</span>
       </div>
+
+      <div class="my-5">
+        <label>Catégorie :</label>
+        <br>
+        <select name="categorySelect" formControlName="categorySelect" id="categorySelect">
+          <option
+            *ngFor="let category of categoryList"
+            [ngValue]="category">
+            {{ category.name }}
+          </option>
+        </select>
+        <span *ngIf="errorDetection('categorySelect')" class="field-error-message tiny-txt">{{messageErrorCategory}}</span>
+      </div>
     </form>
 
     <div class="flex-align-center" >
@@ -36,8 +49,6 @@
       <button class="button-quantity m-0" (click)="augmentQuantity()" l><i class="fa fa-plus"></i> </button>
     </div>
     <span *ngIf="totalQuantity === 0" class="field-error-message tiny-txt"> {{ errorMessageQuantity }} </span>
-
-
     <br>
 
     <div class="ml-5">
@@ -66,7 +77,7 @@
           <i class="fas fa-window-close --red font" (click)="onDeleteImageLink1()" [ngClass]="{ 'no-img-icone': f.imageLink1.value.length <= 0 }" ></i>
         </div>
       </div>
-      <span *ngIf="f.imageLink1.value.length === 0" class="field-error-message tiny-txt"> {{ errorMessageDate }} </span>
+      <span *ngIf="f.imageLink1.value.length === 0" class="field-error-message tiny-txt"> {{ errorMessageImage1 }} </span>
 
 
       <div class="file-upload">

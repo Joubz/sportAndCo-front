@@ -90,6 +90,11 @@ export class CreateEquipmentComponent implements OnInit {
   errorMessageStartDate: string;
 
   /**
+   *  String pour le message d'erreur de la date de début
+   */
+  messageErrorCategory: string;
+
+  /**
    *  String pour le message d'erreur de la date de fin
    */
   errorMessageEndDate: string;
@@ -196,6 +201,7 @@ export class CreateEquipmentComponent implements OnInit {
       equipmentName: ['', [Validators.required, Validators.maxLength(100)]],
       description: ['', [Validators.required, Validators.maxLength(1000)]],
       price: ['', [Validators.required, Validators.maxLength(15)]],
+      categorySelect: ['', [Validators.required]],
       imageLink1: ['', [Validators.required]],
       imageLink2: [''],
       imageLink3: [''],
@@ -247,6 +253,15 @@ export class CreateEquipmentComponent implements OnInit {
             return true;
           } else if (this.f.price.errors.maxlength) {
             this.messageErrorPrice = "Le champ doit être d'une longueur maximale de 15 caractères";
+            return true;
+          }
+        }
+        break;
+      }
+      case 'categorySelect': {
+        if (this.f.categorySelect.invalid && (this.f.categorySelect.dirty || this.f.categorySelect.touched || this.isSubmit)) {
+          if (this.f.categorySelect.errors.required) {
+            this.messageErrorCategory = "Le champ doit être rempli";
             return true;
           }
         }
@@ -462,7 +477,7 @@ export class CreateEquipmentComponent implements OnInit {
       this.totalQuantity !== 0 &&
       this.isStartDateFilled &&
       this.isEndDateFilled &&
-      this.isCategorySelected &&
+      !this.f.categorySelect.invalid &&
       !this.f.imageLink1.invalid &&
       !this.f.imageLink2.invalid &&
       !this.f.imageLink3.invalid
@@ -471,13 +486,13 @@ export class CreateEquipmentComponent implements OnInit {
         id: -1,
         renter: this.tokenStorageService.getRenter(),
         metropolises: null,
-        category: this.categorySelected,
+        category: this.f.categorySelect.value,
         name: this.f.equipmentName.value,
         description: this.f.description.value,
         startDate: this.formatDate(this.startDate),
         endDate: this.formatDate(this.endDate),
         price: this.f.price.value,
-        totalQuantity: this.f.totalQuantity.value,
+        totalQuantity: this.totalQuantity,
         imageLink1: this.f.imageLink1.value,
         imageLink2: this.f.imageLink2.value,
         imageLink3: this.f.imageLink3.value

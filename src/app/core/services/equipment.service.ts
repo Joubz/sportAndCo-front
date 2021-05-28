@@ -92,7 +92,7 @@ export class EquipmentService {
    * @param newEquipment L'équipement créer
    */
   addEquipment(newEquipment: Equipment): Observable<any> {
-    return this.http.post(this.equipmentEndpoint + '/add-equipmment', { newEquipment }, httpOptions);
+    return this.http.post(this.equipmentEndpoint + '/add-equipment', { newEquipment }, httpOptions);
   }
 
 }
