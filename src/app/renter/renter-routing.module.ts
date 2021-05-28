@@ -6,10 +6,6 @@ import {LoggedInRenterGuard} from "../core/guards/logged-in-renter.guard";
 
 const routes: Routes = [
   {
-    path: 'renter-equipment-list',
-    component: ProductListRenterComponent
-  },
-  {
     path: 'renter',
     canActivate: [LoggedInRenterGuard],
     children: [
@@ -17,6 +13,10 @@ const routes: Routes = [
         path: 'create-equipment',
         component: CreateEquipmentComponent
       },
+      {
+        path: 'equipment-list',
+        component: ProductListRenterComponent
+      }
     ]
   }
 ];
