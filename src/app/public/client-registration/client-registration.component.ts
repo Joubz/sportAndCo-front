@@ -126,12 +126,12 @@ export class ClientRegistrationComponent implements OnInit {
   isMailNotTakenAlready: boolean;
 
   /**
-   * Boolean pour remplissage de la date
+   * Boolean pour remplissage de la date de naissance
    */
   isBirthDateFilled: boolean;
 
   /**
-   * Date de début sélectionnée par le client
+   * Date de naissance sélectionnée par le client
    */
   birthDate: Date;
 

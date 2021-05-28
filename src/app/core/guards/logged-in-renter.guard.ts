@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
 import { Observable } from 'rxjs';
 import {TokenStorageService} from "../services/token-storage.service";
 
@@ -9,7 +9,7 @@ import {TokenStorageService} from "../services/token-storage.service";
 @Injectable({
   providedIn: 'root'
 })
-export class LoggedInClientGuard implements CanActivate {
+export class LoggedInRenterGuard implements CanActivate {
   /**
    * Constructeur de la guard
    * @param tokenStorageService Service de gestion des tokens
@@ -18,26 +18,25 @@ export class LoggedInClientGuard implements CanActivate {
   constructor(private tokenStorageService: TokenStorageService, private router: Router) { }
 
   /**
-   * Décide si l'utilisateur peut accéder ou non à la page de connexion client
+   * Décide si l'utilisateur peut accéder ou non à la page de connexion loueur
    * @returns booléen
    */
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     if (route.data.unloggedClient) {
-      if (this.tokenStorageService.getClient().id !== -1) {
-        this.router.navigate(['/client-login']);
+      if (this.tokenStorageService.getRenter().id !== -1) {
+        this.router.navigate(['/login-renter']);
         return false;
       }
 
       return true;
     }
 
-    if (this.tokenStorageService.getClient().id === -1) {
+    if (this.tokenStorageService.getRenter().id === -1) {
       this.router.navigate(['/']);
       return false;
     }
 
     return true;
   }
-
 }

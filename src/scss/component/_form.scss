@@ -1,6 +1,6 @@
 input{
   height: 50px;
-  
+
   .input-connexion{
     border: 1px solid $light-grey;
     background-color: $white;
@@ -11,19 +11,19 @@ input{
 
 }
 select {
-    border: 1px solid $light-grey; 
-    background-color: $white; 
+    border: 1px solid $light-grey;
+    background-color: $white;
     text-align: center;
     height: 50px;
     width: 200px;
-   
+
 }
 
 form {
-  
+
 .form-field {
   justify-content: center;
-      
+
 }
 
 }
@@ -103,4 +103,60 @@ color: $red;
   width: 200px;
   display: block;
   color: $red;
+}
+
+.file-upload {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 300px;
+  margin: 0 auto;
+  padding: 10px 0;
+  .input-icone {
+    width: 250px;
+    input {
+      width: 250px;
+      margin-bottom: 0;
+    }
+  }
+  .font {
+    font-size: 40px;
+  }
+  .no-img-icone {
+    display: none;
+  }
+}
+
+.form-field-image {
+  display: block;
+  width: 300px;
+}
+
+
+.file-equipment {
+  display: block;
+  height: 40px;
+  color: $grey;
+  width: 250px;
+  background-color: $light-grey;
+  label {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 250px;
+    font-size: 15px;
+  }
+
+  label::before {
+    content: "\f03e";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 400;
+    color: $brown;
+    font-size: 22px;
+    padding: 9px 0 9px 15px;
+  }
+
+  label + [type="file"] {
+    display: none;
+  }
 }
