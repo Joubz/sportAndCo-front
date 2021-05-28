@@ -7,6 +7,7 @@ import {Constants} from "../../../../constants";
 import {environment} from "../../../environments/environment";
 
 import {Equipment} from "../../shared/models/equipment.model";
+import {Md5} from "ts-md5";
 
 /**
  * Définit le content-type du header
@@ -74,7 +75,7 @@ export class EquipmentService {
    */
   searchEquipment(equipmentName: string, startDate: string, endDate: string, categoryId: number, metropolisesId: number) {
     return this.http.get(this.equipmentEndpoint + '/search-equipment' + '/' + equipmentName + '/' +
-    startDate + '/' + endDate + '/' + categoryId + '/' + metropolisesId).pipe(
+      startDate + '/' + endDate + '/' + categoryId + '/' + metropolisesId).pipe(
       map((jsonResponse: any) => {
         const equipmentList = [];
         jsonResponse.forEach(element => {
@@ -84,6 +85,14 @@ export class EquipmentService {
         return equipmentList;
       })
     );
+  }
+
+  /**
+   * Ajoute un équipement
+   * @param newEquipment L'équipement créer
+   */
+  addEquipment(newEquipment: Equipment): Observable<any> {
+    return this.http.post(this.equipmentEndpoint + '/add-equipmment', { newEquipment }, httpOptions);
   }
 
 }

@@ -1,0 +1,106 @@
+<div class="mb-7">
+  <h1>Création d'équipement</h1>
+
+  <div class="--left" style="margin-left: 35%;">
+
+    <form [formGroup]="equipmentForm" class="my-4">
+      <div class="my-5">
+        <input type="text" style="border-radius: 10px;" formControlName="equipmentName" [ngClass]="{ 'field-error': errorDetection('equipmentName') }"
+               placeholder="Nom d'équipement" name="equipmentName" id="equipmentName" required />
+        <br>
+        <span class="tiny-txt ml-3">Nombre de caractères : {{ equipmentNameChars }} / 100</span>
+        <span *ngIf="errorDetection('equipmentName')" class="field-error-message tiny-txt">{{messageErrorEquipmentName}}</span>
+      </div>
+
+      <div class="my-5">
+        <input type="text" style="border-radius: 10px;" formControlName="description" [ngClass]="{ 'field-error': errorDetection('description') }"
+               placeholder="Description" name="description" id="description" required />
+        <br>
+        <span class="tiny-txt ml-3">Nombre de caractères : {{ descriptionChars }} / 1000</span>
+        <span *ngIf="errorDetection('description')" class="field-error-message tiny-txt">{{messageErrorDescription}}</span>
+      </div>
+
+      <div class="my-5">
+        <input type="text" style="border-radius: 10px;" formControlName="price" [ngClass]="{ 'field-error': errorDetection('price') }"
+               placeholder="Prix" name="price" id="price" required />
+        <br>
+        <span class="tiny-txt ml-3">Nombre de caractères : {{ priceChars }} / 100</span>
+        <span *ngIf="errorDetection('price')" class="field-error-message tiny-txt">{{messageErrorPrice}}</span>
+      </div>
+    </form>
+
+    <div class="flex-align-center" >
+      <label class="font-size-rem">Quantité totale : </label>
+      <button class="button-quantity m-0" (click)="diminishQuantity()" [disabled]="totalQuantity === 1" l> <i class="fa fa-minus"></i> </button>
+      <input type="text" [value]="totalQuantity" disabled class="heightQuantityInput">
+      <button class="button-quantity m-0" (click)="augmentQuantity()" l><i class="fa fa-plus"></i> </button>
+    </div>
+    <span *ngIf="totalQuantity === 0" class="field-error-message tiny-txt"> {{ errorMessageQuantity }} </span>
+
+
+    <br>
+
+    <div class="ml-5">
+      <ngx-datepicker [(ngModel)]="startDate" [options]="startDatePickerOptions" (ngModelChange)="changeStartDate()" required></ngx-datepicker>
+      <span *ngIf="startDateErrorDetection()" class="field-error-message tiny-txt"> {{ errorMessageStartDate }} </span>
+    </div>
+
+    <span *ngIf="!areDatesOk" class="field-error-message tiny-txt"> {{ errorMessageDate }} </span>
+
+    <div class="ml-5">
+      <ngx-datepicker [(ngModel)]="endDate" [options]="endDatePickerOptions" (ngModelChange)="changeEndDate()" required></ngx-datepicker>
+      <span *ngIf="endDateErrorDetection()" class="field-error-message tiny-txt"> {{ errorMessageStartDate }} </span>
+    </div>
+
+    <form [formGroup]="equipmentForm" class="my-4">
+      <div class="file-upload">
+        <div class="form-field-image file-equipment" [ngClass]="{ 'no-img': f.imageLink1.value.length <= 0 }">
+          <span>Image 1 :</span>
+          <label for="imageLink1" class="tiny-txt">
+            <span *ngIf="f.imageLink1.value.length > 0" class="loaded ml-3"><i class="fas fa-check"></i></span>
+            <span class="ml-3">{{ f.imageLink1.value.length > 0 ? "Image chargée !" : "Ajouter une image" }}</span>
+          </label>
+          <input (change)="onFileChangeImageLink1($event)" #imageInput [value]="" (click)="imageInput.value = null" type="file" name="imageLink1" id="imageLink1" accept="image/jpeg,image/png" />
+        </div>
+        <div>
+          <i class="fas fa-window-close --red font" (click)="onDeleteImageLink1()" [ngClass]="{ 'no-img-icone': f.imageLink1.value.length <= 0 }" ></i>
+        </div>
+      </div>
+      <span *ngIf="f.imageLink1.value.length === 0" class="field-error-message tiny-txt"> {{ errorMessageDate }} </span>
+
+
+      <div class="file-upload">
+        <div class="form-field-image file-equipment" [ngClass]="{ 'no-img': f.imageLink2.value.length <= 0 }">
+          <span>Image 2 :</span>
+          <label for="imageLink2" class="tiny-txt">
+            <span *ngIf="f.imageLink2.value.length > 0" class="loaded ml-3"><i class="fas fa-check"></i></span>
+            <span class="ml-3">{{ f.imageLink2.value.length > 0 ? "Image chargée !" : "Ajouter une image" }}</span>
+          </label>
+          <input (change)="onFileChangeImageLink2($event)" #imageInput [value]="" (click)="imageInput.value = null" type="file" name="imageLink2" id="imageLink2" accept="image/jpeg,image/png" />
+        </div>
+        <div>
+          <i class="fas fa-window-close --red font" (click)="onDeleteImageLink2()" [ngClass]="{ 'no-img-icone': f.imageLink2.value.length <= 0 }" ></i>
+        </div>
+      </div>
+
+      <div class="file-upload">
+        <div class="form-field-image file-equipment" [ngClass]="{ 'no-img': f.imageLink3.value.length <= 0 }">
+          <span>Image 3 :</span>
+          <label for="imageLink3" class="tiny-txt">
+            <span *ngIf="f.imageLink3.value.length > 0" class="loaded ml-3"><i class="fas fa-check"></i></span>
+            <span class="ml-3">{{ f.imageLink3.value.length > 0 ? "Image chargée !" : "Ajouter une image" }}</span>
+          </label>
+          <input (change)="onFileChangeImageLink3($event)" #imageInput [value]="" (click)="imageInput.value = null" type="file" name="imageLink3" id="imageLink3" accept="image/jpeg,image/png" />
+        </div>
+        <div>
+          <i class="fas fa-window-close --red font" (click)="onDeleteImageLink3()" [ngClass]="{ 'no-img-icone': f.imageLink3.value.length <= 0 }" ></i>
+        </div>
+      </div>
+    </form>
+
+    <div class="my-7">
+      <button class="common" (click)="onSubmit()">Créer un équipement</button>
+    </div>
+
+  </div>
+</div>
