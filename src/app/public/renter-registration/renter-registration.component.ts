@@ -1,12 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import {Client} from "../../shared/models/clientRent.model";
-import {ClientService} from "../../core/services/client.service";
+import { MetropolisesService } from './../../core/services/metropolises.service';
+import { Renter } from './../../shared/models/renter.model';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {RenterService} from "../../core/services/renter.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {DatepickerOptions} from "ng2-datepicker";
 import locale from "date-fns/locale/en-US";
 import {Router} from "@angular/router";
 import {NotificationsService} from "../../core/services/notification.service";
 import { Notification, NotificationBackground, NotificationIcon } from 'src/app/shared/models/notification.model';
+import {forkJoin, Observable, Subscription} from 'rxjs';
+import { Metropolises } from 'src/app/shared/models/metropolises.model';
+import { identifierModuleUrl } from '@angular/compiler';
 
 /**
  * Validateur de la correspondance des mots de passe
@@ -32,31 +36,36 @@ export function MustMatch(controlName: string, matchingControlName: string) {
 }
 
 /**
- * Composant de la page inscription d'un client
+ * Composant d'inscription client
  */
 @Component({
-  selector: 'app-client-registration',
-  templateUrl: './client-registration.component.html',
-  styleUrls: ['./client-registration.component.css']
+  selector: 'app-renter-registration',
+  templateUrl: './renter-registration.component.html',
+  styleUrls: ['./renter-registration.component.css']
 })
-export class ClientRegistrationComponent implements OnInit {
+export class RenterRegistrationComponent implements OnInit, OnDestroy {
   /**
    * Permet d'attendre que la liste des mails clients déjà existant soit chargée pour l'afficher
    */
   listMailLoaded: Promise<boolean>;
 
   /**
-   * Données du client à enregister
+   * Souscription au service de récupération de l'équipement
    */
-  client: Client;
+  renterSub: Subscription;
 
   /**
-   * Formulaire d'ajout d'un client
+   * Données du loueur à enregister
    */
-  clientForm: FormGroup;
+  renter: Renter;
 
   /**
-   * La liste des mails clients déjà existants
+   * Formulaire d'ajout d'un loueur
+   */
+  renterForm: FormGroup;
+
+  /**
+   * La liste des mails loueurs déjà existants
    */
   mailList: string[];
 
@@ -64,6 +73,11 @@ export class ClientRegistrationComponent implements OnInit {
    * Le formulaire a été soumis
    */
   isSubmit: boolean;
+
+  /**
+   * String pour le message d'erreur de la raison sociale
+   */
+  messageErrorCompanyName: string;
 
   /**
    * String pour le message d'erreur du prénom
@@ -121,6 +135,11 @@ export class ClientRegistrationComponent implements OnInit {
   messageErrorCity: string;
 
   /**
+   * String pour le message d'erreur de la métropole
+   */
+   messageErrorMetropolises: string;
+
+  /**
    * Booleen pour vérifier que le mail n'est pas déjà utilisé
    */
   isMailNotTakenAlready: boolean;
@@ -131,7 +150,12 @@ export class ClientRegistrationComponent implements OnInit {
   isBirthDateFilled: boolean;
 
   /**
-   * Date de début sélectionnée par le client
+   * Liste des métropoles
+   */
+  listMetropolises: Metropolises[];
+
+  /**
+   * Date de début sélectionnée par le loueur
    */
   birthDate: Date;
 
@@ -154,37 +178,51 @@ export class ClientRegistrationComponent implements OnInit {
 
   /**
    * Constructeur du composant
-   * @param clientService Service de gestion client
+   * @param renterService Service de gestion loueur
    * @param fb Constructeur de formulaire natif angular
    * @param router Gestion du routing (natif angular)
    * @param notificationsService Service de gestion des popin de notification
+   * @param metropolisesService Service de gestion des métropoles
    */
   constructor(
-    private clientService: ClientService,
+    private renterService: RenterService,
     private fb: FormBuilder,
     private router: Router,
-    private notificationsService: NotificationsService
+    private notificationsService: NotificationsService,
+    private metropolisesService: MetropolisesService
   ) { }
 
   /**
    * Initialise le composant
    */
   ngOnInit(): void {
-    this.clientService.getListMailClient().subscribe(list => {
-      this.mailList = list;
+    this.renterSub = forkJoin([
+      this.renterService.getListMailRenter(),
+      this.metropolisesService.getListMetropolises()
+    ]).subscribe(([listMail, listMetropolises]) => {
+      this.mailList = listMail;
       this.isSubmit = false;
       this.isMailNotTakenAlready = false;
       this.isBirthDateFilled = false;
       this.initForm();
+      this.listMetropolises = listMetropolises;
       this.listMailLoaded = Promise.resolve(true);
     });
+  }
+
+  /**
+   * Unsubscribe
+   */
+  ngOnDestroy(): void {
+    this.renterSub?.unsubscribe();
   }
 
   /**
    * Initialisation du formulaire
    */
   initForm(): void {
-    this.clientForm = this.fb.group({
+    this.renterForm = this.fb.group({
+      companyName: ['', [Validators.required, Validators.maxLength(100)]],
       firstName: ['', [Validators.required, Validators.maxLength(100)]],
       lastName: ['', [Validators.required, Validators.maxLength(100)]],
       email: ['', [Validators.required, Validators.maxLength(250), Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
@@ -195,16 +233,17 @@ export class ClientRegistrationComponent implements OnInit {
       additionalAddress: ['', [Validators.required, Validators.maxLength(250)]],
       postalCode: ['', [Validators.required, Validators.maxLength(5), Validators.pattern("^[0-9]*$")]],
       city: ['', [Validators.required, Validators.maxLength(250)]],
+      metropolisesSelect: ['', [Validators.required]],
     }, {
       validator: MustMatch('password', 'confirmPassword')
     });
   }
 
   /**
-   * Permet de retourner les controls du formulaire de création du client facilement
+   * Permet de retourner les controls du formulaire de création du loueur facilement
    */
   get f() {
-    return this.clientForm.controls;
+    return this.renterForm.controls;
   }
 
   /**
@@ -214,6 +253,18 @@ export class ClientRegistrationComponent implements OnInit {
    */
   errorDetection(formField: string): boolean {
     switch (formField) {
+      case 'companyName': {
+        if (this.f.companyName.invalid && (this.f.companyName.dirty || this.f.companyName.touched || this.isSubmit)) {
+          if (this.f.companyName.errors.required) {
+            this.messageErrorCompanyName = "Le champ doit être rempli";
+            return true;
+          } else if (this.f.companyName.errors.maxlength) {
+            this.messageErrorCompanyName = "Le champ doit être d'une longueur maximale de 100 caractères";
+            return true;
+          }
+        }
+        break;
+      }
       case 'firstName': {
         if (this.f.firstName.invalid && (this.f.firstName.dirty || this.f.firstName.touched || this.isSubmit)) {
           if (this.f.firstName.errors.required) {
@@ -277,7 +328,7 @@ export class ClientRegistrationComponent implements OnInit {
             this.messageErrorConfirmPassword = "Le mot de passe doit être d'une longueur maximale de 15 caractères";
             return true;
           } else if (this.f.confirmPassword.errors.mustMatch) {
-            this.messageErrorConfirmPassword = "Les mots de passe doivent correspondres";
+            this.messageErrorConfirmPassword = "Les mots de passe doivent correspondre";
             return true;
           }
         }
@@ -349,6 +400,15 @@ export class ClientRegistrationComponent implements OnInit {
         }
         break;
       }
+      case 'metropolisesSelect': {
+        if (this.f.metropolisesSelect.invalid && (this.f.metropolisesSelect.dirty || this.f.metropolisesSelect.touched || this.isSubmit)) {
+          if (this.f.metropolisesSelect.errors.required) {
+            this.messageErrorMetropolises = "Le champ doit être rempli";
+            return true;
+          }
+        }
+        break;
+      }
     }
   }
 
@@ -378,7 +438,7 @@ export class ClientRegistrationComponent implements OnInit {
   /**
    * Récupération du nombre de caractères écrits pour le prénom
    */
-   get companyNameChars(): number {
+  get companyNameChars(): number {
     return this.f.companyName.value?.length || 0;
   }
 
@@ -483,8 +543,8 @@ export class ClientRegistrationComponent implements OnInit {
    */
   onSubmit(): void {
     this.isSubmit = true;
-
     if (
+      !this.f.companyName.invalid &&
       !this.f.firstName.invalid &&
       !this.f.lastName.invalid &&
       !this.f.password.invalid &&
@@ -498,8 +558,9 @@ export class ClientRegistrationComponent implements OnInit {
       !this.f.postalCode.invalid &&
       !this.f.city.invalid
     ) {
-      const newClient = new Client({
+      const newRenter = new Renter({
         id: -1,
+        companyName: this.f.companyName.value,
         password: this.f.password.value,
         firstName: this.f.firstName.value,
         lastName: this.f.lastName.value,
@@ -509,19 +570,22 @@ export class ClientRegistrationComponent implements OnInit {
         address: this.f.address.value,
         additionalAddress: this.f.additionalAddress.value,
         postalCode: this.f.postalCode.value,
-        city: this.f.city.value
+        city: this.f.city.value,
+        imageLink: "",
+        metropolises: this.f.metropolisesSelect.value,
+        isAccepted: 0
       });
 
-      this.clientService.createClient(newClient).subscribe(result => {
+      this.renterService.createRenter(newRenter).subscribe(result => {
         const notification = new Notification({
-          message: 'Votre compte a bien été créer. Un email de confirmation va vous être envoyé.',
+          message: 'Votre compte à bien été créer. Un email de confirmation va vous être envoyé.',
           background: NotificationBackground.GREEN,
           icon: NotificationIcon.CHECK
         });
 
         this.notificationsService.genericNotification(notification);
 
-        this.router.navigate(['/client-login']);
+        this.router.navigate(['/login-renter']);
       });
     }
 

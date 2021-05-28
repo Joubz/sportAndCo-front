@@ -2,11 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { LoginRenterService } from 'src/app/core/services/login-renter.service';
 import { Renter } from 'src/app/shared/models/renter.model';
+import {RenterService} from "../../core/services/renter.service";
+import {TokenStorageService} from "../../core/services/token-storage.service";
 
 /**
- * Composant de gestion de la page de connexion loueur 
+ * Composant de gestion de la page de connexion loueur
  */
 @Component({
   selector: 'app-login-renter',
@@ -14,7 +15,6 @@ import { Renter } from 'src/app/shared/models/renter.model';
   styleUrls: ['./login-renter.component.css']
 })
 export class LoginRenterComponent implements OnInit, OnDestroy {
-
   /**
    * Objet Renter (Loueur)
    */
@@ -31,15 +31,17 @@ export class LoginRenterComponent implements OnInit, OnDestroy {
   submitted: boolean;
 
   /**
-   * 
-   * @param fb 
-   * @param router 
-   * @param loginRenterService 
+   * Constructeur du composant
+   * @param fb Constructeur de formulaire natif angular
+   * @param router Gestion du routing (natif angular)
+   * @param renterService Service de gestion des loueurs
+   * @param tokenStorageService Service de gestion des tokens
    */
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private loginRenterService: LoginRenterService
+    private renterService: RenterService,
+    private tokenStorageService: TokenStorageService
   ) { }
 
   /**
@@ -65,7 +67,7 @@ export class LoginRenterComponent implements OnInit, OnDestroy {
   /**
    * Permet de retourner les controls du formulaire de connexion facilement
    */
-   get f() {
+  get f() {
     return this.loginRenterForm.controls;
   }
 
@@ -74,7 +76,7 @@ export class LoginRenterComponent implements OnInit, OnDestroy {
    * @param formField Champs concerné pour la vérification
    * @returns La validité du champ concerné
    */
-   errorDetection(formField: string): boolean {
+  errorDetection(formField: string): boolean {
     switch (formField) {
       case 'username':
         return this.f.username.invalid && (this.f.username.dirty || this.f.username.touched || this.submitted);
@@ -87,13 +89,13 @@ export class LoginRenterComponent implements OnInit, OnDestroy {
    * méthode appelée lors de la soumission du formulaire.
    * Elle appelle l'API de connexion aux pages administrateurs
    */
-   onSubmit(): void {
-     this.submitted = true;
+  onSubmit(): void {
+    this.submitted = true;
 
-     if(
-       !this.f.username.invalid &&
-       !this.f.password.invalid
-     ) {
+    if (
+      !this.f.username.invalid &&
+      !this.f.password.invalid
+    ) {
       const newRenter = new Renter({
         id: -1,
         password: this.f.password.value,
@@ -112,14 +114,15 @@ export class LoginRenterComponent implements OnInit, OnDestroy {
         imageLink: null
       });
 
-      this.loginRenterService.authLoginRenter(newRenter).subscribe(
+      this.renterService.loginRenter(newRenter).subscribe(
         result => {
-          console.log("ok login renter", result);
+          this.tokenStorageService.saveToken(result.token);
+          this.tokenStorageService.saveRenter(result.renter);
 
           this.router.navigate(['/home']);
         }
-      )
+      );
     }
-   }
+  }
 
 }

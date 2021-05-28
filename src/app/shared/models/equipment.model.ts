@@ -108,7 +108,7 @@ export class Equipment {
   /**
    * Crée un équipement à partir d'un flux JSON
    * @param json Les propriétés de l'équipement contenues dans le flux JSON
-   * @returns { Equipment } L'objet équipement créé
+   * @returns Equipment L'objet équipement créé
    */
   public static fromJson(json: any): Equipment {
     return new Equipment({
@@ -118,6 +118,27 @@ export class Equipment {
         ADDITIONAL_ADDRESS: json.ADDITIONAL_ADDRESS, POSTAL_CODE: json.POSTAL_CODE, CITY: json.CITY, IMAGE_LINK: json.IMAGE_LINK}),
       metropolises: Metropolises.fromJson({METROPOLISES_ID: json.METROPOLISES_ID, METROPOLISES_NAME: json.METROPOLISES_NAME}),
       category: Category.fromJson({CATEGORY_ID: json.CATEGORY_ID, CATEGORY_NAME: json.CATEGORY_NAME}),
+      name: json.EQUIPMENT_NAME,
+      description: json.DESCRIPTION,
+      startDate: json.START_DATE,
+      endDate: json.END_DATE,
+      price: json.PRICE,
+      totalQuantity: json.TOTAL_QUANTITY,
+      imageLink1: json.IMAGE_LINK_1,
+      imageLink2: json.IMAGE_LINK_2,
+      imageLink3: json.IMAGE_LINK_3
+    });
+
+  }
+
+  public static fromJsonInOrder(json: any): Equipment {
+    return new Equipment({
+      id: json.EQUIPMENT_ID,
+      renter: Renter.fromJson({RENTER_ID: json.renter.RENTER_ID,
+        COMPANY_NAME: json.renter.COMPANY_NAME, LAST_NAME: json.renter.LAST_NAME, FIRST_NAME: json.renter.FIRST_NAME, EMAIL: json.renter.EMAIL, PHONE: json.renter.PHONE, BIRTH_DATE: json.renter.BIRTH_DATE, ADDRESS: json.renter.ADDRESS,
+        ADDITIONAL_ADDRESS: json.renter.ADDITIONAL_ADDRESS, POSTAL_CODE: json.renter.POSTAL_CODE, CITY: json.renter.CITY, IMAGE_LINK: json.renter.IMAGE_LINK}),
+      metropolises: Metropolises.fromJson({METROPOLISES_ID: json.METROPOLISES_ID, METROPOLISES_NAME: json.METROPOLISES_NAME}),
+      category: Category.fromJson({CATEGORY_ID: json.category.CATEGORY_ID, CATEGORY_NAME: json.category.CATEGORY_NAME}),
       name: json.EQUIPMENT_NAME,
       description: json.DESCRIPTION,
       startDate: json.START_DATE,

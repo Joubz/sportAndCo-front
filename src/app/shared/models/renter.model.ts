@@ -124,7 +124,7 @@ export class Renter {
   /**
    * Crée un loueur à partir d'un flux JSON
    * @param json Les propriétés du loueur contenues dans le flux JSON
-   * @returns { Renter } L'objet loueur créé
+   * @returns Renter L'objet loueur créé
    */
   public static fromJson(json: any): Renter {
     return new Renter({
@@ -145,5 +145,31 @@ export class Renter {
       imageLink: json.IMAGE_LINK
     });
   }
+
+  /**
+   * Crée un loueur à partir d'un flux JSON depuis le token de connexion
+   * @param json Les propriétés du loueur contenues dans le flux JSON
+   * @returns Renter L'objet loueur créé
+   */
+  public static fromJsonToken(json: any): Renter {
+    return new Renter({
+      id: json.id,
+      password: json.password,
+      metropolises: null,
+      isAccepted: json.isAccepted,
+      companyName: json.companyName,
+      lastName: json.lastName,
+      firstName: json.firstName,
+      email: json.email,
+      phone: json.phone,
+      birthDate: json.birthDate,
+      address: json.address,
+      additionalAddress: json.additionalAddress,
+      postalCode: json.postalCode,
+      city: json.city,
+      imageLink: json.imageLink
+    });
+  }
+
 
 }

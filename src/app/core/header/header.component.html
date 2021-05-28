@@ -7,21 +7,45 @@
     <a routerLink="/"><img class="logo" src="../../../assets/logo_fond_blanc.png"></a>
   </div>
 
-  <div *ngIf="!isAdmin && !isClient && !isRenter" class="nav_showing">
+    <div *ngIf="!isAdmin && !isClient && !isRenter" class="nav_showing">
+        <nav>
+            <div class="right_nav_item">
+                <a routerLink="/renter-registration">Devenez loueur</a>
+            </div>
+            <div class="right_nav_item">
+                <a routerLink="/client-registration">Inscription</a>
+            </div>
+            <div class="right_nav_item">
+                <a routerLink="/client-login">Connexion</a>
+            </div>
+        </nav>
+    </div>
+
+
+  <div *ngIf="isClient" class="nav_showing">
     <nav>
       <div class="right_nav_item">
-        <a routerLink="/client-registration">Inscription</a>
+        <a routerLink="/list-client-order"> Listes des commandes</a>
       </div>
       <div class="right_nav_item">
-        <a routerLink="/client-login">Connexion</a>
+        <a>{{client.firstName}} {{client.lastName}}</a>
+      </div>
+      <div class="right_nav_item" (click)="disconnect()">
+        <a routerLink="/home">Déconnexion</a>
       </div>
     </nav>
   </div>
 
-  <div *ngIf="isClient " class="nav_showing">
+  <div *ngIf="isRenter" class="nav_showing">
     <nav>
       <div class="right_nav_item">
-        <a>{{client.firstName}} {{client.lastName}}</a>
+        <a routerLink="/home"> Ajouter un produit</a>
+      </div>
+      <div class="right_nav_item">
+        <a routerLink="/home"> Listes des produits</a>
+      </div>
+      <div class="right_nav_item">
+        <a>{{renter.companyName}}</a>
       </div>
       <div class="right_nav_item" (click)="disconnect()">
         <a routerLink="/home">Déconnexion</a>

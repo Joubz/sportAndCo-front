@@ -11,6 +11,7 @@ import { ListEquipmentComponent } from './list-equipment/list-equipment.componen
 import { EquipmentSearchComponent } from './equipment-search/equipment-search.component';
 import { ClientRegistrationComponent } from './client-registration/client-registration.component';
 import { ClientLoginComponent } from './client-login/client-login.component';
+import { RenterRegistrationComponent } from '../public/renter-registration/renter-registration.component';
 import { DatepickerModule } from 'ng2-datepicker';
 import { LoginRenterComponent } from './login-renter/login-renter.component';
 import { LoginAdminComponent } from './login-admin/login-admin.component';
@@ -30,7 +31,8 @@ import { CategoryHomeComponent } from './category-home/category-home.component';
     ClientRegistrationComponent,
     ClientLoginComponent,
     LoginAdminComponent,
-    CategoryHomeComponent
+    CategoryHomeComponent,
+    RenterRegistrationComponent
   ],
   imports: [
     CommonModule,

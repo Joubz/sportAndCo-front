@@ -8,6 +8,7 @@ import {LoginRenterComponent} from './login-renter/login-renter.component';
 import {ClientRegistrationComponent} from "./client-registration/client-registration.component";
 import {ClientLoginComponent} from "./client-login/client-login.component";
 import { LoginAdminComponent } from './login-admin/login-admin.component';
+import {RenterRegistrationComponent} from "./renter-registration/renter-registration.component";
 
 const routes: Routes = [
   {
@@ -28,12 +29,16 @@ const routes: Routes = [
     component: LegalNoticeComponent
   },
   {
-    path: 'login-loueur',
+    path: 'login-renter',
     component: LoginRenterComponent
   },
   {
     path: 'client-registration',
     component: ClientRegistrationComponent
+  },
+  {
+    path: 'renter-registration',
+    component: RenterRegistrationComponent
   },
   {
     path: 'client-login',

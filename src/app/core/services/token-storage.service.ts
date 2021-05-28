@@ -1,6 +1,7 @@
 import { Client } from './../../shared/models/clientRent.model';
 import { Injectable } from '@angular/core';
 import {Administrator} from "../../shared/models/administratror.model";
+import {Renter} from "../../shared/models/renter.model";
 
 /**
  * Service de gestion des tokens
@@ -34,6 +35,15 @@ export class TokenStorageService {
   public saveClient(client: Client): void {
     localStorage.removeItem('x-auth-user');
     localStorage.setItem('x-auth-user', JSON.stringify(client));
+  }
+
+  /**
+   * Enregistre le client connecté en localStorage
+   * @param client Le client connecté
+   */
+  public saveRenter(renter: Renter): void {
+    localStorage.removeItem('x-auth-renter');
+    localStorage.setItem('x-auth-renter', JSON.stringify(renter));
   }
 
   /**
@@ -71,6 +81,38 @@ export class TokenStorageService {
     }
 
     return client;
+  }
+
+  /**
+   * Récupère le loueur connecté depuis le localStorage
+   * @returns Le loueur connecté
+   */
+  public getRenter(): Renter {
+    let renter: Renter = new Renter({
+      id: -1,
+      password: '',
+      metropolises: null,
+      isAccepted: 0,
+      companyName: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      birthDate: '',
+      address: '',
+      additionalAddress: '',
+      postalCode: '',
+      city: '',
+      imageLink: ''
+    });
+
+    const jsonRenter = JSON.parse(localStorage.getItem('x-auth-renter'));
+
+    if (jsonRenter) {
+      renter = Renter.fromJsonToken(jsonRenter);
+    }
+
+    return renter;
   }
 
   /**

@@ -6,6 +6,7 @@ import {PaymentComponent} from "./payment/payment.component";
 import {ReservationComponent} from "./reservation/reservation.component";
 import {ConfirmationComponent} from "./confirmation/confirmation.component";
 import {LoggedInClientGuard} from "../core/guards/logged-in-client.guard";
+import {ListClientOrderComponent} from "./list-client-order/list-client-order.component";
 
 const routes: Routes = [
   {
@@ -31,7 +32,12 @@ const routes: Routes = [
         canActivate: [LoggedInClientGuard],
       },
     ]
-  }
+  },
+  {
+    path: 'list-client-order',
+    component: ListClientOrderComponent,
+    canActivate: [LoggedInClientGuard]
+  },
 ];
 
 @NgModule({
