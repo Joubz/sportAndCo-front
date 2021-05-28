@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 
 import { RenterRoutingModule } from './renter-routing.module';
 import { ProductListRenterComponent } from './product-list-renter/product-list-renter.component';
+import { CreateEquipmentComponent } from './create-equipment/create-equipment.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import {DatepickerModule} from "ng2-datepicker";
 
 
 /**
@@ -10,11 +13,14 @@ import { ProductListRenterComponent } from './product-list-renter/product-list-r
  */
 @NgModule({
   declarations: [
-    ProductListRenterComponent
+    ProductListRenterComponent,
+    CreateEquipmentComponent
   ],
   imports: [
     CommonModule,
-    RenterRoutingModule
+    RenterRoutingModule,
+    ReactiveFormsModule,
+    DatepickerModule
   ]
 })
 export class RenterModule { }
