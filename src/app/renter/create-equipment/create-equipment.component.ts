@@ -507,7 +507,7 @@ export class CreateEquipmentComponent implements OnInit {
 
         this.notificationsService.genericNotification(notification);
 
-        this.router.navigate(['/home']);
+        this.router.navigate(['/renter/equipment-list']);
 
       });
     }
